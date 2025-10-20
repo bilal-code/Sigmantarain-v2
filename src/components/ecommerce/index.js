@@ -10,6 +10,7 @@ import {
 } from "react-icons/bs";
 import { GiTakeMyMoney, GiToken } from "react-icons/gi";
 import { PiHandWithdrawLight, PiStackLight } from "react-icons/pi";
+import { FaDollarSign } from "react-icons/fa6";
 import { FaCoins, FaChartLine } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
@@ -196,6 +197,8 @@ function HoverDevCards() {
       bgColor: "bg-gradient-to-br from-blue-500 to-cyan-500",
       iconBg: "bg-blue-100",
       iconColor: "text-blue-600",
+      showDollar: true, // New property for first three cards
+      showTokens: false, // New property for first three cards
     },
     {
       name: "Child Commission",
@@ -205,6 +208,8 @@ function HoverDevCards() {
       bgColor: "bg-gradient-to-br from-green-500 to-emerald-500",
       iconBg: "bg-green-100",
       iconColor: "text-green-600",
+      showDollar: true, // New property for first three cards
+      showTokens: false, // New property for first three cards
     },
     {
       name: "Total Balance",
@@ -214,6 +219,8 @@ function HoverDevCards() {
       bgColor: "bg-gradient-to-br from-purple-500 to-pink-500",
       iconBg: "bg-purple-100",
       iconColor: "text-purple-600",
+      showDollar: true, // New property for first three cards
+      showTokens: false, // New property for first three cards
     },
     {
       name: "Total SG Tokens",
@@ -223,6 +230,8 @@ function HoverDevCards() {
       bgColor: "bg-gradient-to-br from-orange-500 to-red-500",
       iconBg: "bg-orange-100",
       iconColor: "text-orange-600",
+      showDollar: false, // New property for remaining cards
+      showTokens: true, // New property for remaining cards
     },
     {
       name: "Total Staking Tokens",
@@ -232,16 +241,18 @@ function HoverDevCards() {
       bgColor: "bg-gradient-to-br from-indigo-500 to-purple-500",
       iconBg: "bg-indigo-100",
       iconColor: "text-indigo-600",
+      showDollar: false, // New property for remaining cards
+      showTokens: true, // New property for remaining cards
     },
-    {
-      name: "Total Withdraw",
-      Icon: PiHandWithdrawLight,
-      price: totalWithdraw.toFixed(2),
-      gradient: "from-teal-500 to-cyan-500",
-      bgColor: "bg-gradient-to-br from-teal-500 to-cyan-500",
-      iconBg: "bg-teal-100",
-      iconColor: "text-teal-600",
-    },
+    // {
+    //   name: "Total Withdraw",
+    //   Icon: PiHandWithdrawLight,
+    //   price: totalWithdraw.toFixed(2),
+    //   gradient: "from-teal-500 to-cyan-500",
+    //   bgColor: "bg-gradient-to-br from-teal-500 to-cyan-500",
+    //   iconBg: "bg-teal-100",
+    //   iconColor: "text-teal-600",
+    // },
   ];
 
   // Skeleton Loader Component
@@ -281,10 +292,17 @@ function HoverDevCards() {
                       <h3 className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
                         {item.name}
                       </h3>
-                      <p className="text-2xl font-bold text-gray-800 font-mono">
-                        {item.price.toLocaleString() || 0}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">Tokens</p>
+                      <div className="flex items-center gap-1">
+                        <p className="text-2xl font-bold text-gray-800 font-mono">
+                          {item.price.toLocaleString() || 0}
+                        </p>
+                        {item.showDollar && (
+                          <FaDollarSign className="text-gray-600" size={16} />
+                        )}
+                      </div>
+                      {item.showTokens && (
+                        <p className="text-xs text-gray-500 mt-1">Tokens</p>
+                      )}
                     </div>
 
                     {/* Icon Container */}

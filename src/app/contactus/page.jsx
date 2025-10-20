@@ -151,7 +151,7 @@ const handleVerifyOTP = async () => {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="text-cyan-400 h-5 w-5 sm:h-6 sm:w-6" />
-                <span>info@hashfor.com</span>
+                <span>sigmantarian5@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="text-cyan-400 h-5 w-5 sm:h-6 sm:w-6" />
