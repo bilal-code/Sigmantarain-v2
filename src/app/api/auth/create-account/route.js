@@ -75,7 +75,7 @@ export async function POST(request) {
         referralCode: newUser.referralCode,
         code: newUser.code,
       },
-      process.env.JWT_SECRET || "hssssh",
+      process.env.JWT_SECRET ,
       { expiresIn: "1h" }
     );
 
