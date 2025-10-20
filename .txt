@@ -1,0 +1,77 @@
+ const fetchCommision = async (userId) => {
+    try {
+   
+      const url = userId
+      ? `/api/user/child-commission?userId=${userId}`
+      : `/api/commission`;
+
+    const res = await axios.get(url)
+      console.log("request page data",res.data.commission)
+      const commissions = res.data.commission || [];
+       const amounts = commissions.map((item) => item.amount);
+      // ✅ Optionally, get total earning
+      const totalAmount = amounts.reduce((sum, value) => sum + value, 0);
+       console.log("All amounts:", amounts);
+      console.log("Total amount:", totalAmount);
+      setPersonalCommission(totalAmount);
+    } catch (error) {
+      showErrorToast(error.response?.data?.error || error.message);
+      return false;
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        console.log("token", token);
+        try {
+          const decoded = jwtDecode(token);
+          if (decoded?.id) {
+            setClientId(decoded.id);
+            
+            fetchCommision(decoded.id);
+            fetchChildCommissions(decoded?.code).then((data) => {
+                      if (data) {
+                       console.log("Fetched child commissions data:", data);
+                      }
+                    });
+            setChildCommission(data);
+          
+          }
+        } catch (err) {
+          showErrorToast("Invalid token");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchAllData();
+  }, []);
+
+  const handleWithdrawRequest = async (e) => {
+    e.preventDefault();
+    if (!walletAddress) {
+      showErrorToast("Connect Wallet First");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const response = await axios.post("/api/user/withdraw-request", {
+        userId: clientId,
+        withdrawAmount: withdrawAmount,
+        from: walletAddress,
+        status: "pending",
+      });
+      setIsModalOpen(false);
+      await fetchWithDrawData(clientId);
+      await getAllData(clientId);
+    } catch (error) {
+      showErrorToast(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
