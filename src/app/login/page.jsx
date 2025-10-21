@@ -6,9 +6,10 @@ import { IoEyeOffOutline, IoClose } from "react-icons/io5";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { showSuccessToast,showErrorToast } from "@/lib/toast";
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -21,9 +22,9 @@ export default function LoginPage() {
   // Handle form input changes
   const onFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -43,20 +44,26 @@ export default function LoginPage() {
       });
 
       const result = await response.json();
+
+      // ❌ Login failed
       if (!response.ok) {
-        alert(result.error || "Login failed");
+        showErrorToast(result.error || "Invalid credentials. Please try again.");
         setIsLoading(false);
         return;
       }
 
+      // ✅ Login success
+      showSuccessToast("Login successful!");
       localStorage.setItem("token", result.token);
       localStorage.setItem("user", JSON.stringify(result.user));
 
+      // Redirect based on role
       if (result.user.role === "admin") router.push("/admindashboard");
       else router.push("/userdashboard");
+
     } catch (error) {
       console.error("Login error:", error);
-      alert("Something went wrong. Please try again.");
+      showErrorToast("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -67,10 +74,8 @@ export default function LoginPage() {
   };
 
   const handleForgotPassword = () => {
-    // You can create a separate /forgot-password route or handle it differently
-    alert("Forgot password functionality - you can implement this later");
+    showErrorToast("Forgot password feature not available yet!");
   };
-
   return (
     <>
       {isLoading && <Loader />}

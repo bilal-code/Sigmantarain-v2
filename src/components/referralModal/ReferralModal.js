@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { FiSend, FiX, FiCheckCircle, FiMail, FiUserPlus } from "react-icons/fi";
+import { showErrorToast } from "@/lib/toast";
 
 const ReferralModal = ({ open, onClose, referralCode, senderEmail }) => {
   const [email, setEmail] = useState("");
@@ -36,6 +37,7 @@ const ReferralModal = ({ open, onClose, referralCode, senderEmail }) => {
       }, 3000);
     } catch (error) {
       setLoading(false);
+      showErrorToast("Failed to send referral code. Please try again.");
       onClose();
     }
   };

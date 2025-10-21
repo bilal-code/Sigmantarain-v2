@@ -26,7 +26,7 @@ export async function GET(request) {
       }
 
       // Otherwise, distribute ROI
-      const dailyPercent = +(0.7 + Math.random() * 0.4).toFixed(2);
+      const dailyPercent = +(0.5 + Math.random() * 0.3).toFixed(2);
       const dailyROI = (stake.stakedAmount * dailyPercent) / 100;
 
       await DailyRoiModel.create({

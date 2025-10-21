@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { WalletContext } from "@/context/WalletContext";
 import { adminAddress, buySGTokens, SALE_ABI, SALE_CONTRACT_ADDRESS, usdtAbi, usdtToken } from "@/content/data";
 import { Contract, ethers } from "ethers";
+import { showSuccessToast, showErrorToast } from "@/lib/toast";
 
 export default function UpgradePlanPage() {
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -40,9 +41,6 @@ export default function UpgradePlanPage() {
         if (res.status === 200) {
           const packages = res.data.packages;
           setAllPackages(packages);
-          
-          console.log("📦 ALL PACKAGES:", packages);
-          console.log("🎯 Package Count:", packages.length);
 
           if (token) {
             const decoded = jwtDecode(token);
@@ -65,6 +63,7 @@ export default function UpgradePlanPage() {
         }
       } catch (err) {
         console.error("Init error:", err);
+        showErrorToast("Failed to load packages. Please try again.");
       } finally {
         setDataLoading(false);
       }
@@ -75,106 +74,76 @@ export default function UpgradePlanPage() {
   async function buySGTokens(usdtAmount) {
     try {
       if (!walletAddress || !signer) {
-        alert("⚠️ Please connect MetaMask first!");
+        showErrorToast("⚠️ Please connect MetaMask first!");
         return;
       }
 
       const usdt = new ethers.Contract(usdtToken, usdtAbi, signer);
-      console.log("USDT Contract:", usdt);
       const sale = new ethers.Contract(SALE_CONTRACT_ADDRESS, SALE_ABI, signer);
-      console.log("Sale Contract:", sale);
-      
-      const decimals = await usdt.decimals();
-      console.log("USDT Decimals:", decimals);
-      const amountInWei = ethers.parseUnits(usdtAmount.toString(), decimals);
-    
-      console.log("💰 USDT Amount (wei):", amountInWei.toString());
 
-      let approveTx;
-      console.log("Approving USDT...");
+      const decimals = await usdt.decimals();
+      const amountInWei = ethers.parseUnits(usdtAmount.toString(), decimals);
+
       const allowance = await usdt.allowance(walletAddress, SALE_CONTRACT_ADDRESS);
       if (allowance < amountInWei) {
-         approveTx = await usdt.approve(SALE_CONTRACT_ADDRESS, amountInWei);
+        const approveTx = await usdt.approve(SALE_CONTRACT_ADDRESS, amountInWei);
         await approveTx.wait();
-        console.log("Approval Tx Hash:", approveTx?.hash);
-        console.log("✅ USDT Approved Successfully");
-      } else {
-        console.log("ℹ️ Existing allowance is sufficient.");
-      }
-     
-      const tokenPriceUSD = 0.001;
-      const tokensToReceive = usdtAmount / tokenPriceUSD;
-      console.log(`🎯 You will receive approximately ${tokensToReceive.toLocaleString()} SG Tokens`);
-
-      console.log("Buying SGTokens...");
-      if (!sale.buyPackage) {
-        throw new Error("❌ buyTokens function not found in SALE_ABI — check ABI or contract method name");
+        showSuccessToast("✅ USDT Approved Successfully!");
       }
 
       const tx2 = await sale.buyPackage(amountInWei);
       await tx2.wait();
-      console.log("Purchase Tx Hash:", tx2.hash);
-      console.log("✅ SGTokens Purchased Successfully!");
+      showSuccessToast("🎉 SG Tokens Purchased Successfully!");
 
-      return {tx2,approveTx,tokensToReceive};
+      return true;
     } catch (err) {
       console.error("❌ Transaction failed:", err.reason || err.message || err);
-      alert(`Transaction failed: ${err.reason || err.message}`);
+      showErrorToast(`Transaction failed: ${err.reason || err.message}`);
       return false;
     }
   }
 
   const BuyPackage = async (pkg) => {
     setPurchasingPackage(pkg._id);
-    console.log("🛒 Buying Package:", pkg);
-    // const success = await buySGTokens(pkg.packageAmount);
-    // console.log("✅ Contract Call Success:", success);
-     const usdt = new ethers.Contract(usdtToken, usdtAbi, signer);
-      console.log("USDT Contract:", usdt);
-        const parsedAmount = ethers.parseUnits(
-                pkg.packageAmount.toString(),
-                6
-              );
-               console.log("USDT transferring...");
-                 const tx = await usdt.transfer(adminAddress, parsedAmount);
-        console.log("Transaction sent:", tx.hash);
-        const receipt = await tx.wait();
-        if (!receipt.status) throw new Error("Blockchain transaction failed.");
-        console.log("Transaction confirmed.");
+    try {
+      const usdt = new ethers.Contract(usdtToken, usdtAbi, signer);
+      const parsedAmount = ethers.parseUnits(pkg.packageAmount.toString(), 6);
+      const tx = await usdt.transfer(adminAddress, parsedAmount);
+      const receipt = await tx.wait();
 
-    
-  
-      console.log("Package purchased successfully with contract...");
+      if (!receipt.status) throw new Error("Blockchain transaction failed.");
+
       const response = await axios.post("/api/user/buy-package", {
         userId: clientId,
         packageId: pkg._id,
         from: walletAddress,
-        // approveHash: success.approveTx?.hash,
         purchaseHash: tx?.hash,
         network: "USDT",
-        tokenAddress:"0x2Ea4E4CAB5eA8F391DB88f514be5095e6001Df56",
-        tokenRecieve: pkg.packageDailyPercentage
+        tokenAddress: "0x2Ea4E4CAB5eA8F391DB88f514be5095e6001Df56",
+        tokenRecieve: pkg.packageDailyPercentage,
       });
-      
-      console.log("📦 Backend Response:", response.data);
-      
+
       if (response.status === 201 && response.data.success) {
         setBoughtPackageIds((prev) => [...prev, pkg._id]);
-        console.log("🎉 Package successfully added to user's bought packages");
-        //staking tokens
-         const res = await axios.post("/api/user/staking", {
-                userId : clientId,
-                stackAmount :pkg.packageDailyPercentage,
-                durationDate:new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-              });
-         console.log("📦 Staking Response:", res.data);
+        showSuccessToast("🎉 Package purchased successfully!");
 
+        await axios.post("/api/user/staking", {
+          userId: clientId,
+          stackAmount: pkg.packageDailyPercentage,
+          durationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+        });
       } else {
-        alert(response.data.error || "Failed to buy package");
+        showErrorToast(response.data.error || "Failed to buy package");
       }
-    
-    setPurchasingPackage(null);
+    } catch (err) {
+      console.error("Error during package purchase:", err);
+      showErrorToast("Something went wrong while purchasing package.");
+    } finally {
+      setPurchasingPackage(null);
+    }
   };
+
+
 
   const sortedPackages = allPackages.sort(
     (a, b) => packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName)
@@ -272,7 +241,7 @@ export default function UpgradePlanPage() {
               {selectedPackage.packageName} - ${selectedPackage.packageAmount} USDT
             </p>
             <p className="text-sm opacity-80">
-              Earning {selectedPackage.packageDailyPercentage}% daily returns
+              Earned {selectedPackage.packageDailyPercentage} SIG Tokens
             </p>
           </div>
         </div>
@@ -345,7 +314,7 @@ export default function UpgradePlanPage() {
                   <div className="bg-blue-50 rounded-lg p-3 mb-4 border border-blue-100">
                     <p className="text-xs text-gray-600 mb-1">Estimated Tokens</p>
                     <p className="text-sm font-semibold text-blue-600">
-                      {(pkg.packageAmount / 0.001).toLocaleString()} SG
+                      {(pkg.packageDailyPercentage ).toLocaleString()} SG
                     </p>
                   </div>
 

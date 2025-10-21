@@ -9,8 +9,9 @@ export async function POST(request) {
     const data = await request.json();
     // console.log("Received data:", data);
 
-    const { referralCode, name, email, contactNo, password } = data;
+    let { referralCode, name, email, contactNo, password } = data;
     email = email.toLowerCase();
+    console.log("email in lowercase:",email)
     // Connect to DB
     await connectDB();
 

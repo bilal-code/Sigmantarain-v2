@@ -428,7 +428,7 @@ const getUserDailyROI = async (userId) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
         <StatBox 
           label="Daily ROI" 
-          value="0.7% – 1.1%"
+          value="0.5% – 0.8%"
           icon="🚀"
         />
         <StatBox 

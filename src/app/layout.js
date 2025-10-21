@@ -73,6 +73,7 @@ import { ThirdwebProvider } from "thirdweb/react";
 import { WalletProvider } from "@/context/WalletContext";
 import NavbarWrapper from "@/components/NavbarWrapper";
 import LoaderWrapper from "@/components/loader/wrapper";
+import { ToastContainer } from 'react-toastify';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +94,7 @@ export default function RootLayout({ children }) {
             {/* ✅ Only this wrapper uses client hooks */}
             <NavbarWrapper />
             {children}
+            <ToastContainer />
           </LoaderWrapper>
         </WalletProvider>
       </body>
