@@ -35,10 +35,15 @@ export async function GET() {
 //total Withdraw Amount
     const withdrawAmount = await WithdrawModel.find({});
     console.log("WithdrawAmount:", withdrawAmount);
-   let totalWithdrawAmount = withdrawAmount
-  .filter((withdraw) => withdraw.status === "accepted") // ✅ sirf approved filter
+   let totalUsdtWithdrawAmount = withdrawAmount
+  .filter((withdraw) => withdraw.status === "accepted" && type === "usdt") // ✅ sirf approved filter
   .reduce((sum, withdraw) => sum + Number(withdraw.withdrawAmount || 0), 0);
-    console.log("Total Withdraw Amount:", totalWithdrawAmount);
+    console.log("Total usdt Withdraw Amount:", totalUsdtWithdrawAmount);
+
+       let totalTokensWithdrawAmount = withdrawAmount
+  .filter((withdraw) => withdraw.status === "accepted" && type === "tokens") // ✅ sirf approved filter
+  .reduce((sum, withdraw) => sum + Number(withdraw.withdrawAmount || 0), 0);
+    console.log("Total tokens Withdraw Amount:", totalTokensWithdrawAmount);
     // total Staking Tokens
     const stakingTokens = await StakingModel.find({});
     console.log("StakingTokens:", stakingTokens);
@@ -48,7 +53,7 @@ export async function GET() {
  );
 console.log("Total Staking Tokens:", totalStakingToken);
     return NextResponse.json(
-      { message: "dashboard Data successfully",  totalPackageAmount, totalUsers, totalPackages, totalWithdrawAmount, totalStakingToken, totalSGTokens },
+      { message: "dashboard Data successfully",  totalPackageAmount, totalUsers, totalPackages, totalUsdtWithdrawAmount,totalTokensWithdrawAmount, totalStakingToken, totalSGTokens },
       { status: 200 }
     );
   } catch (error) {
