@@ -665,6 +665,7 @@ import { fetchChildCommissions } from '@/lib/utils/getChildCommision';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { WalletContext } from '@/context/WalletContext';
+import { showSuccessToast, showErrorToast } from "@/lib/toast";
 
 export default function WithdrawalPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -985,65 +986,73 @@ export default function WithdrawalPage() {
   ];
 
   // Staking Dummy Transaction History
+const handleWithdrawRequest = async (e) => {
+  e.preventDefault();
 
+  if (!withdrawAmount || !walletAddress || !clientId) {
+    showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
+    return;
+  }
 
-  const handleWithdrawRequest = async (e) => {
+  if (withdrawAmount > personal) {
+    showErrorToast("❌ Insufficient balance for withdrawal.");
+    return;
+  }
 
+  try {
+    const response = await axios.post("/api/user/withdraw-request", {
+      userId: clientId,
+      withdrawAmount,
+      from: walletAddress,
+      status: "pending",
+      type: "usdt",
+    });
 
-    e.preventDefault();
-    
-    if (!withdrawAmount || !walletAddress || !clientId) {
-      alert("Please enter a valid amount, wallet address, and client ID.");
-      return;
-    }
-    if(withdrawAmount > personal) {
-      alert("Insufficient balance");
-      return;
-    }
-    try {
-      const response = await axios.post('/api/user/withdraw-request', {
-        userId: clientId,
-        withdrawAmount,
-        from: walletAddress,
-        status: 'pending',
-        type: "usdt"
-      });
-      console.log(response);
-      setIsModalOpen(false);
-      setWithdrawAmount('');
-      // Refresh data after successful withdrawal request
-      fetchWithdrawals(clientId);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-   const handleStakingWithdrawRequest = async (e) => {
-    e.preventDefault();
-    if (!withdrawAmount || !walletAddress || !clientId) {
-      alert("Please enter a valid amount, wallet address, and client ID.");
-      return;
-    }
-    if(withdrawAmount > total) {
-      alert("Insufficient balance");
-      return;
-    }
-    try {
-      const response = await axios.post('/api/user/withdraw-request', {
-        userId: clientId,
-        withdrawAmount,
-        from: walletAddress,
-        status: 'pending',
-        type: "tokens"
-      });
-      console.log(response);
-      setIsModalOpen(false);
-      setWithdrawAmount('');
-      // Refresh data after successful withdrawal request
-      fetchWithdrawals(clientId);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    console.log(response);
+    setIsModalOpen(false);
+    setWithdrawAmount("");
+
+    showSuccessToast("🎉 Withdrawal request submitted successfully!");
+    fetchWithdrawals(clientId); // Refresh data
+  } catch (error) {
+    console.error("Withdraw request failed:", error);
+    showErrorToast("Something went wrong while submitting withdrawal request.");
+  }
+};
+
+const handleStakingWithdrawRequest = async (e) => {
+  e.preventDefault();
+
+  if (!withdrawAmount || !walletAddress || !clientId) {
+    showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
+    return;
+  }
+
+  if (withdrawAmount > total) {
+    showErrorToast("❌ Insufficient staking balance for withdrawal.");
+    return;
+  }
+
+  try {
+    const response = await axios.post("/api/user/withdraw-request", {
+      userId: clientId,
+      withdrawAmount,
+      from: walletAddress,
+      status: "pending",
+      type: "tokens",
+    });
+
+    console.log(response);
+    setIsModalOpen(false);
+    setWithdrawAmount("");
+
+    showSuccessToast("🎉 Staking withdrawal request submitted successfully!");
+    fetchWithdrawals(clientId); // Refresh data
+  } catch (error) {
+    console.error("Staking withdraw request failed:", error);
+    showErrorToast("Something went wrong while submitting staking withdrawal request.");
+  }
+};
 
   // Loader Component
   const Loader = ({ size = 'medium' }) => (

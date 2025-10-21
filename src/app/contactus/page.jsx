@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import Footer from "@/components/Newfooter";
 import ContactOTPModal from "@/components/ContactOtpModal";
 import axios from "axios";
+import { showSuccessToast,showErrorToast } from "@/lib/toast";
 
 const ContactUs = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -48,6 +49,7 @@ const handleSendOTP = async (e) => {
 
   if (!form.name || !form.email || !form.message) {
     setResult({ type: "error", message: "Please fill all fields." });
+    showErrorToast("Please fill all fields.");
     return;
   }
 
@@ -59,18 +61,19 @@ const handleSendOTP = async (e) => {
     const data = res.data;
 
      if (data.alreadyVerified) {
-      // User already verified, message sent directly
       setResult({ type: "success", message: "Message sent successfully!" });
       setForm({ name: "", email: "", message: "" });
+      showSuccessToast("Message sent successfully!");
     } else {
-      // OTP sent but user not verified, show OTP modal
       setResult({ type: "success", message: "OTP sent to your email!" });
-      setShowOTPModal(true); // Make sure this state change happens to show the modal
+      setShowOTPModal(true);
+      showSuccessToast("OTP sent to your email!");
     }
   } catch (err) {
     const message =
       err?.response?.data?.error || "Failed to send OTP.";
     setResult({ type: "error", message });
+    showErrorToast("Failed to send OTP.");
   } finally {
     setLoading(false);
   }
@@ -80,6 +83,7 @@ const handleVerifyOTP = async () => {
   const enteredOtp = otp.join("");
   if (enteredOtp.length !== 6) {
     setResult({ type: "error", message: "Please enter 6-digit OTP." });
+    showErrorToast("Please enter 6-digit OTP.");
     return;
   }
 
@@ -103,6 +107,7 @@ const handleVerifyOTP = async () => {
 
       if (submitRes) {
         setResult({ type: "success", message: "Message sent successfully!" });
+        showSuccessToast("Message sent successfully!");
         setForm({ name: "", email: "", message: "" });
         setShowOTPModal(false);
         setOtp(["", "", "", "", "", ""]);
@@ -111,11 +116,13 @@ const handleVerifyOTP = async () => {
           type: "error",
           message: submitRes.data.error || "Failed to send message.",
         });
+        showErrorToast("Failed to send message.")
       }
     }
   } catch (err) {
     const errorMessage =
       err?.response?.data?.error || "Something went wrong.";
+      showErrorToast("Something went wrong.");
     setResult({ type: "error", message: errorMessage });
   } finally {
     setVerifying(false);

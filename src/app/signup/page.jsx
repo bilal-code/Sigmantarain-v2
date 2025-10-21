@@ -261,20 +261,21 @@ import { IoEyeOffOutline, IoClose } from "react-icons/io5";
 import React, { useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { showSuccessToast,showErrorToast } from "@/lib/toast";
 
 // Create a separate component that uses useSearchParams
 function SignupForm() {
-  const router = useRouter();
+   const router = useRouter();
   const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showcnfrmPassword, setShowcnfrmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Initialize formData with referral code from URL if available
   const [formData, setFormData] = useState({
-    referralCode: searchParams.get('ref') || "", // Get referral code from URL
+    referralCode: searchParams.get("ref") || "", // Get referral code from URL
     name: "",
     email: "",
     contactNo: "",
@@ -285,9 +286,9 @@ function SignupForm() {
   // Handle form input changes
   const onFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -295,8 +296,9 @@ function SignupForm() {
     e.preventDefault();
     setIsLoading(true);
 
+    // 🧩 Password mismatch validation
     if (formData.password !== formData.ConfirmPassword) {
-      alert("Passwords do not match!");
+      showErrorToast("Passwords do not match!");
       setIsLoading(false);
       return;
     }
@@ -309,21 +311,25 @@ function SignupForm() {
       });
 
       const result = await response.json();
+
+      // ❌ Server-side or validation error
       if (!response.ok) {
-        alert(result.error || "Signup failed");
+        showErrorToast(result.error || "Signup failed. Please try again.");
         setIsLoading(false);
         return;
       }
 
-      alert("Signup successful!");
+      // ✅ Success
+      showSuccessToast("Signup successful!");
       if (result?.token) localStorage.setItem("token", result.token);
 
+      // Redirect based on role
       if (result?.user?.role === "admin") router.push("/admindashboard");
       else router.push("/userdashboard");
 
     } catch (err) {
       console.error("Error during signup:", err);
-      alert("Something went wrong. Please try again.");
+      showErrorToast("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }

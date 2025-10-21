@@ -11,6 +11,7 @@ import { CoinbaseWalletSDK } from "@coinbase/wallet-sdk";
 // import { WalletConnectProvider } from "@walletconnect/web3-provider";
 import { WalletContext } from "@/context/WalletContext";
 import { fetchChildCommissions } from "@/lib/utils/getChildCommision";
+import { showSuccessToast,showErrorToast } from "@/lib/toast";
 
 const providerOptions = {
   coinbasewallet: {
@@ -90,6 +91,7 @@ const Header = (props) => {
 
   function handleLogout() {
     setIsLoggingOut(true);
+    showSuccessToast("Logged out successfully!");
     localStorage.removeItem("token");
     router.push("../");
   }
@@ -105,10 +107,11 @@ const handleCopyReferralCode = () => {
   // Copy the referral URL to clipboard
   navigator.clipboard.writeText(referralUrl)
     .then(() => {
-      alert("Referral link copied to clipboard!");
+      showSuccessToast("Referral link copied to clipboard!");
     })
     .catch(err => {
       console.error("Failed to copy: ", err);
+      showErrorToast("Failed to copy referral link.");
     });
 };
 

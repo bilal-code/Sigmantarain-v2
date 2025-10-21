@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 export async function POST(request) {
   try {
-    const { userID, password } = await request.json();
+    let { userID, password } = await request.json();
     // console.log("Login attempt:", userID, password);
     
     if (!userID || !password) {

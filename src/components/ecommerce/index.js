@@ -190,7 +190,7 @@ function HoverDevCards() {
 
   const cardData = [
     {
-      name: "Personal Commission",
+      name: "Refferal Commission",
       Icon: BsCashCoin,
       price: personal,
       gradient: "from-blue-500 to-cyan-500",
@@ -201,7 +201,7 @@ function HoverDevCards() {
       showTokens: false, // New property for first three cards
     },
     {
-      name: "Child Commission",
+      name: "Downward Commission",
       Icon: BsPeopleFill,
       price: childCommission.toFixed(2),
       gradient: "from-green-500 to-emerald-500",
