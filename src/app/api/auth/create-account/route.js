@@ -10,7 +10,7 @@ export async function POST(request) {
     // console.log("Received data:", data);
 
     const { referralCode, name, email, contactNo, password } = data;
-
+    email = email.toLowerCase();
     // Connect to DB
     await connectDB();
 

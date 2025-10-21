@@ -7,14 +7,14 @@ export async function POST(request) {
   try {
     const { userID, password } = await request.json();
     // console.log("Login attempt:", userID, password);
-
+    
     if (!userID || !password) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
-
+userID = userID.toLowerCase();
     await connectDB();
 
     const existedUser = await AuthModel.findOne({
