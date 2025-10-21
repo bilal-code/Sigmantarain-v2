@@ -20,8 +20,8 @@ const Benefits = () => {
             {/* White Gradient Buttons */}
             <div className="flex flex-col items-center space-y-6 w-full">
               {[
-                "25% PROFIT MONTHLY IN SIGMA",
-                "BONUS UPTO LEVEL-15 UPLINE",
+                "18% - 20% PROFIT MONTHLY IN SIGMA",
+                "BONUS UPTO LEVEL-10 UPLINE",
                 "GET 3X OF YOUR INVESTMENT",
               ].map((text, i) => (
                 <button
