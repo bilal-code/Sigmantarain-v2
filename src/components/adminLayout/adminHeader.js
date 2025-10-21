@@ -93,7 +93,22 @@ const Header = (props) => {
     localStorage.removeItem("token");
     router.push("../");
   }
-
+const handleCopyReferralCode = () => {
+  const referralCode = profile?.code || userData?.code;
+  const websiteUrl = "https://sigmantarian.com/";
+  
+  // Create the referral URL with the signup route
+  const referralUrl = `${websiteUrl}/signup?ref=${referralCode}`;
+  
+  // Copy the referral URL to clipboard
+  navigator.clipboard.writeText(referralUrl)
+    .then(() => {
+      alert("Referral link copied to clipboard!");
+    })
+    .catch(err => {
+      console.error("Failed to copy: ", err);
+    });
+};
   const profile = {
     name: userData?.name || "",
     email: userData?.email || "",
@@ -183,10 +198,11 @@ const Header = (props) => {
                   </p>
                   <p className="text-sm text-gray-400">{profile.email}</p>
                   <button
-                    onClick={() => {
-                      const textToCopy = `WebsiteLink: https://sigmentarian.com\nReferralCode: ${profile?.code}`;
-                      navigator.clipboard.writeText(textToCopy);
-                    }}
+                    // onClick={() => {
+                    //   const textToCopy = `WebsiteLink: https://sigmentarian.com\nReferralCode: ${profile?.code}`;
+                    //   navigator.clipboard.writeText(textToCopy);
+                    // }}
+                    onClick={handleCopyReferralCode}
                     className="w-full flex items-center justify-center gap-2 
                     bg-[#0B98AC] text-white 
                     font-semibold text-sm py-2 rounded-lg hover:opacity-90 transition-all"

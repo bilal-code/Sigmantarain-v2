@@ -24,11 +24,6 @@ const menuGroups = [
         label: "Dashboard",
         route: "/userdashboard",
       },
-      // {
-      //   icon: <FiLink className="text-xs" />,
-      //   label: "Create Refferal Link",
-      //   route: "/userdashboard/createrefferal",
-      // },
       {
         icon: <FiUser className="text-xs" />,
         label: "Profile",
@@ -44,66 +39,16 @@ const menuGroups = [
         label: "My Packages",
         route: "/userdashboard/mypackage",
       },
-      // {
-      //   icon: <FiBarChart2 className="text-xs" />,
-      //   label: "Business (Left/Right)",
-      //   route: "/userdashboard/business",
-      // },
-      {
-        icon: <FiTrendingUp className="text-xs" />,
-        label: "Earning (Left/Right)",
-        route: "/userdashboard/earning",
-      },
-      {
-        icon: <FiUsers className="text-xs" />, 
-        label: "Team (Left/Right)",
-        route: "/userdashboard/team",
-      },
       {
         icon: <FiDollarSign className="text-xs" />,
         label: "Request Withdraw",
         route: "/userdashboard/requestwithdraw",
       },
       {
-        icon: <FiCreditCard className="text-xs" />,
-        label: "Commission",
-        route: "/userdashboard/comission",
+        icon: <FiDollarSign className="text-xs" />,
+        label: "Staking Platform",
+        route: "/userdashboard/stackingPlatform",
       },
-      // {
-      //   icon: <FiCreditCard className="text-xs" />,
-      //   label: "Balance",
-      //   route: "/userdashboard/balance",
-      // },
-      {
-        icon: <FiLock className="text-xs" />,
-        label: "Change Password",
-        route: "/userdashboard/changePassword",
-      },
-      // {
-      //   icon: <FiClipboard className="text-xs" />,
-      //   label: "Team's Report",
-      //   route: "/userdashboard/teamreport",
-      // },
-      {
-        icon: <FiMessageSquare className="text-xs" />,
-        label: "Rector Message",
-        route: "/userdashboard/rectormessage",
-      },
-       {
-        icon: <FaRegListAlt className="text-xs" />,
-        label: "Rules",
-        route: "/userdashboard/rules",
-      },
-      {
-        icon: <FiHelpCircle className="text-xs" />,
-        label: "FAQs",
-        route: "/userdashboard/faqs",
-      },
-      // {
-      //   icon: <FiLogOut className="text-xs" />,
-      //   label: "Logout",
-      //   route: "/userdashboard/logout",
-      // },
     ],
   },
 ];

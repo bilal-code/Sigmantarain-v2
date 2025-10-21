@@ -463,25 +463,20 @@
 //   );
 // }
 
-
-
-
 "use client";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Web3Modal from "web3modal";
 import { CoinbaseWalletSDK } from "@coinbase/wallet-sdk";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import LoginModal from "./modals/LoginModal";
 import SignupModal from "./modals/SignupModal";
 import ForgotPasswordModal from "./modals/ForgetPassModal";
 import OtpModal from "./modals/OtpModal";
-// import { showSuccessToast, showErrorToast } from "@/utils/toast"; // optional utility if you already use toast
-// import { WalletContext } from "@/context/WalletContext";
 
 const providerOptions = {
   coinbasewallet: {
@@ -507,20 +502,17 @@ const navigation = [
   { name: "Home", href: "/" },
   { name: "Packages", href: "/packages" },
   { name: "Staking Plan", href: "/compensationplan" },
-  // { name: "Vision", href: "/vision" },
-  // { name: "About Us", href: "/aboutus" },
   { name: "Contact Us", href: "/contactus" },
-  // { name: "T&C", href: "/t&c" },
-  // { name: "Rules", href: "/rules" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+export default function Navbar({ autoSignupData }) {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
@@ -547,14 +539,69 @@ export default function Navbar() {
     password: "",
   });
 
+  // In your Navbar component, add this useEffect for debugging
+useEffect(() => {
+  console.log("Current modal state:", { 
+    isModalOpen, 
+    isSignUp, 
+    formData: formData.referralCode 
+  });
+}, [isModalOpen, isSignUp, formData.referralCode]);
+
+  // NEW: Check URL parameters on component mount and when autoSignupData changes
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    const autoSignup = searchParams.get('autoSignup');
+    
+    console.log("Navbar URL check:", { ref, autoSignup, autoSignupData });
+    
+    // Method 1: If autoSignupData is passed from layout
+    if (autoSignupData?.shouldOpenSignup) {
+      console.log("Opening modal via autoSignupData");
+      openSignupModalWithReferral(autoSignupData.referralCode);
+    }
+    // Method 2: Direct URL parameters (fallback)
+    else if (ref && autoSignup === 'true') {
+      console.log("Opening modal via direct URL parameters");
+      openSignupModalWithReferral(ref);
+    }
+  }, [autoSignupData, searchParams]);
+
+  const openSignupModalWithReferral = (referralCode) => {
+    console.log("Setting up signup modal with referral:", referralCode);
+    setIsModalOpen(true);
+    setIsSignUp(true);
+    
+    // Pre-fill the referral code
+    setFormData(prev => ({
+      ...prev,
+      referralCode: referralCode
+    }));
+
+    // Clean URL without page reload
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  };
+
   const handleNavigation = (href, e) => {
     e.preventDefault();
     router.push(href);
   };
 
+  const Authlogin = () => {
+    router.push("/login");
+  }
+
   const openModal = () => {
     setIsModalOpen(true);
     setIsSignUp(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Clean URL when closing modal
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
   };
 
   const saveTokenToLocalStorage = (token) => {
@@ -724,7 +771,7 @@ export default function Navbar() {
               {/* Buttons */}
               <div className="hidden lg:flex items-center gap-3">
                 <button
-                  onClick={openModal}
+                  onClick={()=>{router.push('/login')}}
                   className=" text-sky-600 bg-white font-semibold px-5 py-2 rounded-lg hover:shadow-[0_0_25px_rgba(0,245,212,0.6)] transition-all duration-300"
                 >
                   Login / Signup
@@ -775,7 +822,7 @@ export default function Navbar() {
           {isSignUp ? (
             <SignupModal
               isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
+              onClose={closeModal}
               formData={formData}
               onFormChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
               onSubmit={handleSendOTP}
@@ -785,7 +832,7 @@ export default function Navbar() {
           ) : (
             <LoginModal
               isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
+              onClose={closeModal}
               formData={loginFormData}
               onFormChange={(e) => setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value })}
               onSubmit={handleLogin}
