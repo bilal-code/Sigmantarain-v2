@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const ProductValuationChart = () => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 font-sans h-[98%]">
+    <div className="bg-white rounded-2xl border border-[#0B98AC]/30 shadow-[0_0_15px_rgba(11,152,172,0.2)] p-6 font-sans h-[98%]">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-xl font-bold text-gray-800 mb-1">

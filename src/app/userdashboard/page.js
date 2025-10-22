@@ -67,21 +67,21 @@ function Userdash() {
     <div className="p-2 sm:p-3 bg-white flex flex-col gap-3 sm:gap-3">
       {/* HEADER */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-[#0B98AC] drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+        <h1 className="text-2xl pt-4 ml-6 sm:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-[#0B98AC] drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
           User Dashboard
         </h1>
       </div>
 
       {/* TOP CARDS */}
-      <div className="w-full">
+      <div className="w-full -mt-4">
         <HoverDevCards />
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 w-full">
-        <div className="xl:col-span-2">
+      <div className="flex w-full -mt-2 justify-center gap-8">
+        <div className="w-[63%]">
           <PerformanceChart />
         </div>
-        <div className="xl:col-span-1">
+        <div className="w-[30%]">
           <ProductValuationChart />
         </div>
       </div>

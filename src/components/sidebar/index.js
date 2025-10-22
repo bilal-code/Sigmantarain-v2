@@ -52,7 +52,7 @@ const Sidebar = ({ open, setOpen }) => {
   },
   {
     Icon: TbStack2,
-    title: "Staking Platform",
+    title: "Staking Details",
     route: "/userdashboard/stackingPlatform",
   },
   ];

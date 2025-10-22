@@ -40,10 +40,10 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 export default function PerformanceChart() {
   return (
-    <div className="w-full bg-white border border-[#0B98AC]/30 shadow-[0_0_15px_rgba(11,152,172,0.2)] rounded-2xl p-4 font-mono text-gray-800">
+    <div className="w-full border border-[#0B98AC]/30 shadow-[0_0_15px_rgba(11,152,172,0.2)] rounded-2xl p-4 font-mono text-gray-800">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg sm:text-xl font-bold text-[#0B98AC]">
+        <h2 className="text-lg sm:text-xl font-bold text-black">
           Performance Overview
         </h2>
         <select className="bg-[#0B98AC]/10 border border-[#0B98AC] rounded px-2 py-1 text-sm text-[#0B98AC] focus:outline-none">
@@ -62,7 +62,7 @@ export default function PerformanceChart() {
             <CartesianGrid stroke="#0B98AC33" vertical={false} />
             <XAxis
               dataKey="month"
-              stroke="#0B98AC"
+              stroke="#5D6670"
               tick={{ fill: "#0B98AC", fontSize: 11 }}
               tickMargin={10}
             />

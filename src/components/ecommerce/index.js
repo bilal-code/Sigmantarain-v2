@@ -290,7 +290,7 @@ function HoverDevCards() {
           : cardData.map((item, i) => (
               <div
                 key={i}
-                className="group relative bg-white rounded-2xl shadow-lg border border-gray-200 p-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                className="group relative bg-white rounded-2xl border border-[#0B98AC]/30 shadow-[0_0_15px_rgba(11,152,172,0.2)] p-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
               >
                 {/* Background Gradient Effect */}
                 <div
