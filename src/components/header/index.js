@@ -207,7 +207,7 @@ const handleCopyReferralCode = () => {
                   <button
                     onClick={handleCopyReferralCode}
                     className="w-full flex items-center justify-center gap-2 
-                    bg-[#0B98AC] text-white 
+                    bg-[#0B98AC] cursor-pointer text-white 
                     font-semibold text-sm py-2 rounded-lg hover:opacity-90 transition-all"
                   >
                     <FaCopy className="text-sm" />
@@ -222,7 +222,7 @@ const handleCopyReferralCode = () => {
                   }}
                   className="w-full flex items-center justify-center gap-2 
                     bg-[#0B98AC] text-white 
-                    font-semibold text-sm py-2 rounded-lg hover:opacity-90 transition-all"
+                    font-semibold text-sm py-2 cursor-pointer rounded-lg hover:opacity-90 transition-all"
                 >
                   Send Referral Code
                 </button>
@@ -231,7 +231,7 @@ const handleCopyReferralCode = () => {
                   onClick={handleLogout}
                   disabled={isLoggingOut}
                  className={`w-full py-2 rounded-lg font-medium
-                    bg-[#0B98AC] text-white 
+                    bg-[#0B98AC] hover:opacity-90 text-white cursor-pointer 
                     shadow-[0_0_10px_rgba(168,85,247,0.4)]
                     transition-all ${
                       isLoggingOut

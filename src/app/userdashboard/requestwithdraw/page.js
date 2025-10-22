@@ -33,7 +33,7 @@
 //       }
 
 //       const response = await axios.get(`/api/user/business-commission?userId=${userId}`);
-      
+
 //       if (response.data.success) {
 //         console.log("✅ Business commission fetched successfully:", response.data.data);
 //         setBusinessCommission(response.data?.totalAmount);
@@ -120,7 +120,7 @@
 //           totalChild = Number(data.total);
 //         }
 //         console.log("👶 Total Child Commission:", totalChild);
-        
+
 //         let response;
 //         if (totalChild >= 100000) {
 //           response = await saveBusinessCommission(userId, 5, 100000 * 0.05);
@@ -171,7 +171,7 @@
 //       const data = await res.json();
 //       setWithdrawHistory(data?.data || []);
 //       console.log("withdrawals data", data);
-      
+
 //       const pending = data?.data.filter((w) => w.status === "pending");
 //       const accepted = data?.data.filter((w) => w.status === "accepted");
 //       const pendingSum = pending.reduce(
@@ -223,26 +223,26 @@
 //     (pendingWithdrawals > 0 ? pendingWithdrawals : 0);
 
 //   const summaryData = [
-//     { 
-//       title: 'Personal Commission', 
+//     {
+//       title: 'Personal Commission',
 //       amount: `$${(personal - completedWithdrawals).toFixed(2) || 0} `,
 //       icon: '💰',
 //       color: 'from-blue-500 to-cyan-500'
 //     },
-//     { 
-//       title: 'Child Commission', 
+//     {
+//       title: 'Child Commission',
 //       amount: `$${(childCommission) || 0} `,
 //       icon: '👥',
 //       color: 'from-green-500 to-emerald-500'
 //     },
-//     { 
-//       title: 'Withdraw Pending', 
+//     {
+//       title: 'Withdraw Pending',
 //       amount: `$${(pendingWithdrawals) || 0} `,
 //       icon: '⏳',
 //       color: 'from-yellow-500 to-orange-500'
 //     },
-//     { 
-//       title: 'Total Withdrawn', 
+//     {
+//       title: 'Total Withdrawn',
 //       amount: `$${(completedWithdrawals) || 0} `,
 //       icon: '✅',
 //       color: 'from-purple-500 to-pink-500'
@@ -302,7 +302,7 @@
 //         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
 //           Manage your earnings and withdraw your commissions securely
 //         </p>
-        
+
 //         {/* Toggle Buttons */}
 //         <div className="flex justify-center">
 //           <div className="flex bg-gray-200 rounded-lg p-1">
@@ -332,7 +332,7 @@
 
 //       {/* Content based on active tab */}
 //       {activeTab === "usdt" ? (
-//         <USDTWithdrawalsContent 
+//         <USDTWithdrawalsContent
 //           dataLoading={dataLoading}
 //           summaryData={summaryData}
 //           withdrawHistory={withdrawHistory}
@@ -383,7 +383,7 @@
 //                 <p className="text-gray-600 text-sm mb-6">
 //                   Enter the amount you wish to withdraw to your connected wallet
 //                 </p>
-                
+
 //                 <div className="space-y-4">
 //                   <div className="space-y-2">
 //                     <label className="text-sm font-semibold text-gray-700">Withdrawal Amount</label>
@@ -395,7 +395,7 @@
 //                       className="w-full bg-gray-50 text-gray-800 border border-gray-300 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0B98AC] focus:border-transparent transition-all duration-200"
 //                     />
 //                   </div>
-                  
+
 //                   <div className="bg-blue-50 rounded-lg p-3">
 //                     <p className="text-sm text-blue-700">
 //                       <strong>Connected Wallet:</strong> {walletAddress || 'Not connected'}
@@ -429,10 +429,10 @@
 // }
 
 // // USDT Withdrawals Content Component
-// const USDTWithdrawalsContent = ({ 
-//   dataLoading, 
-//   summaryData, 
-//   withdrawHistory, 
+// const USDTWithdrawalsContent = ({
+//   dataLoading,
+//   summaryData,
+//   withdrawHistory,
 //   setIsModalOpen,
 //   SkeletonLoader,
 //   Loader
@@ -507,8 +507,8 @@
 //                         </td>
 //                         <td className="py-3 px-4">
 //                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-//                             row.status === 'accepted' 
-//                               ? 'bg-green-100 text-green-800' 
+//                             row.status === 'accepted'
+//                               ? 'bg-green-100 text-green-800'
 //                               : row.status === 'pending'
 //                               ? 'bg-yellow-100 text-yellow-800'
 //                               : 'bg-red-100 text-red-800'
@@ -535,10 +535,10 @@
 //   );
 // };
 
-// const StakingWithdrawalsContent = ({ 
-//   dataLoading, 
-//   summaryData, 
-//   withdrawHistory, 
+// const StakingWithdrawalsContent = ({
+//   dataLoading,
+//   summaryData,
+//   withdrawHistory,
 //   setIsModalOpen,
 //   SkeletonLoader,
 //   Loader
@@ -613,8 +613,8 @@
 //                         </td>
 //                         <td className="py-3 px-4">
 //                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-//                             row.status === 'accepted' 
-//                               ? 'bg-green-100 text-green-800' 
+//                             row.status === 'accepted'
+//                               ? 'bg-green-100 text-green-800'
 //                               : row.status === 'pending'
 //                               ? 'bg-yellow-100 text-yellow-800'
 //                               : 'bg-red-100 text-red-800'
@@ -641,39 +641,23 @@
 //   );
 // };
 
+"use client";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'use client';
-
-import { useState, Fragment, useEffect, useContext } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { fetchChildCommissions } from '@/lib/utils/getChildCommision';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { WalletContext } from '@/context/WalletContext';
+import { useState, Fragment, useEffect, useContext } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { fetchChildCommissions } from "@/lib/utils/getChildCommision";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { WalletContext } from "@/context/WalletContext";
 import { showSuccessToast, showErrorToast } from "@/lib/toast";
 
 export default function WithdrawalPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isStakingModalOpen, setIsStakingModalOpen] = useState(false);
-  const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [withdrawAmount, setWithdrawAmount] = useState("");
   const [personalCommission, setPersonalCommission] = useState();
   const [childCommission, setChildCommission] = useState();
-  const [clientId, setClientId] = useState('');
+  const [clientId, setClientId] = useState("");
   const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [completedWithdrawals, setCompletedWithdrawals] = useState([]);
   const [withdrawHistory, setWithdrawHistory] = useState([]);
@@ -687,7 +671,7 @@ export default function WithdrawalPage() {
   const [dataLoading, setDataLoading] = useState({
     summary: true,
     history: true,
-    business: true
+    business: true,
   });
   const [activeTab, setActiveTab] = useState("usdt"); // "usdt" or "staking"
 
@@ -698,20 +682,28 @@ export default function WithdrawalPage() {
         return { success: false, message: "userId is required" };
       }
 
-      const response = await axios.get(`/api/user/business-commission?userId=${userId}`);
-      
+      const response = await axios.get(
+        `/api/user/business-commission?userId=${userId}`
+      );
+
       if (response.data.success) {
-        console.log("✅ Business commission fetched successfully:", response.data.data);
+        console.log(
+          "✅ Business commission fetched successfully:",
+          response.data.data
+        );
         setBusinessCommission(response.data?.totalAmount);
       } else {
-        console.warn("⚠️ No commission found for this user:", response.data.message);
+        console.warn(
+          "⚠️ No commission found for this user:",
+          response.data.message
+        );
         return [];
       }
     } catch (error) {
       console.error("❌ Error fetching user commission:", error);
       return [];
     } finally {
-      setDataLoading(prev => ({ ...prev, business: false }));
+      setDataLoading((prev) => ({ ...prev, business: false }));
     }
   };
 
@@ -781,12 +773,15 @@ export default function WithdrawalPage() {
         if (typeof data === "number") {
           totalChild = data;
         } else if (Array.isArray(data)) {
-          totalChild = data.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+          totalChild = data.reduce(
+            (sum, item) => sum + (Number(item.amount) || 0),
+            0
+          );
         } else if (typeof data === "object" && data.total) {
           totalChild = Number(data.total);
         }
         console.log("👶 Total Child Commission:", totalChild);
-        
+
         let response;
         if (totalChild >= 100000) {
           response = await saveBusinessCommission(userId, 5, 100000 * 0.05);
@@ -820,7 +815,7 @@ export default function WithdrawalPage() {
     } catch (error) {
       console.error("❌ Error fetching commissions:", error.message);
     } finally {
-      setDataLoading(prev => ({ ...prev, summary: false }));
+      setDataLoading((prev) => ({ ...prev, summary: false }));
     }
   };
 
@@ -839,11 +834,19 @@ export default function WithdrawalPage() {
       setWithdrawHistory(data?.data.filter((w) => w.type === "usdt") || []);
       setSGTokenHistory(data?.data.filter((w) => w.type === "tokens") || []);
       console.log("withdrawals data", data);
-      
-      const pendingUsdt = data?.data.filter((w) => w.status === "pending" && w.type === "usdt");
-      const acceptedUsdt = data?.data.filter((w) => w.status === "accepted" && w.type === "usdt");
-      const pendingSgt = data?.data.filter((w) => w.status === "pending" && w.type === "tokens");
-      const acceptedSgt = data?.data.filter((w) => w.status === "accepted" && w.type === "tokens");
+
+      const pendingUsdt = data?.data.filter(
+        (w) => w.status === "pending" && w.type === "usdt"
+      );
+      const acceptedUsdt = data?.data.filter(
+        (w) => w.status === "accepted" && w.type === "usdt"
+      );
+      const pendingSgt = data?.data.filter(
+        (w) => w.status === "pending" && w.type === "tokens"
+      );
+      const acceptedSgt = data?.data.filter(
+        (w) => w.status === "accepted" && w.type === "tokens"
+      );
       const pendingSum = pendingUsdt.reduce(
         (sum, w) => sum + Number(w.withdrawAmount || 0),
         0
@@ -871,7 +874,7 @@ export default function WithdrawalPage() {
     } catch (err) {
       alert("Error fetching withdrawal data:", err);
     } finally {
-      setDataLoading(prev => ({ ...prev, history: false }));
+      setDataLoading((prev) => ({ ...prev, history: false }));
       setLoading(false);
     }
   };
@@ -879,21 +882,21 @@ export default function WithdrawalPage() {
   //stking functions
   const fetchStakingData = async (userId) => {
     try {
-      
-
-      const res = await axios.get(`/api/user/stakingWithdrawlData?userId=${userId}`);
-    console.log("staking Data ",res.data.data);
-    setStakingData(res.data.data);
+      const res = await axios.get(
+        `/api/user/stakingWithdrawlData?userId=${userId}`
+      );
+      console.log("staking Data ", res.data.data);
+      setStakingData(res.data.data);
     } catch (err) {
       console.error("Error fetching user earnings:", err);
       setError("Something went wrong while fetching data");
-    } 
+    }
   };
 
   useEffect(() => {
     const fetchAllData = async () => {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
         const decoded = jwtDecode(token);
         if (decoded?.id) {
@@ -903,7 +906,7 @@ export default function WithdrawalPage() {
             fetchCommision(decoded?.id, decoded?.code),
             fetchUserBusinessCommission(decoded?.id),
             fetchWithdrawals(decoded?.id),
-            fetchStakingData(decoded?.id)
+            fetchStakingData(decoded?.id),
           ]);
         }
       }
@@ -919,153 +922,164 @@ export default function WithdrawalPage() {
     (businessCommission > 0 ? businessCommission : 0) -
     (pendingWithdrawals > 0 ? pendingWithdrawals : 0);
 
-    let usdtTotal = personal - completedWithdrawals;
+  let usdtTotal = personal - completedWithdrawals;
   // USDT Summary Data (Remains Same)
   const usdtSummaryData = [
-    { 
-      title: 'Referral Commission', 
+    {
+      title: "Referral Commission",
       amount: `$${personalCommission || 0} `,
-      icon: '💰',
-      color: 'from-blue-500 to-cyan-500'
+      icon: "💰",
+      color: "from-blue-500 to-cyan-500",
     },
-    { 
-      title: 'Downward Commission', 
-      amount: `$${(childCommission) || 0} `,
-      icon: '👥',
-      color: 'from-green-500 to-emerald-500'
+    {
+      title: "Downward Commission",
+      amount: `$${childCommission || 0} `,
+      icon: "👥",
+      color: "from-green-500 to-emerald-500",
     },
-    { 
-      title: 'Total Commission', 
-      amount: `$${(usdtTotal).toFixed(2) || 0} `,
-      icon: '👥',
-      color: 'from-green-500 to-emerald-500'
+    {
+      title: "Total Commission",
+      amount: `$${usdtTotal.toFixed(2) || 0} `,
+      icon: "👥",
+      color: "from-green-500 to-emerald-500",
     },
-    { 
-      title: 'Withdraw Pending', 
-      amount: `$${(pendingWithdrawals) || 0} `,
-      icon: '⏳',
-      color: 'from-yellow-500 to-orange-500'
+    {
+      title: "Withdraw Pending",
+      amount: `$${pendingWithdrawals || 0} `,
+      icon: "⏳",
+      color: "from-yellow-500 to-orange-500",
     },
-    { 
-      title: 'Total Withdrawn', 
-      amount: `$${(completedWithdrawals) || 0} `,
-      icon: '✅',
-      color: 'from-purple-500 to-pink-500'
+    {
+      title: "Total Withdrawn",
+      amount: `$${completedWithdrawals || 0} `,
+      icon: "✅",
+      color: "from-purple-500 to-pink-500",
     },
   ];
 
-  let  stakingCommission = stakingData?.totalUplineCommission 
-  + (stakingData?.totalDailyRoi> 0 ? stakingData?.totalDailyRoi : 0)  -
+  let stakingCommission =
+    stakingData?.totalUplineCommission +
+    (stakingData?.totalDailyRoi > 0 ? stakingData?.totalDailyRoi : 0) -
     (pendingSGToken > 0 ? pendingSGToken : 0);
   // Staking Summary Data (Dummy Data)
-  let total = stakingData?.totalUplineCommission + stakingData?.totalDailyRoi - pendingSGToken - acceptedSGToken;
+  let total =
+    stakingData?.totalUplineCommission +
+    stakingData?.totalDailyRoi -
+    pendingSGToken -
+    acceptedSGToken;
   const stakingSummaryData = [
-    { 
-      title: 'Total Upline Commission', 
+    {
+      title: "Total Upline Commission",
       amount: `${stakingData?.totalUplineCommission} tokens` || 0,
-      icon: '📈',
-      color: 'from-purple-500 to-indigo-500'
+      icon: "📈",
+      color: "from-purple-500 to-indigo-500",
     },
-    { 
-      title: 'Staking Rewards', 
+    {
+      title: "Staking Rewards",
       amount: `${stakingData?.totalDailyRoi} tokens` || 0,
-      icon: '💰',
-      color: 'from-green-500 to-teal-500'
+      icon: "💰",
+      color: "from-green-500 to-teal-500",
     },
-    { 
-      title: 'Total Rewards', 
+    {
+      title: "Total Rewards",
       amount: `${total.toFixed(2)} tokens` || 0,
-      icon: '💰',
-      color: 'from-green-500 to-teal-500'
+      icon: "💰",
+      color: "from-green-500 to-teal-500",
     },
-    { 
-      title: 'Staking Pending', 
+    {
+      title: "Staking Pending",
       amount: `${pendingSGToken} tokens` || 0,
-      icon: '⏳',
-      color: 'from-orange-500 to-red-500'
+      icon: "⏳",
+      color: "from-orange-500 to-red-500",
     },
-    { 
-      title: 'Total Staking Withdrawn', 
+    {
+      title: "Total Staking Withdrawn",
       amount: `${acceptedSGToken} tokens` || 0,
-      icon: '✅',
-      color: 'from-blue-500 to-cyan-500'
+      icon: "✅",
+      color: "from-blue-500 to-cyan-500",
     },
   ];
 
   // Staking Dummy Transaction History
-const handleWithdrawRequest = async (e) => {
-  e.preventDefault();
+  const handleWithdrawRequest = async (e) => {
+    e.preventDefault();
 
-  if (!withdrawAmount || !walletAddress || !clientId) {
-    showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
-    return;
-  }
+    if (!withdrawAmount || !walletAddress || !clientId) {
+      showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
+      return;
+    }
 
-  if (withdrawAmount > personal ) {
-    showErrorToast("❌ Insufficient balance for withdrawal.");
-    return;
-  }
+    if (withdrawAmount > personal) {
+      showErrorToast("❌ Insufficient balance for withdrawal.");
+      return;
+    }
 
-  try {
-    const response = await axios.post("/api/user/withdraw-request", {
-      userId: clientId,
-      withdrawAmount,
-      from: walletAddress,
-      status: "pending",
-      type: "usdt",
-    });
+    try {
+      const response = await axios.post("/api/user/withdraw-request", {
+        userId: clientId,
+        withdrawAmount,
+        from: walletAddress,
+        status: "pending",
+        type: "usdt",
+      });
 
-    console.log(response);
-    setIsModalOpen(false);
-    setWithdrawAmount("");
+      console.log(response);
+      setIsModalOpen(false);
+      setWithdrawAmount("");
 
-    showSuccessToast("🎉 Withdrawal request submitted successfully!");
-    fetchWithdrawals(clientId); // Refresh data
-  } catch (error) {
-    console.error("Withdraw request failed:", error);
-    showErrorToast("Something went wrong while submitting withdrawal request.");
-  }
-};
+      showSuccessToast("🎉 Withdrawal request submitted successfully!");
+      fetchWithdrawals(clientId); // Refresh data
+    } catch (error) {
+      console.error("Withdraw request failed:", error);
+      showErrorToast(
+        "Something went wrong while submitting withdrawal request."
+      );
+    }
+  };
 
-const handleStakingWithdrawRequest = async (e) => {
-  e.preventDefault();
+  const handleStakingWithdrawRequest = async (e) => {
+    e.preventDefault();
 
-  if (!withdrawAmount || !walletAddress || !clientId) {
-    showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
-    return;
-  }
+    if (!withdrawAmount || !walletAddress || !clientId) {
+      showErrorToast("⚠️ Please Connect your wallet and enter a valid amount.");
+      return;
+    }
 
-  if (withdrawAmount > total) {
-    showErrorToast("❌ Insufficient staking balance for withdrawal.");
-    return;
-  }
+    if (withdrawAmount > total) {
+      showErrorToast("❌ Insufficient staking balance for withdrawal.");
+      return;
+    }
 
-  try {
-    const response = await axios.post("/api/user/withdraw-request", {
-      userId: clientId,
-      withdrawAmount,
-      from: walletAddress,
-      status: "pending",
-      type: "tokens",
-    });
+    try {
+      const response = await axios.post("/api/user/withdraw-request", {
+        userId: clientId,
+        withdrawAmount,
+        from: walletAddress,
+        status: "pending",
+        type: "tokens",
+      });
 
-    console.log(response);
-    setIsModalOpen(false);
-    setWithdrawAmount("");
+      console.log(response);
+      setIsModalOpen(false);
+      setWithdrawAmount("");
 
-    showSuccessToast("🎉 Staking withdrawal request submitted successfully!");
-    fetchWithdrawals(clientId); // Refresh data
-  } catch (error) {
-    console.error("Staking withdraw request failed:", error);
-    showErrorToast("Something went wrong while submitting staking withdrawal request.");
-  }
-};
+      showSuccessToast("🎉 Staking withdrawal request submitted successfully!");
+      fetchWithdrawals(clientId); // Refresh data
+    } catch (error) {
+      console.error("Staking withdraw request failed:", error);
+      showErrorToast(
+        "Something went wrong while submitting staking withdrawal request."
+      );
+    }
+  };
 
   // Loader Component
-  const Loader = ({ size = 'medium' }) => (
-    <div className={`flex items-center justify-center ${
-      size === 'small' ? 'py-2' : size === 'medium' ? 'py-8' : 'py-16'
-    }`}>
+  const Loader = ({ size = "medium" }) => (
+    <div
+      className={`flex items-center justify-center ${
+        size === "small" ? "py-2" : size === "medium" ? "py-8" : "py-16"
+      }`}
+    >
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0B98AC]"></div>
     </div>
   );
@@ -1085,12 +1099,11 @@ const handleStakingWithdrawRequest = async (e) => {
           {activeTab === "usdt" ? "USDT Withdrawals" : "Staking Withdrawals"}
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-          {activeTab === "usdt" 
-            ? "Manage your USDT earnings and withdraw commissions securely" 
-            : "Manage your staking rewards and withdraw earnings securely"
-          }
+          {activeTab === "usdt"
+            ? "Manage your USDT earnings and withdraw commissions securely"
+            : "Manage your staking rewards and withdraw earnings securely"}
         </p>
-        
+
         {/* Toggle Buttons */}
         <div className="flex justify-center">
           <div className="flex bg-gray-200 rounded-lg p-1">
@@ -1120,7 +1133,7 @@ const handleStakingWithdrawRequest = async (e) => {
 
       {/* Content based on active tab */}
       {activeTab === "usdt" ? (
-        <USDTWithdrawalsContent 
+        <USDTWithdrawalsContent
           dataLoading={dataLoading}
           summaryData={usdtSummaryData}
           withdrawHistory={withdrawHistory}
@@ -1137,7 +1150,7 @@ const handleStakingWithdrawRequest = async (e) => {
           setIsModalOpen={setIsStakingModalOpen}
           SkeletonLoader={SkeletonLoader}
           Loader={Loader}
-          total = {total}
+          total={total}
         />
       )}
 
@@ -1173,10 +1186,12 @@ const handleStakingWithdrawRequest = async (e) => {
                 <p className="text-gray-600 text-sm mb-6">
                   Enter the amount you wish to withdraw to your connected wallet
                 </p>
-                
+
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-700">Withdrawal Amount</label>
+                    <label className="text-sm font-semibold text-gray-700">
+                      Withdrawal Amount
+                    </label>
                     <input
                       type="number"
                       placeholder="Enter usdt amount "
@@ -1185,10 +1200,11 @@ const handleStakingWithdrawRequest = async (e) => {
                       className="w-full bg-gray-50 text-gray-800 border border-gray-300 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0B98AC] focus:border-transparent transition-all duration-200"
                     />
                   </div>
-                  
+
                   <div className="bg-blue-50 rounded-lg p-3">
                     <p className="text-sm text-blue-700">
-                      <strong>Connected Wallet:</strong> {walletAddress || 'Not connected'}
+                      <strong>Connected Wallet:</strong>{" "}
+                      {walletAddress || "Not connected"}
                     </p>
                   </div>
 
@@ -1205,8 +1221,11 @@ const handleStakingWithdrawRequest = async (e) => {
         </Dialog>
       </Transition>
       {/* Staking Withdraw Modal */}
-       <Transition show={isStakingModalOpen} as={Fragment}>
-        <Dialog onClose={() => setIsStakingModalOpen(false)} className="relative z-50">
+      <Transition show={isStakingModalOpen} as={Fragment}>
+        <Dialog
+          onClose={() => setIsStakingModalOpen(false)}
+          className="relative z-50"
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-200"
@@ -1236,10 +1255,12 @@ const handleStakingWithdrawRequest = async (e) => {
                 <p className="text-gray-600 text-sm mb-6">
                   Enter the amount you wish to withdraw to your connected wallet
                 </p>
-                
+
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-700">Withdrawal Amount</label>
+                    <label className="text-sm font-semibold text-gray-700">
+                      Withdrawal Amount
+                    </label>
                     <input
                       type="number"
                       placeholder="Enter Tokens amount "
@@ -1248,10 +1269,11 @@ const handleStakingWithdrawRequest = async (e) => {
                       className="w-full bg-gray-50 text-gray-800 border border-gray-300 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0B98AC] focus:border-transparent transition-all duration-200"
                     />
                   </div>
-                  
+
                   <div className="bg-blue-50 rounded-lg p-3">
                     <p className="text-sm text-blue-700">
-                      <strong>Connected Wallet:</strong> {walletAddress || 'Not connected'}
+                      <strong>Connected Wallet:</strong>{" "}
+                      {walletAddress || "Not connected"}
                     </p>
                   </div>
 
@@ -1273,7 +1295,9 @@ const handleStakingWithdrawRequest = async (e) => {
         <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#0B98AC] mx-auto mb-4"></div>
-            <p className="text-gray-600 font-semibold">Loading withdrawal data...</p>
+            <p className="text-gray-600 font-semibold">
+              Loading withdrawal data...
+            </p>
           </div>
         </div>
       )}
@@ -1282,44 +1306,49 @@ const handleStakingWithdrawRequest = async (e) => {
 }
 
 // USDT Withdrawals Content Component
-const USDTWithdrawalsContent = ({ 
-  dataLoading, 
-  summaryData, 
-  withdrawHistory, 
+const USDTWithdrawalsContent = ({
+  dataLoading,
+  summaryData,
+  withdrawHistory,
   setIsModalOpen,
   SkeletonLoader,
   usdtTotal,
-  Loader
+  Loader,
 }) => {
   return (
     <>
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-        {dataLoading.summary ? (
-          // Skeleton loaders for summary cards
-          Array(4).fill(0).map((_, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-              <SkeletonLoader />
-            </div>
-          ))
-        ) : (
-          summaryData.map((box, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center hover:shadow-xl transition-all duration-300 group"
-            >
-              <div className={`w-12 h-12 bg-gradient-to-r ${box.color} rounded-full flex items-center justify-center mx-auto mb-3 text-white text-lg group-hover:scale-110 transition-transform duration-300`}>
-                {box.icon}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        {dataLoading.summary
+          ? // Skeleton loaders for summary cards
+            Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-lg border border-gray-200 p-6"
+                >
+                  <SkeletonLoader />
+                </div>
+              ))
+          : summaryData.map((box, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center hover:shadow-xl transition-all duration-300 group"
+              >
+                <div
+                  className={`w-12 h-12 bg-gradient-to-r ${box.color} rounded-full flex items-center justify-center mx-auto mb-3 text-white text-lg group-hover:scale-110 transition-transform duration-300`}
+                >
+                  {box.icon}
+                </div>
+                <h3 className="text-sm font-semibold text-gray-600 mb-1">
+                  {box.title}
+                </h3>
+                <p className="text-xl font-bold text-gray-800 group-hover:text-[#0B98AC] transition-colors duration-200">
+                  {box.amount}
+                </p>
               </div>
-              <h3 className="text-sm font-semibold text-gray-600 mb-1">
-                {box.title}
-              </h3>
-              <p className="text-xl font-bold text-gray-800 group-hover:text-[#0B98AC] transition-colors duration-200">
-                {box.amount}
-              </p>
-            </div>
-          ))
-        )}
+            ))}
       </div>
 
       {/* Transactions Section */}
@@ -1331,9 +1360,17 @@ const USDTWithdrawalsContent = ({
             </h2>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-6 py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 shadow-md"
+              disabled={usdtTotal < 15}
+              className={`px-6 py-3 font-semibold rounded-xl transition-all duration-300 shadow-md
+    ${
+      usdtTotal >= 15
+        ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white hover:shadow-lg transform hover:scale-[1.02]"
+        : "bg-gray-400 text-gray-200 cursor-not-allowed"
+    }`}
             >
-             {usdtTotal >= 15 ? "Request USDT Withdrawal" : "Insufficient Balance"}
+              {usdtTotal >= 15
+                ? "Request USDT Withdrawal"
+                : "Insufficient Balance"}
             </button>
           </div>
 
@@ -1344,15 +1381,24 @@ const USDTWithdrawalsContent = ({
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Date</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Amount (USDT)</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Date
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Amount (USDT)
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {withdrawHistory.length > 0 ? (
                     withdrawHistory.map((row, index) => (
-                      <tr key={row.id || index} className="hover:bg-gray-50 transition-colors duration-150">
+                      <tr
+                        key={row.id || index}
+                        className="hover:bg-gray-50 transition-colors duration-150"
+                      >
                         <td className="py-3 px-4 text-sm text-gray-600">
                           {new Date(row.createdAt).toLocaleDateString()}
                         </td>
@@ -1360,21 +1406,27 @@ const USDTWithdrawalsContent = ({
                           ${row.withdrawAmount}
                         </td>
                         <td className="py-3 px-4">
-                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                            row.status === 'accepted' 
-                              ? 'bg-green-100 text-green-800' 
-                              : row.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
+                          <span
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                              row.status === "accepted"
+                                ? "bg-green-100 text-green-800"
+                                : row.status === "pending"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {row.status.charAt(0).toUpperCase() +
+                              row.status.slice(1)}
                           </span>
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="py-8 text-center text-gray-500">
+                      <td
+                        colSpan="3"
+                        className="py-8 text-center text-gray-500"
+                      >
                         No USDT withdrawal history found
                       </td>
                     </tr>
@@ -1390,44 +1442,49 @@ const USDTWithdrawalsContent = ({
 };
 
 // Staking Withdrawals Content Component
-const StakingWithdrawalsContent = ({ 
-  dataLoading, 
-  summaryData, 
-  withdrawHistory, 
+const StakingWithdrawalsContent = ({
+  dataLoading,
+  summaryData,
+  withdrawHistory,
   setIsModalOpen,
   SkeletonLoader,
   Loader,
-  total
+  total,
 }) => {
   return (
     <>
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
-        {dataLoading.summary ? (
-          // Skeleton loaders for summary cards
-          Array(4).fill(0).map((_, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-              <SkeletonLoader />
-            </div>
-          ))
-        ) : (
-          summaryData.map((box, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center hover:shadow-xl transition-all duration-300 group"
-            >
-              <div className={`w-12 h-12 bg-gradient-to-r ${box.color} rounded-full flex items-center justify-center mx-auto mb-3 text-white text-lg group-hover:scale-110 transition-transform duration-300`}>
-                {box.icon}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        {dataLoading.summary
+          ? // Skeleton loaders for summary cards
+            Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-lg border border-gray-200 p-6"
+                >
+                  <SkeletonLoader />
+                </div>
+              ))
+          : summaryData.map((box, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center hover:shadow-xl transition-all duration-300 group"
+              >
+                <div
+                  className={`w-12 h-12 bg-gradient-to-r ${box.color} rounded-full flex items-center justify-center mx-auto mb-3 text-white text-lg group-hover:scale-110 transition-transform duration-300`}
+                >
+                  {box.icon}
+                </div>
+                <h3 className="text-sm font-semibold text-gray-600 mb-1">
+                  {box.title}
+                </h3>
+                <p className="text-xl font-bold text-gray-800 group-hover:text-[#0B98AC] transition-colors duration-200">
+                  {box.amount}
+                </p>
               </div>
-              <h3 className="text-sm font-semibold text-gray-600 mb-1">
-                {box.title}
-              </h3>
-              <p className="text-xl font-bold text-gray-800 group-hover:text-[#0B98AC] transition-colors duration-200">
-                {box.amount}
-              </p>
-            </div>
-          ))
-        )}
+            ))}
       </div>
 
       {/* Transactions Section */}
@@ -1439,9 +1496,16 @@ const StakingWithdrawalsContent = ({
             </h2>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-6 py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 shadow-md"
+              disabled={total < 1500}
+              className={`relative px-6 py-3 font-semibold rounded-xl text-white transition-all duration-300 ${
+                total >= 1500
+                  ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 shadow-[0_0_15px_#0B98AC] hover:shadow-[0_0_25px_#0B98AC] hover:scale-[1.03]"
+                  : "bg-gray-400 cursor-not-allowed opacity-70"
+              }`}
             >
-              {total >= 1500 ? "Request Staking Withdrawal" : "Insufficient Balance"}
+              {total >= 1500
+                ? "Request Staking Withdrawal"
+                : "Insufficient Balance"}
             </button>
           </div>
 
@@ -1452,15 +1516,24 @@ const StakingWithdrawalsContent = ({
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Date</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Amount (Staking)</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Date
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Amount (Staking)
+                    </th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">
+                      Status
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {withdrawHistory.length > 0 ? (
                     withdrawHistory.map((row, index) => (
-                      <tr key={row.id || index} className="hover:bg-gray-50 transition-colors duration-150">
+                      <tr
+                        key={row.id || index}
+                        className="hover:bg-gray-50 transition-colors duration-150"
+                      >
                         <td className="py-3 px-4 text-sm text-gray-600">
                           {new Date(row.createdAt).toLocaleDateString()}
                         </td>
@@ -1468,21 +1541,27 @@ const StakingWithdrawalsContent = ({
                           {row.withdrawAmount} tokens
                         </td>
                         <td className="py-3 px-4">
-                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                            row.status === 'accepted' 
-                              ? 'bg-green-100 text-green-800' 
-                              : row.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {row.status.charAt(0).toUpperCase() + row.status.slice(1)}
+                          <span
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                              row.status === "accepted"
+                                ? "bg-green-100 text-green-800"
+                                : row.status === "pending"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {row.status.charAt(0).toUpperCase() +
+                              row.status.slice(1)}
                           </span>
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="py-8 text-center text-gray-500">
+                      <td
+                        colSpan="3"
+                        className="py-8 text-center text-gray-500"
+                      >
                         No staking withdrawal history found
                       </td>
                     </tr>
