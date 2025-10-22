@@ -35,7 +35,7 @@ const ParticleRing = () => {
 
         {/* Button */}
         {/* bg-gradient-to-r from-[#00E0FF] via-[#3B82F6] to-[#9333EA] */}
-        <button className="mt-6 px-8 py-3 md:px-10 md:py-3 rounded-full font-bold text-lg  bg-white text-sky-600 shadow-[0_0_35px_rgba(0,200,255,0.2)] hover:shadow-[0_0_50px_rgba(0,200,255,0.3)] hover:scale-105 transition-all duration-300">
+        <button className="mt-6 px-8 py-3 md:px-10 md:py-3 rounded-full font-bold text-lg  bg-white text-sky-600 shadow-[0_0_35px_rgba(0,200,255,0.2)] hover:shadow-[0_0_50px_rgba(0,200,255,0.3)] hover:scale-105 transition-all duration-300 cursor-pointer">
           Join The Community
         </button>
       </div>

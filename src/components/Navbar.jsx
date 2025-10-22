@@ -481,7 +481,7 @@ export default function Navbar() {
               <div className="hidden lg:flex items-center gap-3">
                 <button
                   onClick={handleAuthClick}
-                  className="text-sky-600 bg-white font-semibold px-5 py-2 rounded-lg hover:shadow-[0_0_25px_rgba(0,245,212,0.6)] transition-all duration-300"
+                  className="text-sky-600 bg-white font-semibold px-5 py-2 rounded-lg hover:shadow-[0_0_25px_rgba(0,245,212,0.6)] transition-all duration-300 cursor-pointer"
                 >
                   Login / Signup
                 </button>
@@ -520,7 +520,7 @@ export default function Navbar() {
               ))}
               <button
                 onClick={handleAuthClick}
-                className="w-full mt-3 text-sky-600 bg-white font-semibold px-4 py-2 rounded-lg hover:shadow-[0_0_25px_rgba(0,245,212,0.6)] transition-all duration-300"
+                className="w-full mt-3 text-sky-600 bg-white font-semibold px-4 py-2 rounded-lg hover:shadow-[0_0_25px_rgba(0,245,212,0.6)] transition-all duration-300 cursor-pointer"
               >
                 Login / Signup
               </button>

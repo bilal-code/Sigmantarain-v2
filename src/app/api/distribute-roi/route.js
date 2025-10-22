@@ -9,7 +9,6 @@ export async function GET(request) {
     console.log("🚀 Running Daily ROI Distribution (Triggered by Vercel Cron)");
 
     const today = new Date();
-
     const stakers = await StakingModel.find({ isActive: true });
     if (!stakers.length) {
       console.log("⚠️ No active stakers found.");
@@ -24,6 +23,16 @@ export async function GET(request) {
         console.log(`🛑 Staking expired for user: ${stake.userId}`);
         continue;
       }
+      const startOfDay = new Date(today);
+      startOfDay.setUTCHours(0, 0, 0, 0);
+
+     const endOfDay = new Date(today);
+     endOfDay.setUTCHours(23, 59, 59, 999);
+
+   const alreadyGiven = await DailyRoiModel.findOne({
+  userId: stake.userId,
+  date: { $gte: startOfDay, $lte: endOfDay },
+});
 
       // Otherwise, distribute ROI
       const dailyPercent = +(0.5 + Math.random() * 0.3).toFixed(2);
