@@ -967,7 +967,7 @@ export default function WithdrawalPage() {
     },
     { 
       title: 'Total Rewards', 
-      amount: `${total} tokens` || 0,
+      amount: `${total.toFixed(2)} tokens` || 0,
       icon: '💰',
       color: 'from-green-500 to-teal-500'
     },
@@ -1454,7 +1454,7 @@ const StakingWithdrawalsContent = ({
                           {new Date(row.createdAt).toLocaleDateString()}
                         </td>
                         <td className="py-3 px-4 text-sm font-medium text-gray-900">
-                          ${row.withdrawAmount}
+                          {row.withdrawAmount} tokens
                         </td>
                         <td className="py-3 px-4">
                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${

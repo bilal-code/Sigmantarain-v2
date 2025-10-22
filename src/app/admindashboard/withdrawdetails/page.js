@@ -2,7 +2,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Contract, ethers } from "ethers";
-import { usdtAbi, usdtToken } from "@/content/data";
+import { transferSGTokenFromContract, transferSGTokenFromContractAbi, usdtAbi, usdtToken } from "@/content/data";
 import { WalletContext } from "@/context/WalletContext";
 import { FiUsers, FiCheckCircle, FiXCircle, FiTrendingUp, FiClock, FiDollarSign } from "react-icons/fi";
 import { FaMoneyCheckAlt, FaSortUp, FaSortDown } from "react-icons/fa";
@@ -111,14 +111,27 @@ const res = await fetch("/api/user/withdraw-request/updateStatus", {
 
 
       }else if(status.toLowerCase() === "accepted" && type === "tokens"){
-      const contract = new Contract(SGToken, SGTokenAbi, signer);
-        const parsedAmount = ethers.parseUnits(
-          detail?.withdrawAmount.toString(),
-          18
-        );
-
-        console.log("SG transferring...");
-        const tx = await contract.transfer(detail?.from, parsedAmount);
+      // const contract = new Contract(SGToken, SGTokenAbi, signer);
+      // const parsedAmount = ethers.parseUnits(
+        //   detail?.withdrawAmount.toString(),
+        //   18
+        // );
+        // const tx = await contract.transfer(detail?.from, parsedAmount);
+        // updated Code
+      const tokenAmount = ethers.parseUnits(detail?.withdrawAmount.toString(), 18);
+        console.log("tokenAmount",tokenAmount)
+           const tokenContract = new ethers.Contract(SGToken, SGTokenAbi, signer);
+           console.log("Approving token transfer...");
+           const Tokentx = await tokenContract.approve(
+    transferSGTokenFromContract, // spender (yani aapka main contract)
+   tokenAmount
+  );
+   await Tokentx.wait();
+   console.log("✅ Allowance given to AdminTransferToUser contract");
+  
+   const contract = new Contract(transferSGTokenFromContract, transferSGTokenFromContractAbi, signer);
+      console.log("SG transferring...");
+        const tx = await contract.approveAndSend(detail?.from, tokenAmount);    
         console.log("Transaction sent:", tx.hash);
         const receipt = await tx.wait();
         if (!receipt.status) throw new Error("Blockchain transaction failed.");

@@ -456,7 +456,7 @@ const getUserDailyROI = async (userId) => {
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-bold text-[#0B98AC]">Start Staking</h2>
               <p className="text-gray-600 text-sm">
-                Stake your tokens and earn <span className="font-semibold text-[#0B98AC]">0.7% ~ 1.1% daily ROI</span>
+                Stake your tokens and earn <span className="font-semibold text-[#0B98AC]">0.5% ~ 0.8% daily ROI</span>
               </p>
               <p className="text-gray-500 text-xs">
                 <span className="font-semibold">15% of your ROI</span> will be distributed to your 10-level upline

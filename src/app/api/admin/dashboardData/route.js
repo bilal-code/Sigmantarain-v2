@@ -36,12 +36,12 @@ export async function GET() {
     const withdrawAmount = await WithdrawModel.find({});
     console.log("WithdrawAmount:", withdrawAmount);
    let totalUsdtWithdrawAmount = withdrawAmount
-  .filter((withdraw) => withdraw.status === "accepted" && type === "usdt") // ✅ sirf approved filter
+  .filter((withdraw) => withdraw.status === "accepted" && withdraw.type === "usdt") // ✅ sirf approved filter
   .reduce((sum, withdraw) => sum + Number(withdraw.withdrawAmount || 0), 0);
     console.log("Total usdt Withdraw Amount:", totalUsdtWithdrawAmount);
 
        let totalTokensWithdrawAmount = withdrawAmount
-  .filter((withdraw) => withdraw.status === "accepted" && type === "tokens") // ✅ sirf approved filter
+  .filter((withdraw) => withdraw.status === "accepted" && withdraw.type === "tokens") // ✅ sirf approved filter
   .reduce((sum, withdraw) => sum + Number(withdraw.withdrawAmount || 0), 0);
     console.log("Total tokens Withdraw Amount:", totalTokensWithdrawAmount);
     // total Staking Tokens

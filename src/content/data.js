@@ -299,6 +299,128 @@ export const navigation = [
 export const adminAddress = "0xf629AE69C2E88657c14596f22B3b8fB5456d0c16";
 export const usdtToken = "0x3B621bEE1eABfb3546eC199FC6d31E7102915089";
 export const SGToken = "0x81c8F30b26Ea8d5Baad221BE3fc18b788fe1F345"
+export const transferSGTokenFromContract = "0x4264869e9D06E0D74E6A593DF10149e89B42B7eD"
+export const transferSGTokenFromContractAbi = [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "admin",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokensTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "approveAndSend",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "token",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
 // export const usdtAbi = [
 //   {
     
@@ -963,34 +1085,3 @@ export const SALE_ABI = [
 
 
 
- async function buySGTokens(usdtAmount) {
-  try {
-
- 
-
-    // USDT contract instance
-    const usdt = new ethers.Contract(usdtToken, usdtAbi, signer);
-    const sale = new ethers.Contract(SALE_CONTRACT_ADDRESS, SALE_ABI, signer);
-
-    // Get decimals to adjust amount
-    const decimals = await usdt.decimals();
-    const amountInWei = ethers.parseUnits(usdtAmount.toString(), decimals);
-
-    // 1️⃣ Approve USDT spending
-    console.log("Approving USDT...");
-    const tx1 = await usdt.approve(SALE_CONTRACT_ADDRESS, amountInWei);
-    await tx1.wait();
-    console.log("✅ USDT Approved");
-
-    // 2️⃣ Buy SGTokens
-    console.log("Buying SGTokens...");
-    const tx2 = await sale.buyTokens(amountInWei);
-    await tx2.wait();
-    console.log("✅ SGTokens Purchased Successfully!");
-
-    return true;
-  } catch (err) {
-    console.error("❌ Transaction failed:", err);
-    return false;
-  }
-}

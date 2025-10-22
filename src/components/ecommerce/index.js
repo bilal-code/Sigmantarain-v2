@@ -192,7 +192,7 @@ function HoverDevCards() {
     {
       name: "Refferal Commission",
       Icon: BsCashCoin,
-      price: personal,
+      price: personalCommission,
       gradient: "from-blue-500 to-cyan-500",
       bgColor: "bg-gradient-to-br from-blue-500 to-cyan-500",
       iconBg: "bg-blue-100",
@@ -204,6 +204,17 @@ function HoverDevCards() {
       name: "Downward Commission",
       Icon: BsPeopleFill,
       price: childCommission.toFixed(2),
+      gradient: "from-green-500 to-emerald-500",
+      bgColor: "bg-gradient-to-br from-green-500 to-emerald-500",
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+      showDollar: true, // New property for first three cards
+      showTokens: false, // New property for first three cards
+    },
+        {
+      name: "Business Commission",
+      Icon: BsPeopleFill,
+      price: businessCommission.toFixed(2),
       gradient: "from-green-500 to-emerald-500",
       bgColor: "bg-gradient-to-br from-green-500 to-emerald-500",
       iconBg: "bg-green-100",
