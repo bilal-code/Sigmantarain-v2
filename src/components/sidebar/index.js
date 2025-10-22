@@ -101,7 +101,7 @@ const SidebarOption = ({ Icon, title, selected, setSelected, open, route }) => {
         ${
           selected === title
             ? "bg-white text-[#0B98AC] shadow-[0_0_12px_rgba(255,255,255,0.6)]"
-            : "text-white hover:bg-white hover:text-[#0B98AC] hover:shadow-[0_0_8px_rgba(168,85,247,0.4)]"
+            : "text-white cursor-pointer hover:bg-white hover:text-[#0B98AC] hover:shadow-[0_0_8px_rgba(168,85,247,0.4)]"
         } h-10`}
     >
       <motion.div
