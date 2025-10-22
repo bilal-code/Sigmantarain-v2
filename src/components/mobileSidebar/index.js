@@ -46,7 +46,7 @@ const menuGroups = [
       },
       {
         icon: <FiDollarSign className="text-xs" />,
-        label: "Staking Platform",
+        label: "Staking Details",
         route: "/userdashboard/stackingPlatform",
       },
     ],

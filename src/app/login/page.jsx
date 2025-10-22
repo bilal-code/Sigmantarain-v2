@@ -58,7 +58,7 @@ export default function LoginPage() {
       localStorage.setItem("user", JSON.stringify(result.user));
 
       // Redirect based on role
-      if (result.user.role === "admin") router.push("/admindashboard");
+      if (result.user.role === "admin" || result.user.role === "sub-admin") router.push("/admindashboard");
       else router.push("/userdashboard");
 
     } catch (error) {

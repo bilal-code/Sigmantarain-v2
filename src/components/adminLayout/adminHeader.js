@@ -11,6 +11,7 @@ import { CoinbaseWalletSDK } from "@coinbase/wallet-sdk";
 // import { WalletConnectProvider } from "@walletconnect/web3-provider";
 import { WalletContext } from "@/context/WalletContext";
 import { fetchChildCommissions } from "@/lib/utils/getChildCommision";
+import { showSuccessToast,showErrorToast } from "@/lib/toast";
 
 const providerOptions = {
   coinbasewallet: {
@@ -90,6 +91,7 @@ const Header = (props) => {
 
   function handleLogout() {
     setIsLoggingOut(true);
+    showSuccessToast("Logged out successfully!");
     localStorage.removeItem("token");
     router.push("../");
   }
@@ -103,10 +105,10 @@ const handleCopyReferralCode = () => {
   // Copy the referral URL to clipboard
   navigator.clipboard.writeText(referralUrl)
     .then(() => {
-      alert("Referral link copied to clipboard!");
+       showSuccessToast("Referral link copied to clipboard!");
     })
     .catch(err => {
-      console.error("Failed to copy: ", err);
+      showErrorToast("Failed to copy referral link.");
     });
 };
   const profile = {
@@ -143,11 +145,11 @@ const handleCopyReferralCode = () => {
           {/* Wallet Connect */}
           <div className="ml-auto mr-4">
             {!walletAddress ? (
-              <button
+               <button
                 onClick={connectWallet}
-                  className="px-4 py-2 text-sm font-semibold
-                bg-[#0B98AC] border border-white/40
-                text-white rounded-lg shadow-[0_0_10px_rgba(168,85,247,0.4)]
+               className="px-4 py-2 text-sm font-semibold
+                bg-white border border-white/40
+                text-[#0B98AC] cursor-pointer rounded-lg shadow-[0_0_10px_rgba(168,85,247,0.4)]
                 hover:scale-105 transition-all"
               >
                 Connect Wallet
@@ -155,7 +157,7 @@ const handleCopyReferralCode = () => {
             ) : (
               <div
                 className="flex items-center gap-2 px-4 py-2 text-sm font-semibold
-                bg-[#1a0029] border border-[#0B98AC] text-[#0B98AC] rounded-lg
+                bg-white border border-[#0B98AC] text-[#0B98AC] rounded-lg
                 shadow-[0_0_8px_rgba(168,85,247,0.3)]"
               >
                 <span>💼 {shortenAddress(walletAddress)}</span>
