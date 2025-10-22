@@ -62,7 +62,7 @@ export default function PerformanceChart() {
             <CartesianGrid stroke="#0B98AC33" vertical={false} />
             <XAxis
               dataKey="month"
-              stroke="#5D6670"
+              stroke="#0B98AC"
               tick={{ fill: "#0B98AC", fontSize: 11 }}
               tickMargin={10}
             />

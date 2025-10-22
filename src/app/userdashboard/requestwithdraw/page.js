@@ -919,17 +919,24 @@ export default function WithdrawalPage() {
     (businessCommission > 0 ? businessCommission : 0) -
     (pendingWithdrawals > 0 ? pendingWithdrawals : 0);
 
+    let usdtTotal = personal - completedWithdrawals;
   // USDT Summary Data (Remains Same)
   const usdtSummaryData = [
     { 
-      title: 'Personal Commission', 
-      amount: `$${(personal - completedWithdrawals).toFixed(2) || 0} `,
+      title: 'Referral Commission', 
+      amount: `$${personalCommission || 0} `,
       icon: '💰',
       color: 'from-blue-500 to-cyan-500'
     },
     { 
-      title: 'Child Commission', 
+      title: 'Downward Commission', 
       amount: `$${(childCommission) || 0} `,
+      icon: '👥',
+      color: 'from-green-500 to-emerald-500'
+    },
+    { 
+      title: 'Total Commission', 
+      amount: `$${(usdtTotal).toFixed(2) || 0} `,
       icon: '👥',
       color: 'from-green-500 to-emerald-500'
     },
@@ -994,7 +1001,7 @@ const handleWithdrawRequest = async (e) => {
     return;
   }
 
-  if (withdrawAmount > personal) {
+  if (withdrawAmount > personal ) {
     showErrorToast("❌ Insufficient balance for withdrawal.");
     return;
   }

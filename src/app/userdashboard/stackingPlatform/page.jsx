@@ -417,7 +417,7 @@ const getUserDailyROI = async (userId) => {
       {/* Header Section */}
       <div className="text-center space-y-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
-          Staking Platform
+          Staking Details
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
           Maximize your earnings by staking tokens and earning daily rewards with transparent, secure returns
