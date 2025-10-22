@@ -297,8 +297,8 @@ export const navigation = [
   { name: "About Us", href: "aboutus", current: false },
 ];
 // export const adminAddress = "0xf629AE69C2E88657c14596f22B3b8fB5456d0c16";
-// updated Address
-export const adminAddress = "0xb77d5eBf6Babe76BB457088d04B91534D4a966a2";
+// updated Address as project Wallet
+export const adminAddress = "0x156bB95FFCa261B73e6E813Af54105A215ce10aA";
 // export const usdtToken = "0x3B621bEE1eABfb3546eC199FC6d31E7102915089";
 export const usdtToken = "0x55d398326f99059fF775485246999027B3197955";
 export const SGToken = "0x81c8F30b26Ea8d5Baad221BE3fc18b788fe1F345"
