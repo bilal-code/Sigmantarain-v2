@@ -1127,6 +1127,7 @@ const handleStakingWithdrawRequest = async (e) => {
           setIsModalOpen={setIsModalOpen}
           SkeletonLoader={SkeletonLoader}
           Loader={Loader}
+          usdtTotal={usdtTotal}
         />
       ) : (
         <StakingWithdrawalsContent
@@ -1136,6 +1137,7 @@ const handleStakingWithdrawRequest = async (e) => {
           setIsModalOpen={setIsStakingModalOpen}
           SkeletonLoader={SkeletonLoader}
           Loader={Loader}
+          total = {total}
         />
       )}
 
@@ -1286,6 +1288,7 @@ const USDTWithdrawalsContent = ({
   withdrawHistory, 
   setIsModalOpen,
   SkeletonLoader,
+  usdtTotal,
   Loader
 }) => {
   return (
@@ -1330,7 +1333,7 @@ const USDTWithdrawalsContent = ({
               onClick={() => setIsModalOpen(true)}
               className="px-6 py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 shadow-md"
             >
-              Request USDT Withdrawal
+             {usdtTotal >= 15 ? "Request USDT Withdrawal" : "Insufficient Balance"}
             </button>
           </div>
 
@@ -1393,7 +1396,8 @@ const StakingWithdrawalsContent = ({
   withdrawHistory, 
   setIsModalOpen,
   SkeletonLoader,
-  Loader
+  Loader,
+  total
 }) => {
   return (
     <>
@@ -1437,7 +1441,7 @@ const StakingWithdrawalsContent = ({
               onClick={() => setIsModalOpen(true)}
               className="px-6 py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 shadow-md"
             >
-              Request Staking Withdrawal
+              {total >= 1500 ? "Request Staking Withdrawal" : "Insufficient Balance"}
             </button>
           </div>
 
