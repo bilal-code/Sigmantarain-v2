@@ -211,7 +211,7 @@ export default function UpgradePlanPage() {
 
       {/* Header Section */}
       <div className="text-center space-y-4 mb-8">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#0B98AC] to-blue-600 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
           Investment Packages
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">

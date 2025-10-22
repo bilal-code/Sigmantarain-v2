@@ -67,7 +67,7 @@ function Userdash() {
     <div className="p-2 sm:p-3 bg-white flex flex-col gap-3 sm:gap-3">
       {/* HEADER */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl pt-4 ml-6 sm:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-[#0B98AC] drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+        <h1 className="pt-4 ml-6 text-2xl sm:text-3xl md:text-4xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
           User Dashboard
         </h1>
       </div>
