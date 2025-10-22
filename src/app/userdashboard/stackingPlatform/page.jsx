@@ -237,6 +237,7 @@ import { jwtDecode } from "jwt-decode";
 import { WalletContext } from "@/context/WalletContext";
 import { Contract, ethers } from "ethers";
 import { adminAddress, SGToken, SGTokenAbi } from "@/content/data";
+import { showSuccessToast, showErrorToast } from "@/lib/toast";
 import axios from "axios";
 
 const uplineLevels = [
@@ -253,170 +254,169 @@ const uplineLevels = [
 ];
 
 export default function StackingPlatformPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stackAmount, setStackAmount] = useState("");
-  const [duration, setDuration] = useState("");
-  const [userId, setUserId] = useState(null);
-  const [stakingData, setStakingData] = useState([]);
-  const [stakingAmount, setStakingAmount] = useState(0);
-  const [dailyROI, setDailyROI] = useState(0);
+const [isModalOpen, setIsModalOpen] = useState(false);
+const [stackAmount, setStackAmount] = useState("");
+const [duration, setDuration] = useState("");
+const [userId, setUserId] = useState(null);
+const [stakingData, setStakingData] = useState([]);
+const [stakingAmount, setStakingAmount] = useState(0);
+const [dailyROI, setDailyROI] = useState(0);
 
+const { walletAddress, signer } = useContext(WalletContext);
 
-  const { walletAddress, signer } = useContext(WalletContext);
 const getUserDailyROI = async (userId) => {
   try {
-    if (!userId) {
-      throw new Error("User ID is required to fetch Daily ROI data.");
-    }
+    if (!userId) throw new Error("User ID is required to fetch Daily ROI data.");
 
-    // 🔹 API call
     const response = await axios.get(`/api/user/daily-roi?userId=${userId}`);
     console.log("User Daily ROI Data:", response.data);
     setDailyROI(response.data.data);
-    // ✅ Success
-    // return response.data;
+
+    showSuccessToast("✅ Daily ROI data fetched successfully!");
   } catch (error) {
     console.error("❌ Error fetching user Daily ROI:", error);
-    return {
-      success: false,
-      message:
-        error.response?.data?.message || error.message || "Something went wrong.",
-    };
+    showErrorToast(error.response?.data?.message || "Failed to fetch daily ROI data.");
   }
 };
-  // Fetch user staking data
-  const FetchStackingData = async (userId) => {
-    try {
-      const response = await axios.get(`/api/user/staking?userId=${userId}`);
-      if (response.data.success) {
-        let totalStaked = response.data.data;
-        totalStaked = totalStaked.filter((stake) => stake.isActive);
-        totalStaked = totalStaked.reduce((acc, stake) => acc + stake.stakedAmount, 0);
-        console.log("Total Staked Amount:", totalStaked);
-        setStakingAmount(totalStaked);
-        setStakingData(response?.data?.data);
-        // console.log("Fetched Staking Data:", totalStaked);
-      }
-    } catch (error) {
-      console.error("Error fetching staking data:", error);
+
+// 🔹 Fetch user staking data
+const FetchStackingData = async (userId) => {
+  try {
+    const response = await axios.get(`/api/user/staking?userId=${userId}`);
+    if (response.data.success) {
+      let totalStaked = response.data.data;
+      totalStaked = totalStaked.filter((stake) => stake.isActive);
+      totalStaked = totalStaked.reduce((acc, stake) => acc + stake.stakedAmount, 0);
+
+      console.log("Total Staked Amount:", totalStaked);
+      setStakingAmount(totalStaked);
+      setStakingData(response?.data?.data);
+
+      showSuccessToast("🎉 Staking data loaded successfully!");
     }
-  };
+  } catch (error) {
+    console.error("Error fetching staking data:", error);
+    showErrorToast("❌ Failed to load staking data. Please try again.");
+  }
+};
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUserId(decodedToken?.id);
-      FetchStackingData(decodedToken?.id);
-      getUserDailyROI(decodedToken?.id);
-    }
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    setUserId(decodedToken?.id);
+    FetchStackingData(decodedToken?.id);
+    getUserDailyROI(decodedToken?.id);
+  }
+}, []);
 
-  function convertDurationToDate(duration) {
-    const now = new Date();
-    const match = duration.match(/([\d.]+)([ymdh])/i);
-    if (!match) throw new Error("Invalid duration format");
+function convertDurationToDate(duration) {
+  const now = new Date();
+  const match = duration.match(/([\d.]+)([ymdh])/i);
+  if (!match) throw new Error("Invalid duration format");
 
-    const value = parseFloat(match[1]);
-    const unit = match[2].toLowerCase();
+  const value = parseFloat(match[1]);
+  const unit = match[2].toLowerCase();
 
-    switch (unit) {
-      case "y":
-        now.setFullYear(now.getFullYear() + value);
-        break;
-      case "m":
-        now.setMonth(now.getMonth() + value);
-        break;
-      case "d":
-        now.setDate(now.getDate() + value);
-        break;
-      case "h":
-        now.setHours(now.getHours() + value);
-        break;
-      default:
-        throw new Error("Unsupported duration unit");
-    }
-
-    return now.toISOString();
+  switch (unit) {
+    case "y":
+      now.setFullYear(now.getFullYear() + value);
+      break;
+    case "m":
+      now.setMonth(now.getMonth() + value);
+      break;
+    case "d":
+      now.setDate(now.getDate() + value);
+      break;
+    case "h":
+      now.setHours(now.getHours() + value);
+      break;
+    default:
+      throw new Error("Unsupported duration unit");
   }
 
-  // ROI multiplier based on selected duration
-  const getDurationMultiplier = () => {
-    switch (duration) {
-      case "6m":
-        return 1;
-      case "1y":
-        return 1.2;
-      case "1.5y":
-        return 1.5;
-      case "2y":
-        return 2;
-      default:
-        return 1;
+  return now.toISOString();
+}
+
+const getDurationMultiplier = () => {
+  switch (duration) {
+    case "6m":
+      return 1;
+    case "1y":
+      return 1.2;
+    case "1.5y":
+      return 1.5;
+    case "2y":
+      return 2;
+    default:
+      return 1;
+  }
+};
+
+// ROI Calculation
+const minRoi =
+  stackAmount && duration
+    ? 0.007 * Number(stackAmount) * getDurationMultiplier()
+    : 0;
+const maxRoi =
+  stackAmount && duration
+    ? 0.011 * Number(stackAmount) * getDurationMultiplier()
+    : 0;
+
+// ✅ Handle staking action
+const handleStack = async () => {
+  if (!walletAddress || !signer) {
+    showErrorToast("⚠️ Please connect your wallet first.");
+    return;
+  }
+  if (!stackAmount || isNaN(stackAmount) || Number(stackAmount) <= 0) {
+    showErrorToast("⚠️ Please enter a valid staking amount.");
+    return;
+  }
+  if (!duration) {
+    showErrorToast("⚠️ Please select a staking duration.");
+    return;
+  }
+
+  const durationDate = convertDurationToDate(duration);
+  console.log("Duration Date:", durationDate);
+
+  try {
+    const contract = new Contract(SGToken, SGTokenAbi, signer);
+    const parsedAmount = ethers.parseUnits(stackAmount.toString(), 18);
+    console.log("Parsed Amount:", parsedAmount.toString());
+
+    const tx = await contract.transfer(adminAddress, parsedAmount);
+    const receipt = await tx.wait();
+
+    if (!receipt.status) throw new Error("Blockchain transaction failed");
+
+    console.log("Duration Time:", durationDate);
+    const res = await axios.post("/api/user/staking", {
+      userId,
+      stackAmount,
+      durationDate,
+    });
+
+    if (res) {
+      setIsModalOpen(true);
+      FetchStackingData(userId);
+      setStackAmount("");
+      setDuration("");
+
+      showSuccessToast("🎉 Staking successful! Your tokens have been locked.");
     }
-  };
-
-  // Calculate ROI
-  const minRoi =
-    stackAmount && duration
-      ? 0.007 * Number(stackAmount) * getDurationMultiplier()
-      : 0;
-  const maxRoi =
-    stackAmount && duration
-      ? 0.011 * Number(stackAmount) * getDurationMultiplier()
-      : 0;
-
-  // Handle staking action
-  const handleStack = async () => {
-    if (!walletAddress || !signer) {
-      alert("Please connect your wallet.");
-      return;
-    }
-    if (!stackAmount || isNaN(stackAmount) || Number(stackAmount) <= 0) {
-      alert("Please enter a valid stack amount.");
-      return;
-    }
-    if (!duration) {
-      alert("Please select staking duration.");
-      return;
-    }
-    const durationDate = convertDurationToDate(duration);
-    console.log("Duration Date:", durationDate);
-
-    try {
-      const contract = new Contract(SGToken, SGTokenAbi, signer);
-      const parsedAmount = ethers.parseUnits(stackAmount.toString(), 18);
-
-      console.log("Parsed Amount:", parsedAmount.toString());
-
-      const tx = await contract.transfer(adminAddress, parsedAmount);
-      const receipt = await tx.wait();
-
-      if (!receipt.status) throw new Error("Blockchain transaction failed");
-      console.log("duration Time:", durationDate);
-      const res = await axios.post("/api/user/staking", {
-        userId,
-        stackAmount,
-        durationDate,
-      });
-
-      if (res) {
-        setIsModalOpen(true);
-        FetchStackingData(userId);
-        setStackAmount("");
-        setDuration("");
-      }
-    } catch (error) {
-      console.error("Error during staking:", error);
-      alert("Staking failed. Please try again.");
-    }
-  };
+  } catch (error) {
+    console.error("Error during staking:", error);
+    showErrorToast("❌ Staking failed. Please try again.");
+  }
+};
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-gray-800 p-4 sm:p-6 space-y-8 font-sans">
       {/* Header Section */}
       <div className="text-center space-y-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
           Staking Details
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">

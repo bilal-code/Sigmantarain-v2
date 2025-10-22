@@ -1095,7 +1095,7 @@ export default function WithdrawalPage() {
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-gray-800 p-4 sm:p-6 space-y-8 font-sans">
       {/* Header Section */}
       <div className="text-center space-y-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#0B98AC] to-blue-600 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-[#0B98AC] bg-clip-text text-transparent">
           {activeTab === "usdt" ? "USDT Withdrawals" : "Staking Withdrawals"}
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
@@ -1112,7 +1112,7 @@ export default function WithdrawalPage() {
               className={`px-6 py-2 rounded-md font-semibold text-sm transition-all duration-300 ${
                 activeTab === "usdt"
                   ? "bg-[#0B98AC] text-white shadow-md"
-                  : "text-gray-600 hover:text-gray-800"
+                  : "text-gray-600 cursor-pointer hover:text-gray-800"
               }`}
             >
               USDT
@@ -1122,7 +1122,7 @@ export default function WithdrawalPage() {
               className={`px-6 py-2 rounded-md font-semibold text-sm transition-all duration-300 ${
                 activeTab === "staking"
                   ? "bg-[#0B98AC] text-white shadow-md"
-                  : "text-gray-600 hover:text-gray-800"
+                  : "text-gray-600 cursor-pointer hover:text-gray-800"
               }`}
             >
               Staking
@@ -1210,7 +1210,7 @@ export default function WithdrawalPage() {
 
                   <button
                     onClick={handleWithdrawRequest}
-                    className="w-full py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                    className="w-full cursor-pointer py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
                   >
                     Submit Withdrawal Request
                   </button>
@@ -1279,7 +1279,7 @@ export default function WithdrawalPage() {
 
                   <button
                     onClick={handleStakingWithdrawRequest}
-                    className="w-full py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                    className="w-full cursor-pointer py-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
                   >
                     Submit Withdrawal Request
                   </button>
@@ -1364,7 +1364,7 @@ const USDTWithdrawalsContent = ({
               className={`px-6 py-3 font-semibold rounded-xl transition-all duration-300 shadow-md
     ${
       usdtTotal >= 15
-        ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white hover:shadow-lg transform hover:scale-[1.02]"
+        ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-[1.02]"
         : "bg-gray-400 text-gray-200 cursor-not-allowed"
     }`}
             >
@@ -1499,7 +1499,7 @@ const StakingWithdrawalsContent = ({
               disabled={total < 1500}
               className={`relative px-6 py-3 font-semibold rounded-xl text-white transition-all duration-300 ${
                 total >= 1500
-                  ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 shadow-[0_0_15px_#0B98AC] hover:shadow-[0_0_25px_#0B98AC] hover:scale-[1.03]"
+                  ? "bg-gradient-to-r from-[#0B98AC] to-blue-600 cursor-pointer shadow-[0_0_15px_#0B98AC] hover:shadow-[0_0_25px_#0B98AC] hover:scale-[1.03]"
                   : "bg-gray-400 cursor-not-allowed opacity-70"
               }`}
             >
