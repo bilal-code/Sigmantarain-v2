@@ -1,232 +1,3 @@
-// "use client";
-
-// import { useState, Fragment, useEffect, useContext } from "react";
-// import { Dialog, Transition } from "@headlessui/react";
-// import { jwtDecode } from "jwt-decode";
-// import { WalletContext } from "@/context/WalletContext";
-// import { Contract, ethers } from "ethers";
-// import { adminAddress, SGToken, SGTokenAbi } from "@/content/data";
-// import axios from "axios";
-
-// const uplineLevels = [
-//   { level: 1, percent: 15 },
-//   { level: 2, percent: 10 },
-//   { level: 3, percent: 10 },
-//   { level: 4, percent: 10 },
-//   { level: 5, percent: 10 },
-//   { level: 6, percent: 8 },
-//   { level: 7, percent: 8 },
-//   { level: 8, percent: 8 },
-//   { level: 9, percent: 10 },
-//   { level: 10, percent: 11 },
-// ];
-
-// export default function StackingPlatformPage() {
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [stackAmount, setStackAmount] = useState("");
-//   const [roi, setRoi] = useState(null);
-//   const [userId, setUserId] = useState(null);
-//   const [stakingData, setStakingData] = useState([]);
-//   const { walletAddress, signer } = useContext(WalletContext);
-
-//   // Fetch user staking data
-//   const FetchStackingData = async (userId) => {
-//     try {
-//       const response = await axios.get(`/api/user/staking?userId=${userId}`);
-//       if (response.data.success) {
-//         setStakingData(response.data.data);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching staking data:", error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       const decodedToken = jwtDecode(token);
-//       setUserId(decodedToken?.id);
-//       FetchStackingData(decodedToken?.id);
-//     }
-//   }, []);
-
-//   // Handle staking action
-//   const handleStack = async () => {
-//     if (!walletAddress || !signer) {
-//       alert("Please connect your wallet.");
-//       return;
-//     }
-//     if (!stackAmount || isNaN(stackAmount) || Number(stackAmount) <= 0) {
-//       alert("Please enter a valid stack amount.");
-//       return;
-//     }
-
-//     const contract = new Contract(SGToken, SGTokenAbi, signer);
-//     const parsedAmount = ethers.parseUnits(stackAmount.toString(), 18);
-//     console.log("parsedAmount",parsedAmount)
-//     const tx = await contract.transfer(adminAddress, parsedAmount);
-//     const receipt = await tx.wait();
-
-//     if (!receipt.status) throw new Error("Blockchain transaction failed");
-
-//     const res = await axios.post("/api/user/staking", { userId, stackAmount });
-//     if (res) {
-//       setIsModalOpen(true);
-//       FetchStackingData(userId);
-//     }
-//   };
-
-//   // Calculate ROI for stat card
-//   const minRoi = stackAmount ? 0.007 * Number(stackAmount) : 0;
-//   const maxRoi = stackAmount ? 0.011 * Number(stackAmount) : 0;
-
-//   return (
-//     <main className="min-h-screen bg-gradient-to-b from-[#0b0017] via-[#1a0033] to-[#0b0017] text-white p-6 space-y-10 font-sans">
-//       <h1 className="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-blue-400 to-purple-500 text-center mb-8">
-//         Stacking Platform
-//       </h1>
-
-//       {/* Stat Cards */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-//         <StatBox label="Entered Amount" value={`${stackAmount || 0} Tokens`} color="text-yellow-400" />
-//         <StatBox label="Estimated ROI Min" value={`${minRoi.toFixed(2)} Tokens`} color="text-green-400" />
-//         <StatBox label="Estimated ROI Max" value={`${maxRoi.toFixed(2)} Tokens`} color="text-blue-400" />
-//         <StatBox label="Upline Levels" value={uplineLevels.length} color="text-purple-400" />
-//       </div>
-
-//       {/* Stack Input Section */}
-//       <section className="bg-[#1c1c35]/80 backdrop-blur-md rounded-2xl shadow-xl border border-purple-600/40 p-6 space-y-6">
-//         <p className="text-purple-200 text-center">
-//           Stake your amount and earn <b className="text-blue-400">0.7% ~ 1.1% daily ROI</b>.
-//           <br />
-//           <b className="text-purple-400">15% of your ROI</b> will be distributed to your 10-level upline.
-//         </p>
-
-//         <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-//           <input
-//             type="number"
-//             placeholder="Enter stack amount"
-//             value={stackAmount}
-//             onChange={(e) => setStackAmount(e.target.value)}
-//             className="w-full sm:w-1/2 bg-[#272747] text-white border border-purple-500/40 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
-//           />
-//           <button
-//             onClick={handleStack}
-//             className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-[0_0_12px_rgba(147,51,234,0.4)]"
-//           >
-//             Stack Now
-//           </button>
-//         </div>
-
-//         {/* Upline Table */}
-//         <div className="overflow-x-auto mt-6">
-//           <table className="w-full text-sm border-separate border-spacing-y-2">
-//             <thead>
-//               <tr className="text-purple-300 border-b border-purple-500/20">
-//                 <th className="px-4 py-3 text-left">Level</th>
-//                 <th className="px-4 py-3 text-left">Upline Share (%)</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {uplineLevels.map((lvl) => (
-//                 <tr
-//                   key={lvl.level}
-//                   className="bg-[#1f1f3a]/80 hover:bg-[#292952] transition-all rounded-lg shadow-inner"
-//                 >
-//                   <td className="px-4 py-3 text-center">Level {lvl.level}</td>
-//                   <td className="px-4 py-3 text-center">{lvl.percent}%</td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </section>
-
-//       {/* Staking History Table */}
-//       {stakingData.length > 0 && (
-//         <section className="bg-[#1c1c35]/80 rounded-2xl shadow-xl border border-blue-500/30 p-6">
-//           <h2 className="text-2xl font-semibold text-blue-300 mb-4 text-center">Your Staking History</h2>
-//           <div className="overflow-x-auto">
-//             <table className="w-full text-sm border-separate border-spacing-y-2">
-//               <thead>
-//                 <tr className="text-blue-200 border-b border-blue-500/30">
-//                   <th className="px-4 py-3">Amount</th>
-//                   <th className="px-4 py-3">Status</th>
-//                   <th className="px-4 py-3">Start Date</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {stakingData.map((stake, idx) => (
-//                   <tr key={idx} className="bg-[#272747]/80 hover:bg-[#3929a2] rounded-lg">
-//                     <td className="px-4 py-3 text-center">{stake.stakedAmount} Tokens</td>
-//                     <td className="px-4 py-3 text-center">{stake.isActive ? "✅ Active" : "❌ Inactive"}</td>
-//                     <td className="px-4 py-3 text-center">{new Date(stake.startDate).toLocaleDateString()}</td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         </section>
-//       )}
-
-//       {/* ROI Modal */}
-//       <Transition show={isModalOpen} as={Fragment}>
-//         <Dialog onClose={() => setIsModalOpen(false)} className="relative z-50">
-//           <Transition.Child
-//             as={Fragment}
-//             enter="ease-out duration-200"
-//             enterFrom="opacity-0"
-//             enterTo="opacity-100"
-//             leave="ease-in duration-150"
-//             leaveFrom="opacity-100"
-//             leaveTo="opacity-0"
-//           >
-//             <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
-//           </Transition.Child>
-
-//           <div className="fixed inset-0 flex items-center justify-center p-4">
-//             <Transition.Child
-//               as={Fragment}
-//               enter="ease-out duration-200"
-//               enterFrom="opacity-0 scale-90"
-//               enterTo="opacity-100 scale-100"
-//               leave="ease-in duration-150"
-//               leaveFrom="opacity-100 scale-100"
-//               leaveTo="opacity-0 scale-90"
-//             >
-//               <Dialog.Panel className="w-full max-w-md rounded-2xl bg-[#141428] border border-purple-600/30 p-6 shadow-[0_0_20px_rgba(147,51,234,0.4)]">
-//                 <Dialog.Title className="text-xl font-bold text-purple-300 mb-4 text-center">
-//                   Estimated Daily ROI
-//                 </Dialog.Title>
-//                 <div className="space-y-4 text-center">
-//                   <p className="text-lg text-blue-300">You will earn approximately:</p>
-//                   <p className="text-2xl font-bold text-blue-400">{minRoi.toFixed(2)} ~ {maxRoi.toFixed(2)} Tokens/day</p>
-//                   <p className="text-sm text-gray-400">(15% of this ROI will be shared with your upline.)</p>
-//                   <button
-//                     onClick={() => setIsModalOpen(false)}
-//                     className="w-full py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-lg hover:scale-105 transition-transform duration-300 shadow-[0_0_10px_rgba(147,51,234,0.4)]"
-//                   >
-//                     Close
-//                   </button>
-//                 </div>
-//               </Dialog.Panel>
-//             </Transition.Child>
-//           </div>
-//         </Dialog>
-//       </Transition>
-//     </main>
-//   );
-// }
-
-// // --- Stat Box Component ---
-// function StatBox({ label, value, color }) {
-//   return (
-//     <div className="bg-[#1f1f3a]/90 rounded-xl shadow-lg border border-purple-600/30 p-4 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-//       <p className={`text-sm font-semibold ${color}`}>{label}</p>
-//       <p className="text-xl font-bold mt-2 text-white">{value}</p>
-//     </div>
-//   );
-// }
 
 
 "use client";
@@ -286,7 +57,7 @@ const FetchStackingData = async (userId) => {
     if (response.data.success) {
       let totalStaked = response.data.data;
        // ✅ Admin: only inactive stakes
-      if (userId === "68f8fca197443eb5839859e1") {
+      if (userId === "68f9f9980f83d44f6819dabc") {
         totalStaked = totalStaked.filter((stake) => !stake.isActive || stake.isActive);
       } 
       // ✅ Normal users: only active stakes
@@ -541,14 +312,14 @@ const handleStack = async () => {
                         <td className="py-3 px-4">
   <span
     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-      userId === "68f8fca197443eb5839859e1"
+      userId === "68f9f9980f83d44f6819dabc"
         ? "bg-green-100 text-green-800" // admin ke liye hamesha green
         : stake.isActive
         ? "bg-green-100 text-green-800"
         : "bg-red-100 text-red-800"
     }`}
   >
-    {userId === "68f8fca197443eb5839859e1"
+    {userId === "68f9f9980f83d44f6819dabc"
       ? "Active"
       : stake.isActive
       ? "Active"
