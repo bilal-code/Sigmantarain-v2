@@ -83,7 +83,7 @@ const findParentsUpTo5 = async (referralCode) => {
 export async function PUT(request) {
   try {
     const { userId, packageId, status, tokenAddress } = await request.json();
-    console.log("Request data:", { userId, packageId, status, tokenAddress });
+    // console.log("Request data:", { userId, packageId, status, tokenAddress });
     if (!userId || !packageId || !status) {
       return NextResponse.json(
         { error: "userId, packageId, and status are required" },
@@ -150,7 +150,7 @@ export async function PUT(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error updating package status:", error);
+    // console.error("Error updating package status:", error);
     return NextResponse.json(
       { error: "Internal Server Error", details: error.message },
       { status: 500 }

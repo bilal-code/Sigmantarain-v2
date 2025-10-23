@@ -44,7 +44,7 @@ const Page = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    console.log("you have chosen:",option);
+    // console.log("you have chosen:",option);
     // if (onSelect) {
     // //   onSelect(option);
     // }

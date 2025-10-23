@@ -58,9 +58,9 @@ const Header = (props) => {
       const address = await signer.getAddress();
       setWalletAddress(address);
       setSigner(signer);
-      console.log("Wallet connected:", address);
+      // console.log("Wallet connected:", address);
     } catch (err) {
-      console.error("Wallet connection failed:", err);
+      // console.error("Wallet connection failed:", err);
     }
   };
 
@@ -110,7 +110,7 @@ const handleCopyReferralCode = () => {
       showSuccessToast("Referral link copied to clipboard!");
     })
     .catch(err => {
-      console.error("Failed to copy: ", err);
+      // console.error("Failed to copy: ", err);
       showErrorToast("Failed to copy referral link.");
     });
 };
@@ -141,9 +141,9 @@ const handleCopyReferralCode = () => {
             className="block lg:hidden rounded-md p-2 hover:bg-[#2a003f]/40 transition"
           >
             <span className="relative block h-5 w-5">
-              <span className="absolute block w-full h-0.5 bg-[#0B98AC] top-1" />
-              <span className="absolute block w-full h-0.5 bg-[#0B98AC] top-2" />
-              <span className="absolute block w-full h-0.5 bg-[#0B98AC] top-3" />
+              <span className="absolute block w-full h-0.5 bg-white top-1" />
+              <span className="absolute block w-full h-0.5 bg-white top-2" />
+              <span className="absolute block w-full h-0.5 bg-white top-3" />
             </span>
           </button>
 

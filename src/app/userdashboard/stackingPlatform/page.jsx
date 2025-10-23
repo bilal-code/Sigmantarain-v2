@@ -269,12 +269,12 @@ const getUserDailyROI = async (userId) => {
     if (!userId) throw new Error("User ID is required to fetch Daily ROI data.");
 
     const response = await axios.get(`/api/user/daily-roi?userId=${userId}`);
-    console.log("User Daily ROI Data:", response.data);
+    // console.log("User Daily ROI Data:", response.data);
     setDailyROI(response.data.data);
 
     showSuccessToast("✅ Daily ROI data fetched successfully!");
   } catch (error) {
-    console.error("❌ Error fetching user Daily ROI:", error);
+    // console.error("❌ Error fetching user Daily ROI:", error);
     showErrorToast(error.response?.data?.message || "Failed to fetch daily ROI data.");
   }
 };
@@ -288,14 +288,14 @@ const FetchStackingData = async (userId) => {
       totalStaked = totalStaked.filter((stake) => stake.isActive);
       totalStaked = totalStaked.reduce((acc, stake) => acc + stake.stakedAmount, 0);
 
-      console.log("Total Staked Amount:", totalStaked);
+      // console.log("Total Staked Amount:", totalStaked);
       setStakingAmount(totalStaked);
       setStakingData(response?.data?.data);
 
       showSuccessToast("🎉 Staking data loaded successfully!");
     }
   } catch (error) {
-    console.error("Error fetching staking data:", error);
+    // console.error("Error fetching staking data:", error);
     showErrorToast("❌ Failed to load staking data. Please try again.");
   }
 };
@@ -379,19 +379,19 @@ const handleStack = async () => {
   }
 
   const durationDate = convertDurationToDate(duration);
-  console.log("Duration Date:", durationDate);
+  // console.log("Duration Date:", durationDate);
 
   try {
     const contract = new Contract(SGToken, SGTokenAbi, signer);
     const parsedAmount = ethers.parseUnits(stackAmount.toString(), 18);
-    console.log("Parsed Amount:", parsedAmount.toString());
+    // console.log("Parsed Amount:", parsedAmount.toString());
 
     const tx = await contract.transfer(adminAddress, parsedAmount);
     const receipt = await tx.wait();
 
     if (!receipt.status) throw new Error("Blockchain transaction failed");
 
-    console.log("Duration Time:", durationDate);
+    // console.log("Duration Time:", durationDate);
     const res = await axios.post("/api/user/staking", {
       userId,
       stackAmount,
@@ -407,7 +407,7 @@ const handleStack = async () => {
       showSuccessToast("🎉 Staking successful! Your tokens have been locked.");
     }
   } catch (error) {
-    console.error("Error during staking:", error);
+    // console.error("Error during staking:", error);
     showErrorToast("❌ Staking failed. Please try again.");
   }
 };

@@ -21,7 +21,7 @@ const PackageRequest = () => {
       const res = await axios.get("/api/user/buy-package");
       setRequests(res.data.boughtPackages || []);
     } catch (err) {
-      console.error("Error fetching requests:", err);
+      // console.error("Error fetching requests:", err);
     } finally {
       setLoading(false);
     }
@@ -62,7 +62,7 @@ const PackageRequest = () => {
       }
       fetchRequests();
     } catch (err) {
-      console.error("Error updating status:", err);
+      // console.error("Error updating status:", err);
       alert("Failed to update status");
     }
   };

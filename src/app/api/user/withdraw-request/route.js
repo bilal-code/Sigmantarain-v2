@@ -92,7 +92,7 @@ export async function GET(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching withdraw details:", error);
+    // console.error("Error fetching withdraw details:", error);
     return NextResponse.json(
       {
         success: false,

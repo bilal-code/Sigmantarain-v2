@@ -29,34 +29,34 @@ export default function AdminWithdrawalPage() {
       const data = res.data.data.filter((item) => item.type === "usdt");
       const stakData = res.data.data.filter((item) => item.type === "tokens");
       setStakingWithdrawl(stakData || []);
-      console.log("usdt withdrawl data",data)
+      // console.log("usdt withdrawl data",data)
       setWithdrawals(data || []);
 const totalWithdraw = Array.isArray(res.data.data)
   ? res.data.data
       .filter((item) => item.type === "tokens" && item.status === "accepted")
       .reduce((acc, item) => acc + (Number(item.withdrawAmount) || 0), 0)
   : 0;
-      console.log("total withdrawl amount", totalWithdraw); 
+      // console.log("total withdrawl amount", totalWithdraw); 
       setTotalWithdraw(totalWithdraw);
       const res2 = await axios.get("/api/user/staking");
       // setStakingWithdrawl(res2.data.data || []);
-      console.log("staking withdrawl data", res2.data.data.length);
+      // console.log("staking withdrawl data", res2.data.data.length);
       setStakingUsers(res2.data.data.length || 0);
 
       const acceptedStaking = Array.isArray(res.data.data)
   ? res.data.data
       .filter((item) => item.type === "tokens" && item.status === "accepted")
   : 0;
-  console.log("accepted staking amount", acceptedStaking.length);
+  // console.log("accepted staking amount", acceptedStaking.length);
   setAcceptedStaking(acceptedStaking.length)
   const rejectedStaking = Array.isArray(res.data.data)
   ? res.data.data
       .filter((item) => item.type === "tokens" && item.status === "rejected")
   : 0;
-  console.log("rejected staking amount", rejectedStaking.length);
+  // console.log("rejected staking amount", rejectedStaking.length);
   setRejectedStaking(rejectedStaking.length);
     } catch (err) {
-      console.error("Error fetching withdrawals:", err);
+      // console.error("Error fetching withdrawals:", err);
       // alert("Failed to fetch withdrawals.");
     } finally {
       setLoading(false);
@@ -85,12 +85,12 @@ const totalWithdraw = Array.isArray(res.data.data)
           detail.withdrawAmount.toString(),
           6
         );
-        console.log("USDT transferring...");
+        // console.log("USDT transferring...");
         const tx = await contract.transfer(detail.from, parsedAmount);
-        console.log("Transaction sent:", tx.hash);
+        // console.log("Transaction sent:", tx.hash);
         const receipt = await tx.wait();
-        if (!receipt.status) throw new Error("Blockchain transaction failed.");
-        console.log("Transaction confirmed.");
+        // if (!receipt.status) throw new Error("Blockchain transaction failed.");
+        // console.log("Transaction confirmed.");
 const res = await fetch("/api/user/withdraw-request/updateStatus", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -119,23 +119,23 @@ const res = await fetch("/api/user/withdraw-request/updateStatus", {
         // const tx = await contract.transfer(detail?.from, parsedAmount);
         // updated Code
       const tokenAmount = ethers.parseUnits(detail?.withdrawAmount.toString(), 18);
-        console.log("tokenAmount",tokenAmount)
+        // console.log("tokenAmount",tokenAmount)
            const tokenContract = new ethers.Contract(SGToken, SGTokenAbi, signer);
-           console.log("Approving token transfer...");
+          //  console.log("Approving token transfer...");
            const Tokentx = await tokenContract.approve(
     transferSGTokenFromContract, // spender (yani aapka main contract)
    tokenAmount
   );
    await Tokentx.wait();
-   console.log("✅ Allowance given to AdminTransferToUser contract");
+  //  console.log("✅ Allowance given to AdminTransferToUser contract");
   
    const contract = new Contract(transferSGTokenFromContract, transferSGTokenFromContractAbi, signer);
-      console.log("SG transferring...");
+      // console.log("SG transferring...");
         const tx = await contract.approveAndSend(detail?.from, tokenAmount);    
-        console.log("Transaction sent:", tx.hash);
+        // console.log("Transaction sent:", tx.hash);
         const receipt = await tx.wait();
         if (!receipt.status) throw new Error("Blockchain transaction failed.");
-        console.log("Transaction confirmed.");
+        // console.log("Transaction confirmed.");
         const res = await fetch("/api/user/withdraw-request/updateStatus", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -194,7 +194,7 @@ const res = await fetch("/api/user/withdraw-request/updateStatus", {
       
       
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       alert(err.message || "Something went wrong!");
     } finally {
       // Reset loading states

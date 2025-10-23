@@ -36,7 +36,7 @@ export async function GET(req) {
 
     return NextResponse.json({ success: true, user }, { status: 200 });
   } catch (error) {
-    console.error("❌ Error fetching user by ID from headers:", error);
+    // console.error("❌ Error fetching user by ID from headers:", error);
     return NextResponse.json(
       { success: false, message: "Internal Server Error" },
       { status: 500 }

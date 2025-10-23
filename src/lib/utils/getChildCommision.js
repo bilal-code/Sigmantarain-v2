@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchChildCommissions = async (code) => {
     if (!code) {
-      console.error("❌ code is required");
+      // console.error("❌ code is required");
       return;
     }
 
@@ -16,11 +16,11 @@ export const fetchChildCommissions = async (code) => {
         // setChildCommissions(response.data);
         return response.data?.totalCommissionBy3Children;
       } else {
-        console.warn("⚠️ No data found:", response.data);
+        // console.warn("⚠️ No data found:", response.data);
         // setChildCommissions(null);
       }
     } catch (error) {
-      console.error("❌ Error fetching child commissions:", error);
+      // console.error("❌ Error fetching child commissions:", error);
     //   setChildCommissions(null);
     } 
   };

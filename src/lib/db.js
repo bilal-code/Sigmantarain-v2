@@ -4,7 +4,7 @@ let isConnected = false; // global variable to track connection
 
 const connectDB = async () => {
   if (isConnected) {
-    console.log("MongoDB is already connected.");
+    // console.log("MongoDB is already connected.");
     return;
   }
 
@@ -14,11 +14,11 @@ process.env.MONGODB_URI    );
 
     isConnected = true;
 
-    console.log(
-      `MongoDB connected !! DB Host: ${connectionInstance.connection.host}`
-    );
+    // console.log(
+    //   `MongoDB connected !! DB Host: ${connectionInstance.connection.host}`
+    // );
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    // console.error("MongoDB connection error:", error);
     process.exit(1);
   }
 };

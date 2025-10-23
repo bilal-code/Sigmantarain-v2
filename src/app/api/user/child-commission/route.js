@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const { code } = await request.json();
-    console.log("Received code:", code);
+    // console.log("Received code:", code);
     if (!code) {
       return NextResponse.json(
         { error: "Referral code is required" },
@@ -74,7 +74,7 @@ export async function POST(request) {
     );
 
   } catch (error) {
-    console.error("Error calculating child commissions:", error);
+    // console.error("Error calculating child commissions:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -109,7 +109,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching user packages:", error);
+    // console.error("Error fetching user packages:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

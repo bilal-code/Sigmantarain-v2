@@ -33,7 +33,7 @@ export default function ProfilePage() {
           setUser(boughtRes.data.user);
         }
       } catch (err) {
-        console.error("Error fetching profile:", err);
+        // console.error("Error fetching profile:", err);
       } finally {
         setLoading(false);
       }

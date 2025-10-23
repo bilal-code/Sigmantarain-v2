@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Matrix = ( {numbers}  ) => {
-  console.log("this is array from matrix",numbers);
+  // console.log("this is array from matrix",numbers);
   return (
     <div className="flex flex-col space-y-2"> {/* Container for circles */}
       {numbers.map((number, index) => (

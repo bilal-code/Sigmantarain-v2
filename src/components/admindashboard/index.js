@@ -17,7 +17,7 @@ function AdminHoverDevCards() {
       try {
         const res = await axios.get("/api/admin/dashboardData");
 
-        console.log("dashboard", res.data);
+        // console.log("dashboard", res.data);
         setStats(res.data);
       } catch (err) {
         const errorMsg =

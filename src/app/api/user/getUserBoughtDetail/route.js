@@ -46,7 +46,7 @@ export async function POST(req) {
 
     const { packageId, newStatus } = await req.json();
 
-    console.log("Received:", packageId, newStatus);
+    // console.log("Received:", packageId, newStatus);
 
     if (!packageId || !newStatus) {
       return NextResponse.json(
@@ -88,7 +88,7 @@ export async function POST(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("❌ Error updating package status:", error);
+    // console.error("❌ Error updating package status:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

@@ -58,9 +58,9 @@ const Header = (props) => {
       const address = await signer.getAddress();
       setWalletAddress(address);
       setSigner(signer);
-      console.log("Wallet connected:", address);
+      // console.log("Wallet connected:", address);
     } catch (err) {
-      console.error("Wallet connection failed:", err);
+      // console.error("Wallet connection failed:", err);
     }
   };
 

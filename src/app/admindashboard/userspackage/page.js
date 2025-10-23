@@ -189,7 +189,7 @@ const UserBoughtPackagesPage = () => {
         const res = await axios.get("/api/admin/getBoughtPackages");
         setPackages(res.data.BoughtPackages || []);
       } catch (err) {
-        console.error("Error fetching packages:", err);
+        // console.error("Error fetching packages:", err);
       } finally {
         setLoading(false);
       }

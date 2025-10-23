@@ -11,7 +11,7 @@ export const getUserData = async (userId) => {
     });
 
     const data = await res.json();
-    console.log("User data fetched successfully:", data.user);
+    // console.log("User data fetched successfully:", data.user);
     // setUserData(data?.user);
     return data?.user;
 
@@ -21,7 +21,7 @@ export const getUserData = async (userId) => {
 
     return data.user; // user object return karega
   } catch (error) {
-    console.error("❌ Error fetching user:", error.message);
+    // console.error("❌ Error fetching user:", error.message);
     return null;
   }
 };

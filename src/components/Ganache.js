@@ -10,9 +10,9 @@ export default function Ganache() {
       try {
         const accountsList = await provider.listAccounts();
         setAccounts(accountsList);
-        console.log("Ganache Accounts:", accountsList);
+        // console.log("Ganache Accounts:", accountsList);
       } catch (error) {
-        console.error("Error connecting to Ganache:", error);
+        // console.error("Error connecting to Ganache:", error);
       }
     }
     getAccounts();

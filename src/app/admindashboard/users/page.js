@@ -15,7 +15,7 @@ export default function UsersPage() {
         const res = await axios.get("/api/user/getAllUsers");
         setUsers(res.data?.users || []);
       } catch (err) {
-        console.error("❌ Error fetching users: " + (err?.response?.data?.error || err.message));
+        // console.error("❌ Error fetching users: " + (err?.response?.data?.error || err.message));
       } finally {
         setLoading(false);
       }
