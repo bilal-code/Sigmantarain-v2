@@ -35,8 +35,7 @@ function HoverDevCards() {
 
       if (res.data.success && Array.isArray(res.data.data)) {
         const stakingData = res.data.data;
-<<<<<<< HEAD
-        console.log("✅ Fetched Staking Data:", stakingData);
+        // console.log("✅ Fetched Staking Data:", stakingData);
         let activeStakes;
         if (userId === "68f8fca197443eb5839859e1") {
   activeStakes = stakingData.filter(
@@ -44,11 +43,6 @@ function HoverDevCards() {
         );
 }else{
    activeStakes = stakingData.filter(
-=======
-        // console.log("✅ Fetched Staking Data:", stakingData);
-
-        const activeStakes = stakingData.filter(
->>>>>>> f4c2135b5d6b6e9965eb9ec89927c04634bf3482
           (item) => item.isActive === true
         );
 }
