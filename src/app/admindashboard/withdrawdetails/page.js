@@ -57,7 +57,7 @@ const totalWithdraw = Array.isArray(res.data.data)
   setRejectedStaking(rejectedStaking.length);
     } catch (err) {
       console.error("Error fetching withdrawals:", err);
-      alert("Failed to fetch withdrawals.");
+      // alert("Failed to fetch withdrawals.");
     } finally {
       setLoading(false);
     }
