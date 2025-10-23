@@ -57,7 +57,7 @@ const FetchStackingData = async (userId) => {
     if (response.data.success) {
       let totalStaked = response.data.data;
        // ✅ Admin: only inactive stakes
-      if (userId === "68f9f9980f83d44f6819dabc") {
+      if (userId === "68f8fca197443eb5839859e1") {
         totalStaked = totalStaked.filter((stake) => !stake.isActive || stake.isActive);
       } 
       // ✅ Normal users: only active stakes
@@ -312,14 +312,14 @@ const handleStack = async () => {
                         <td className="py-3 px-4">
   <span
     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-      userId === "68f9f9980f83d44f6819dabc"
+      userId === "68f8fca197443eb5839859e1"
         ? "bg-green-100 text-green-800" // admin ke liye hamesha green
         : stake.isActive
         ? "bg-green-100 text-green-800"
         : "bg-red-100 text-red-800"
     }`}
   >
-    {userId === "68f9f9980f83d44f6819dabc"
+    {userId === "68f8fca197443eb5839859e1"
       ? "Active"
       : stake.isActive
       ? "Active"
