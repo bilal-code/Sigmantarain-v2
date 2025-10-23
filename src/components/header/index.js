@@ -138,7 +138,7 @@ const handleCopyReferralCode = () => {
           <button
             aria-controls="sidebar"
             onClick={() => props.setSidebarOpen(!props.sidebarOpen)}
-            className="block lg:hidden rounded-md p-2 hover:bg-[#2a003f]/40 transition"
+            className="block lg:hidden rounded-md p-2 cursor-pointer hover:bg-[#2a003f]/40 transition"
           >
             <span className="relative block h-5 w-5">
               <span className="absolute block w-full h-0.5 bg-white top-1" />
