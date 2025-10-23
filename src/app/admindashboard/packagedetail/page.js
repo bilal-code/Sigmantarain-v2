@@ -364,7 +364,7 @@ const PackageDetailsPage = () => {
                       { key: "_id", label: "ID" },
                       { key: "packageName", label: "Package" },
                       { key: "packageAmount", label: "Amount" },
-                      { key: "packageDailyPercentage", label: "Daily %" },
+                      { key: "packageDailyPercentage", label: "Tokens" },
                       { key: "createdAt", label: "Created" }
                     ].map(({ key, label }) => (
                       <th
@@ -428,7 +428,7 @@ const PackageDetailsPage = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-semibold text-blue-600">
-                            {pkg.packageDailyPercentage}%
+                            {pkg.packageDailyPercentage} tokens
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
