@@ -41,31 +41,31 @@ const menuGroups = [
         label: "Withdraw Details",
         route: "/admindashboard/withdrawdetails",
       },
-       {
-        icon: <FaChartLine className="text-xs" />,
-        label: "Daily Earnings",
-        route: "/admindashboard/dailyearning",
-      },
-       {
-        icon: <FaPercentage className="text-xs" />,
-        label: "Commission",
-        route: "/admindashboard/comission",
-      },
+      //  {
+      //   icon: <FaChartLine className="text-xs" />,
+      //   label: "Daily Earnings",
+      //   route: "/admindashboard/dailyearning",
+      // },
+      //  {
+      //   icon: <FaPercentage className="text-xs" />,
+      //   label: "Commission",
+      //   route: "/admindashboard/comission",
+      // },
        {
         icon: <FaUsers className="text-xs" />,
         label: "Users",
         route: "/admindashboard/users",
       },
-       {
-        icon: <FaSitemap className="text-xs" />,
-        label: "Refferal Tree",
-        route: "/admindashboard/refferaltree",
-      },
-      {
-        icon: <FiLock className="text-xs" />,
-        label: "Change Password",
-        route: "/admindashboard/changepassword",
-      },
+      //  {
+      //   icon: <FaSitemap className="text-xs" />,
+      //   label: "Refferal Tree",
+      //   route: "/admindashboard/refferaltree",
+      // },
+      // {
+      //   icon: <FiLock className="text-xs" />,
+      //   label: "Change Password",
+      //   route: "/admindashboard/changepassword",
+      // },
     ],
   },
 ];
@@ -96,15 +96,15 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
               priority
             />
             <div>
-              <h1 className="text-white font-bold text-lg leading-tight">Sigmantarian</h1>
-              <p className="text-white text-sm">Admin Dashboard</p>
+              <h1 className="text-white font-bold text-xl leading-tight">Sigmantarian</h1>
+              <p className="text-white text-lg">Admin Dashboard</p>
             </div>
           </Link>
 
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
-            className="block lg:hidden text-white"
+            className="block bg-white lg:hidden text-white"
           >
             <svg
               className="fill-current"
@@ -132,8 +132,8 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     key={menuIndex}
                     item={{
                       ...menuItem,
-                      labelClassName: "text-xs", 
-                      iconClassName: "text-xs", 
+                      labelClassName: "text-md", 
+                      iconClassName: "text-md", 
                     }}
                     pageName={pageName}
                     setPageName={(name) => {
