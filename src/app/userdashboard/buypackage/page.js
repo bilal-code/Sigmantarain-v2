@@ -145,14 +145,9 @@ export default function UpgradePlanPage() {
 
 
 
-  // const sortedPackages = allPackages.sort(
-  //   (a, b) => packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName)
-  // );
-
-  const sortedPackages = [...allPackages].sort(
-  (a, b) => a.packageAmount - b.packageAmount
-);
-
+  const sortedPackages = allPackages.sort(
+    (a, b) => packageOrder.indexOf(a.packageName) - packageOrder.indexOf(b.packageName)
+  );
 
   // Package Card Skeleton Loader
   const PackageCardSkeleton = () => (

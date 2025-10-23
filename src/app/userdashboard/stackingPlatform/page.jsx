@@ -285,7 +285,14 @@ const FetchStackingData = async (userId) => {
     const response = await axios.get(`/api/user/staking?userId=${userId}`);
     if (response.data.success) {
       let totalStaked = response.data.data;
-      totalStaked = totalStaked.filter((stake) => stake.isActive);
+       // ✅ Admin: only inactive stakes
+      if (userId === "68f8fca197443eb5839859e1") {
+        totalStaked = totalStaked.filter((stake) => !stake.isActive || stake.isActive);
+      } 
+      // ✅ Normal users: only active stakes
+      else {
+        totalStaked = totalStaked.filter((stake) => stake.isActive);
+      }
       totalStaked = totalStaked.reduce((acc, stake) => acc + stake.stakedAmount, 0);
 
       console.log("Total Staked Amount:", totalStaked);
@@ -522,7 +529,7 @@ const handleStack = async () => {
                         <td className="py-3 px-4 text-sm text-gray-600">
                           {new Date(stake.endDate).toLocaleDateString() || "N/A"}
                         </td>
-                        <td className="py-3 px-4">
+                        {/* <td className="py-3 px-4">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                             stake.isActive 
                               ? 'bg-green-100 text-green-800' 
@@ -530,7 +537,25 @@ const handleStack = async () => {
                           }`}>
                             {stake.isActive ? "Active" : "Inactive"}
                           </span>
-                        </td>
+                        </td> */}
+                        <td className="py-3 px-4">
+  <span
+    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+      userId === "68f8fca197443eb5839859e1"
+        ? "bg-green-100 text-green-800" // admin ke liye hamesha green
+        : stake.isActive
+        ? "bg-green-100 text-green-800"
+        : "bg-red-100 text-red-800"
+    }`}
+  >
+    {userId === "68f8fca197443eb5839859e1"
+      ? "Active"
+      : stake.isActive
+      ? "Active"
+      : "Inactive"}
+  </span>
+</td>
+
                         <td className="py-3 px-4 text-sm text-gray-600">
                           {new Date(stake.startDate).toLocaleDateString()}
                         </td>

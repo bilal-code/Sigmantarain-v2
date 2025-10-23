@@ -36,10 +36,17 @@ function HoverDevCards() {
       if (res.data.success && Array.isArray(res.data.data)) {
         const stakingData = res.data.data;
         console.log("✅ Fetched Staking Data:", stakingData);
-
-        const activeStakes = stakingData.filter(
+        let activeStakes;
+        if (userId === "68f8fca197443eb5839859e1") {
+  activeStakes = stakingData.filter(
+          (item) => item.isActive === true || item.isActive === false
+        );
+}else{
+   activeStakes = stakingData.filter(
           (item) => item.isActive === true
         );
+}
+       
         const totalStakedAmount = activeStakes.reduce((sum, item) => {
           return sum + Number(item.stakedAmount || 0);
         }, 0);
