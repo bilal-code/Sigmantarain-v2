@@ -104,7 +104,7 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
-            className="block bg-white lg:hidden text-white"
+            className="block lg:hidden text-white"
           >
             <svg
               className="fill-current"
@@ -132,8 +132,8 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     key={menuIndex}
                     item={{
                       ...menuItem,
-                      labelClassName: "text-md", 
-                      iconClassName: "text-md", 
+                      labelClassName: "text-lg", 
+                      iconClassName: "text-lg", 
                     }}
                     pageName={pageName}
                     setPageName={(name) => {

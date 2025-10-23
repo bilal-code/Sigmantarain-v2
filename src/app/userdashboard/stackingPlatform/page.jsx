@@ -46,7 +46,7 @@ const getUserDailyROI = async (userId) => {
     showSuccessToast("✅ Daily ROI data fetched successfully!");
   } catch (error) {
     // console.error("❌ Error fetching user Daily ROI:", error);
-    showErrorToast(error.response?.data?.message || "Failed to fetch daily ROI data.");
+    // showErrorToast(error.response?.data?.message || "Failed to fetch daily ROI data.");
   }
 };
 
@@ -74,7 +74,7 @@ const FetchStackingData = async (userId) => {
     }
   } catch (error) {
     // console.error("Error fetching staking data:", error);
-    showErrorToast("❌ Failed to load staking data. Please try again.");
+    // showErrorToast("❌ Failed to load staking data. Please try again.");
   }
 };
 

@@ -124,8 +124,8 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     key={menuIndex}
                     item={{
                       ...menuItem,
-                      labelClassName: "text-md", 
-                      iconClassName: "text-md", 
+                      labelClassName: "text-lg", 
+                      iconClassName: "text-lg", 
                     }}
                     pageName={pageName}
                     setPageName={(name) => {
