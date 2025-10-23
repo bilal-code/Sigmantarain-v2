@@ -24,8 +24,8 @@ export default function UsersPage() {
   }, []);
 
   const filteredUsers = users.filter((user) => user.role === "user");
-  const verifiedUsers = filteredUsers.filter((u) => u.isVerified);
-  const unverifiedUsers = filteredUsers.filter((u) => !u.isVerified);
+  const verifiedUsers = filteredUsers.filter((u) => u.status === "active");
+  const unverifiedUsers = filteredUsers.filter((u) => u.status === "inactive");
   const uniqueReferrals = [...new Set(filteredUsers.map((u) => u.referralCode).filter(Boolean))];
   const lastCreated = filteredUsers.length
     ? new Date(Math.max(...filteredUsers.map((u) => new Date(u.createdAt)))).toLocaleDateString()
@@ -124,7 +124,7 @@ export default function UsersPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard 
             icon={FaUsers}
             label="Total Users" 
@@ -132,20 +132,20 @@ export default function UsersPage() {
             color="text-blue-600"
             bgColor="bg-blue-500"
           />
-          {/* <StatCard 
+          <StatCard 
             icon={FaUserCheck}
-            label="Verified Users" 
+            label="Active Users" 
             value={verifiedUsers.length} 
             color="text-green-600"
             bgColor="bg-green-500"
           />
           <StatCard 
             icon={FaUserClock}
-            label="Unverified Users" 
+            label="Inactive Users" 
             value={unverifiedUsers.length} 
             color="text-orange-600"
             bgColor="bg-orange-500"
-          /> */}
+          />
           <StatCard 
             icon={FaShareAlt}
             label="Unique Referrals" 
