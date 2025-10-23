@@ -123,15 +123,42 @@ const Logo = () => (
   </motion.div>
 );
 
+// const ToggleSidebar = ({ open, setOpen }) => (
+//   <motion.button
+//     layout
+//     onClick={() => setOpen(prev => !prev)}
+//     className="border-t bg-[#0B98AC] hover:bg-white hover:rounded-lg border-white mt-4 py-3 flex items-center justify-center hover:text-[#0B98AC] transition-colors"
+//   >
+//     <div className="flex items-center justify-center gap-2">
+//       <FiChevronsRight className={`text-[#0B98AC] hover:text-white transition-transform ${open && "rotate-180"}`} />
+//       {open && <span className="text-lg text-white font-bold hover:text-[#0B98AC]">Hide</span>}
+//     </div>
+//   </motion.button>
+// );
+
 const ToggleSidebar = ({ open, setOpen }) => (
   <motion.button
     layout
-    onClick={() => setOpen(prev => !prev)}
+    onClick={() => setOpen((prev) => !prev)}
     className="border-t bg-[#0B98AC] hover:bg-white hover:rounded-lg border-white mt-4 py-3 flex items-center justify-center hover:text-[#0B98AC] transition-colors"
   >
-    <div className="flex items-center justify-center gap-2">
-      <FiChevronsRight className={`text-[#0B98AC] hover:text-white transition-transform ${open && "rotate-180"}`} />
-      {open && <span className="text-lg text-white font-bold hover:text-[#0B98AC]">Hide</span>}
+    <div className="flex items-center">
+      <motion.div layout className="text-2xl">
+        <FiChevronsRight
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </motion.div>
+      {open && (
+        <motion.span
+          layout
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-lg cursor-pointer text-gray-600 font-bold hover:text-[#0B98AC]"
+        >
+          Hide
+        </motion.span>
+      )}
     </div>
   </motion.button>
 );

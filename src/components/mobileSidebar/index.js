@@ -5,7 +5,16 @@ import Image from "next/image";
 import SidebarItem from "./sidebarItem";
 import ClickOutside from "./clickOutside";
 import useLocalStorage from "./useLocalstorage";
+import { 
+  TbStack2 
+} from "react-icons/tb";
+import { 
+  RiWallet3Line 
+} from "react-icons/ri";
 import { HiDocumentText } from "react-icons/hi2";
+import { 
+  MdUpgrade 
+} from "react-icons/md";
 import { FiHome, FiUser, FiPackage, FiTrendingUp,
   FiUsers, 
   FiDollarSign, 
@@ -30,7 +39,7 @@ const menuGroups = [
         route: "/userdashboard/profile",
       },
       {
-        icon: <HiDocumentText className="text-xs" />,
+        icon: <MdUpgrade className="text-xs" />,
         label: "Buy / Upgrade Package",
         route: "/userdashboard/buypackage",
       },
@@ -40,12 +49,12 @@ const menuGroups = [
         route: "/userdashboard/mypackage",
       },
       {
-        icon: <FiDollarSign className="text-xs" />,
+        icon: <RiWallet3Line className="text-xs" />,
         label: "Request Withdraw",
         route: "/userdashboard/requestwithdraw",
       },
       {
-        icon: <FiDollarSign className="text-xs" />,
+        icon: <TbStack2 className="text-xs" />,
         label: "Staking Details",
         route: "/userdashboard/stackingPlatform",
       },
@@ -79,8 +88,8 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
               priority
             />
             <div>
-              <h1 className="text-white font-bold text-lg leading-tight">Sigmantarian</h1>
-              <p className="text-gray-400 text-sm">User Dashboard</p>
+              <h1 className="text-white font-bold text-xl leading-tight">Sigmantarian</h1>
+              <p className="text-gray-200 text-lg">User Dashboard</p>
             </div>
           </Link>
 
@@ -115,8 +124,8 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     key={menuIndex}
                     item={{
                       ...menuItem,
-                      labelClassName: "text-xs", 
-                      iconClassName: "text-xs", 
+                      labelClassName: "text-md", 
+                      iconClassName: "text-md", 
                     }}
                     pageName={pageName}
                     setPageName={(name) => {
