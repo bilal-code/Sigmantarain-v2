@@ -65,7 +65,7 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <ClickOutside onClick={() => setSidebarOpen(false)}>
       <aside
-        className={`fixed z-40 left-0 top-0 flex h-screen w-72.5 flex-col bg-[#272727] duration-300 ease-linear lg:translate-x-0 ${
+        className={`fixed z-40 left-0 top-0 flex h-screen w-72.5 flex-col bg-[#0B98AC] duration-300 ease-linear lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
