@@ -9,7 +9,7 @@ export async function GET() {
 
     // Fetch all packages
     const packages = await PackageModel.find({}).sort({ createdAt: 1 });
-    console.log("BoughtPackages:", packages);
+    // console.log("BoughtPackages:", packages);
 
     return NextResponse.json(
       { message: "Packages fetched successfully", packages },

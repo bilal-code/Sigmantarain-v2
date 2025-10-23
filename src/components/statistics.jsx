@@ -65,7 +65,7 @@ const Statistics = () => {
       }
   
         // console.log('statistics LN 70: ',myDate)
-        console.log('statistics LN 73: ',myDate)    
+        // console.log('statistics LN 73: ',myDate)    
 
     setUserDate(myDate)
     setUserId(myID)

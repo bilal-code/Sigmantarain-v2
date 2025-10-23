@@ -11,7 +11,7 @@ export async function POST(request) {
 
     let { referralCode, name, email, contactNo, password } = data;
     email = email.toLowerCase();
-    console.log("email in lowercase:",email)
+    // console.log("email in lowercase:",email)
     // Connect to DB
     await connectDB();
 
@@ -54,7 +54,7 @@ export async function POST(request) {
 
     // ✅ Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Hashed password:", hashedPassword, formattedReferralCode);
+    // console.log("Hashed password:", hashedPassword, formattedReferralCode);
     // ✅ Create new user
     const newUser = await AuthModel.create({
       code: formattedReferralCode,

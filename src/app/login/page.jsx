@@ -146,7 +146,7 @@ const fetchBoughtData = async (userId) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error fetching user data:", error.message);
+    // console.error("Error fetching user data:", error.message);
     return null;
   }
 };
@@ -168,7 +168,7 @@ const handleSubmit = async (e) => {
     });
 
     const result = await response.json();
-    console.log("login result", result);
+    // console.log("login result", result);
 
     if (!response.ok) {
       showErrorToast(result.error || "Invalid credentials. Please try again.");
@@ -193,23 +193,23 @@ const handleSubmit = async (e) => {
       const diffMs = currentDate - createdDate;
       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-      console.log(`Account created ${diffDays} days ago.`);
+      // console.log(`Account created ${diffDays} days ago.`);
 
       // ✅ If 5 or more days old → check packages
       if (diffDays >= 5) {
         const boughtData = await fetchBoughtData(result?.user?._id);
         const boughtCount = boughtData?.boughtPackages?.length || 0;
 
-        console.log("Bought Packages Count:", boughtCount);
+        // console.log("Bought Packages Count:", boughtCount);
 
         if (boughtCount > 0) {
-          console.log("✅ User has bought packages, allow login.");
+          // console.log("✅ User has bought packages, allow login.");
           showSuccessToast("Login successful!");
           localStorage.setItem("token", result.token);
           localStorage.setItem("user", JSON.stringify(result.user));
           router.push("/userdashboard");
         } else {
-          console.log("🚫 Account blocked — no package purchased.");
+          // console.log("🚫 Account blocked — no package purchased.");
        const inactiveUser=await fetch("/api/auth/login", {
              method: "PUT",
               headers: { "Content-Type": "application/json" },
@@ -223,7 +223,7 @@ if(inactiveUser.status === 200){
 
         }
       } else {
-        console.log("⏳ Account is less than 5 days old — allow login.");
+        // console.log("⏳ Account is less than 5 days old — allow login.");
         showSuccessToast("Login successful!");
         localStorage.setItem("token", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
@@ -234,7 +234,7 @@ if(inactiveUser.status === 200){
     }
 
   } catch (error) {
-    console.error("Login error:", error);
+    // console.error("Login error:", error);
     showErrorToast("Something went wrong. Please try again.");
   } finally {
     setIsLoading(false);

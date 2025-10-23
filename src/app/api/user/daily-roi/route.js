@@ -20,8 +20,8 @@ export async function GET(request) {
 
     // ✅ Fetch single user's daily ROI data
     const dailyRoi = await DailyRoiModel.find({ userId });
-    console.log("daily Roi",dailyRoi)
-    console.log("User Daily ROI Data:", dailyRoi);
+    // console.log("daily Roi",dailyRoi)
+    // console.log("User Daily ROI Data:", dailyRoi);
     const totalDailyROI = dailyRoi.reduce((acc, curr) => {
       return acc + curr.dailyROI;
     }, 0);
@@ -42,7 +42,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("❌ Error fetching daily ROI data:", error);
+    // console.error("❌ Error fetching daily ROI data:", error);
     return NextResponse.json(
       { success: false, error: "Internal Server Error", details: error.message },
       { status: 500 }

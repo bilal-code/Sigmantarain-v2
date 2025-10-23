@@ -76,7 +76,7 @@ export async function PUT(request) {
     await connectDB();
 
     const user = await AuthModel.findById(id);
-    console.log("inactive user account ",user);
+    // console.log("inactive user account ",user);
     if (!user) {
       return NextResponse.json(
         { error: "User not found" },
@@ -92,7 +92,7 @@ export async function PUT(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error updating user status:", error);
+    // console.error("Error updating user status:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

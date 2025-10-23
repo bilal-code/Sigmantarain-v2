@@ -678,7 +678,7 @@ export default function WithdrawalPage() {
   const fetchUserBusinessCommission = async (userId) => {
     try {
       if (!userId) {
-        console.error("❌ userId is required to fetch commission");
+        // console.error("❌ userId is required to fetch commission");
         return { success: false, message: "userId is required" };
       }
 
@@ -687,20 +687,20 @@ export default function WithdrawalPage() {
       );
 
       if (response.data.success) {
-        console.log(
-          "✅ Business commission fetched successfully:",
-          response.data.data
-        );
+        // console.log(
+        //   "✅ Business commission fetched successfully:",
+        //   response.data.data
+        // );
         setBusinessCommission(response.data?.totalAmount);
       } else {
-        console.warn(
-          "⚠️ No commission found for this user:",
-          response.data.message
-        );
+        // console.warn(
+        //   "⚠️ No commission found for this user:",
+        //   response.data.message
+        // );
         return [];
       }
     } catch (error) {
-      console.error("❌ Error fetching user commission:", error);
+      // console.error("❌ Error fetching user commission:", error);
       return [];
     } finally {
       setDataLoading((prev) => ({ ...prev, business: false }));
@@ -709,11 +709,11 @@ export default function WithdrawalPage() {
 
   const saveBusinessCommission = async (userId, percent, amount) => {
     try {
-      console.log("🔹Sending business commission data:", {
-        userId,
-        percent,
-        amount,
-      });
+      // console.log("🔹Sending business commission data:", {
+      //   userId,
+      //   percent,
+      //   amount,
+      // });
 
       const response = await axios.post("/api/user/business-commission", {
         userId,
@@ -722,21 +722,21 @@ export default function WithdrawalPage() {
       });
 
       if (response.data.success) {
-        console.log("✅ Commission saved successfully:", response.data.data);
+        // console.log("✅ Commission saved successfully:", response.data.data);
         return {
           success: true,
           message: response.data.message,
           data: response.data.data,
         };
       } else {
-        console.warn("⚠️ Commission save failed:", response.data.message);
+        // console.warn("⚠️ Commission save failed:", response.data.message);
         return {
           success: false,
           message: response.data.message,
         };
       }
     } catch (error) {
-      console.error("❌ Error while saving business commission:", error);
+      // console.error("❌ Error while saving business commission:", error);
       return {
         success: false,
         message: error.response?.data?.error || "Something went wrong.",
@@ -745,7 +745,7 @@ export default function WithdrawalPage() {
   };
 
   const fetchCommision = async (userId, code) => {
-    console.log("🔹 Fetching commission for user:", userId, "with code:", code);
+    // console.log("🔹 Fetching commission for user:", userId, "with code:", code);
 
     try {
       const url = userId
@@ -754,18 +754,18 @@ export default function WithdrawalPage() {
 
       const res = await axios.get(url);
       const commissions = res.data?.commission || [];
-      console.log("✅ Commission data received:", commissions);
+      // console.log("✅ Commission data received:", commissions);
 
       const totalAmount = commissions.reduce(
         (sum, item) => sum + (Number(item.amount) || 0),
         0
       );
       setPersonalCommission(totalAmount);
-      console.log("💰 Total personal commission:", totalAmount);
+      // console.log("💰 Total personal commission:", totalAmount);
 
       const data = await fetchChildCommissions(code);
       if (data) {
-        console.log("👶 Child Commission data:", data);
+        // console.log("👶 Child Commission data:", data);
         setChildCommission(data);
 
         let totalChild = 0;
@@ -780,40 +780,40 @@ export default function WithdrawalPage() {
         } else if (typeof data === "object" && data.total) {
           totalChild = Number(data.total);
         }
-        console.log("👶 Total Child Commission:", totalChild);
+        // console.log("👶 Total Child Commission:", totalChild);
 
         let response;
         if (totalChild >= 100000) {
           response = await saveBusinessCommission(userId, 5, 100000 * 0.05);
           if (response) {
-            console.log("✅ Bonus saved successfully:", response);
+            // console.log("✅ Bonus saved successfully:", response);
           }
         } else if (totalChild >= 60000) {
           response = await saveBusinessCommission(userId, 5, 60000 * 0.05);
           if (response) {
-            console.log("✅ Bonus saved successfully:", response);
+            // console.log("✅ Bonus saved successfully:", response);
           }
         } else if (totalChild >= 40000) {
           response = await saveBusinessCommission(userId, 5, 40000 * 0.05);
           if (response) {
-            console.log("✅ Bonus saved successfully:", response);
+            // console.log("✅ Bonus saved successfully:", response);
           }
         } else if (totalChild >= 25000) {
           response = await saveBusinessCommission(userId, 5, 25000 * 0.05);
           if (response) {
-            console.log("✅ Bonus saved successfully:", response);
+            // console.log("✅ Bonus saved successfully:", response);
           }
         } else if (totalChild >= 10000) {
           response = await saveBusinessCommission(userId, 5, 10000 * 0.05);
           if (response) {
-            console.log("✅ Bonus saved successfully:", response);
+            // console.log("✅ Bonus saved successfully:", response);
           }
         } else {
-          console.log("❌ You will not get the 5% bonus yet.");
+          // console.log("❌ You will not get the 5% bonus yet.");
         }
       }
     } catch (error) {
-      console.error("❌ Error fetching commissions:", error.message);
+      // console.error("❌ Error fetching commissions:", error.message);
     } finally {
       setDataLoading((prev) => ({ ...prev, summary: false }));
     }
@@ -830,10 +830,10 @@ export default function WithdrawalPage() {
         cache: "no-store",
       });
       const data = await res.json();
-      console.log("Withdrawals data:", data);
+      // console.log("Withdrawals data:", data);
       setWithdrawHistory(data?.data.filter((w) => w.type === "usdt") || []);
       setSGTokenHistory(data?.data.filter((w) => w.type === "tokens") || []);
-      console.log("withdrawals data", data);
+      // console.log("withdrawals data", data);
 
       const pendingUsdt = data?.data.filter(
         (w) => w.status === "pending" && w.type === "usdt"
@@ -863,10 +863,10 @@ export default function WithdrawalPage() {
         (sum, w) => sum + Number(w.withdrawAmount || 0),
         0
       );
-      console.log("Pending Withdrawals Total:", pendingSum);
-      console.log("Accepted Withdrawals Total:", acceptedSum);
-      console.log("Pending SGT Withdrawals Total:", pendingSGSum);
-      console.log("Accepted SGT Withdrawals Total:", acceptedSSum);
+      // console.log("Pending Withdrawals Total:", pendingSum);
+      // console.log("Accepted Withdrawals Total:", acceptedSum);
+      // console.log("Pending SGT Withdrawals Total:", pendingSGSum);
+      // console.log("Accepted SGT Withdrawals Total:", acceptedSSum);
       setPendingWithdrawals(pendingSum);
       setCompletedWithdrawals(acceptedSum);
       setPendingSGToken(pendingSGSum);
@@ -885,10 +885,10 @@ export default function WithdrawalPage() {
       const res = await axios.get(
         `/api/user/stakingWithdrawlData?userId=${userId}`
       );
-      console.log("staking Data ", res.data.data);
+      // console.log("staking Data ", res.data.data);
       setStakingData(res.data.data);
     } catch (err) {
-      console.error("Error fetching user earnings:", err);
+      // console.error("Error fetching user earnings:", err);
       setError("Something went wrong while fetching data");
     }
   };
@@ -900,7 +900,7 @@ export default function WithdrawalPage() {
       if (token) {
         const decoded = jwtDecode(token);
         if (decoded?.id) {
-          console.log("set client id", decoded.id);
+          // console.log("set client id", decoded.id);
           setClientId(decoded?.id);
           await Promise.all([
             fetchCommision(decoded?.id, decoded?.code),
@@ -1023,14 +1023,14 @@ export default function WithdrawalPage() {
         type: "usdt",
       });
 
-      console.log(response);
+      // console.log(response);
       setIsModalOpen(false);
       setWithdrawAmount("");
 
       showSuccessToast("🎉 Withdrawal request submitted successfully!");
       fetchWithdrawals(clientId); // Refresh data
     } catch (error) {
-      console.error("Withdraw request failed:", error);
+      // console.error("Withdraw request failed:", error);
       showErrorToast(
         "Something went wrong while submitting withdrawal request."
       );
@@ -1059,14 +1059,14 @@ export default function WithdrawalPage() {
         type: "tokens",
       });
 
-      console.log(response);
+      // console.log(response);
       setIsModalOpen(false);
       setWithdrawAmount("");
 
       showSuccessToast("🎉 Staking withdrawal request submitted successfully!");
       fetchWithdrawals(clientId); // Refresh data
     } catch (error) {
-      console.error("Staking withdraw request failed:", error);
+      // console.error("Staking withdraw request failed:", error);
       showErrorToast(
         "Something went wrong while submitting staking withdrawal request."
       );

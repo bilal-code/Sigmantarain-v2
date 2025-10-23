@@ -191,7 +191,7 @@ const PackageDetailsPage = () => {
         const response = await axios.get("/api/user/get-package");
         setPackageData(response.data.packages || []);
       } catch (error) {
-        console.error("Error fetching package details:", error);
+        // console.error("Error fetching package details:", error);
       } finally {
         setLoading(false);
       }

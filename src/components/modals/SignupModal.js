@@ -47,7 +47,7 @@ export default function SignupModal({
 
       onClose?.();
     } catch (err) {
-      console.error("Error during signup:", err);
+      // console.error("Error during signup:", err);
       alert("Something went wrong. Please try again.");
     }
   };

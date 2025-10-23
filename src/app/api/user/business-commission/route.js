@@ -52,7 +52,7 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error saving commission:", error);
+    // console.error("Error saving commission:", error);
     return NextResponse.json(
       {
         success: false,
@@ -73,7 +73,7 @@ export async function GET(request) {
     // ✅ Get search params
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
-    console.log("Fetching business commissions for userId:", userId);
+    // console.log("Fetching business commissions for userId:", userId);
 
     let commissions;
 
@@ -117,7 +117,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching commissions:", error);
+    // console.error("Error fetching commissions:", error);
     return NextResponse.json(
       {
         success: false,

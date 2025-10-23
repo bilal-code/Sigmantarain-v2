@@ -38,7 +38,7 @@ export async function PUT(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error updating withdraw status:", error);
+    // console.error("Error updating withdraw status:", error);
     return NextResponse.json(
       { success: false, error: "Internal Server Error", details: error.message },
       { status: 500 }

@@ -62,7 +62,7 @@ export default function UpgradePlanPage() {
           }
         }
       } catch (err) {
-        console.error("Init error:", err);
+        // console.error("Init error:", err);
         showErrorToast("Failed to load packages. Please try again.");
       } finally {
         setDataLoading(false);
@@ -97,7 +97,7 @@ export default function UpgradePlanPage() {
 
       return true;
     } catch (err) {
-      console.error("❌ Transaction failed:", err.reason || err.message || err);
+      // console.error("❌ Transaction failed:", err.reason || err.message || err);
       showErrorToast(`Transaction failed: ${err.reason || err.message}`);
       return false;
     }
@@ -136,7 +136,7 @@ export default function UpgradePlanPage() {
         showErrorToast(response.data.error || "Failed to buy package");
       }
     } catch (err) {
-      console.error("Error during package purchase:", err);
+      // console.error("Error during package purchase:", err);
       showErrorToast("Something went wrong while purchasing package.");
     } finally {
       setPurchasingPackage(null);
@@ -184,21 +184,21 @@ export default function UpgradePlanPage() {
   const getPackageIcon = (packageName) => {
     switch (packageName?.toLowerCase()) {
       case 'basic':
-        return <FiZap className="text-blue-500" size={20} />;
-      case 'apprentice':
-        return <FiTrendingUp className="text-green-500" size={20} />;
-      case 'trading':
-        return <FiArrowUp className="text-purple-500" size={20} />;
-      case 'blockchain':
-        return <div className="text-orange-500 text-lg">⛓️</div>;
-      case 'professional':
-        return <div className="text-red-500 text-lg">💼</div>;
-      case 'mining':
-        return <div className="text-gray-600 text-lg">⛏️</div>;
-      case 'forex':
-        return <div className="text-green-600 text-lg">💹</div>;
-      case 'robotics':
-        return <div className="text-blue-600 text-lg">🤖</div>;
+        return <FiTrendingUp className="text-[#0B98AC]" size={20} />;
+      // case 'apprentice':
+      //   return <FiTrendingUp className="text-green-500" size={20} />;
+      // case 'trading':
+      //   return <FiArrowUp className="text-purple-500" size={20} />;
+      // case 'blockchain':
+      //   return <div className="text-orange-500 text-lg">⛓️</div>;
+      // case 'professional':
+      //   return <div className="text-red-500 text-lg">💼</div>;
+      // case 'mining':
+      //   return <div className="text-gray-600 text-lg">⛏️</div>;
+      // case 'forex':
+      //   return <div className="text-green-600 text-lg">💹</div>;
+      // case 'robotics':
+      //   return <div className="text-blue-600 text-lg">🤖</div>;
       default:
         return <FiTrendingUp className="text-[#0B98AC]" size={20} />;
     }
@@ -330,7 +330,7 @@ export default function UpgradePlanPage() {
                   <button
                     disabled={disabled}
                     onClick={() => !disabled && BuyPackage(pkg)}
-                    className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+                    className={`w-full py-3 cursor-pointer rounded-xl font-semibold text-sm transition-all duration-300 ${
                       buttonClasses[buttonVariant]
                     } ${!disabled && !isBought ? 'hover:shadow-lg transform hover:scale-[1.02]' : ''}`}
                   >

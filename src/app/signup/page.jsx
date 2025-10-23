@@ -328,7 +328,7 @@ function SignupForm() {
       else router.push("/userdashboard");
 
     } catch (err) {
-      console.error("Error during signup:", err);
+      // console.error("Error during signup:", err);
       showErrorToast("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

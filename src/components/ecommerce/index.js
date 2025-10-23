@@ -35,6 +35,7 @@ function HoverDevCards() {
 
       if (res.data.success && Array.isArray(res.data.data)) {
         const stakingData = res.data.data;
+<<<<<<< HEAD
         console.log("✅ Fetched Staking Data:", stakingData);
         let activeStakes;
         if (userId === "68f8fca197443eb5839859e1") {
@@ -43,6 +44,11 @@ function HoverDevCards() {
         );
 }else{
    activeStakes = stakingData.filter(
+=======
+        // console.log("✅ Fetched Staking Data:", stakingData);
+
+        const activeStakes = stakingData.filter(
+>>>>>>> f4c2135b5d6b6e9965eb9ec89927c04634bf3482
           (item) => item.isActive === true
         );
 }
@@ -51,17 +57,17 @@ function HoverDevCards() {
           return sum + Number(item.stakedAmount || 0);
         }, 0);
 
-        console.log("💰 Total Active Staked Amount:", totalStakedAmount);
+        // console.log("💰 Total Active Staked Amount:", totalStakedAmount);
         setStackAmount(totalStakedAmount);
       } else {
-        console.warn("⚠️ No staking data found:", res.data.message);
+        // console.warn("⚠️ No staking data found:", res.data.message);
         return { success: false, message: res.data.message };
       }
     } catch (err) {
-      console.error(
-        "❌ Error fetching staking data:",
-        err.response?.data || err.message
-      );
+      // console.error(
+      //   "❌ Error fetching staking data:",
+      //   err.response?.data || err.message
+      // );
       return {
         success: false,
         message: err.response?.data?.error || "Something went wrong",
@@ -82,33 +88,33 @@ function HoverDevCards() {
       );
       setPersonalCommission(totalAmount);
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
     }
   };
 
   const fetchUserBusinessCommission = async (userId) => {
     try {
       if (!userId) {
-        console.error("❌ userId is required to fetch commission");
+        // console.error("❌ userId is required to fetch commission");
         return { success: false, message: "userId is required" };
       }
-      console.log("Fetching business commission for userId:", userId);
+      // console.log("Fetching business commission for userId:", userId);
 
       const response = await axios.get(
         `/api/user/business-commission?userId=${userId}`
       );
       const data = await response.json();
 
-      console.log("data", data);
+      // console.log("data", data);
       if (data.success) {
-        console.log("✅ Business commission fetched successfully:", data.data);
+        // console.log("✅ Business commission fetched successfully:", data.data);
         setBusinessCommission(data?.totalAmount);
       } else {
-        console.warn("⚠️ No commission found for this user:", data.message);
+        // console.warn("⚠️ No commission found for this user:", data.message);
         return [];
       }
     } catch (error) {
-      console.error("❌ Error fetching user commission:", error);
+      // console.error("❌ Error fetching user commission:", error);
       return [];
     }
   };
@@ -119,21 +125,21 @@ function HoverDevCards() {
       const res = await axios.get(url);
 
       if (res.data.success) {
-        console.log("✅ Fetched User Packages:", res.data.boughtPackages);
+        // console.log("✅ Fetched User Packages:", res.data.boughtPackages);
         let SGTokens = res.data.boughtPackages
           .map((item) => item.tokenRecieve)
           .reduce((acc, val) => acc + val, 0);
-        console.log("💰 Total SG Tokens:", SGTokens);
+        // console.log("💰 Total SG Tokens:", SGTokens);
         setSGTokens(SGTokens);
       } else {
-        console.warn("⚠️ No packages found:", res.data.message);
+        // console.warn("⚠️ No packages found:", res.data.message);
         return { success: false, message: res.data.message };
       }
     } catch (error) {
-      console.error(
-        "❌ Error fetching user packages:",
-        error.response?.data || error.message
-      );
+      // console.error(
+      //   "❌ Error fetching user packages:",
+      //   error.response?.data || error.message
+      // );
       return {
         success: false,
         message:
@@ -156,7 +162,7 @@ function HoverDevCards() {
         );
         if (res.ok) setWithDrawData(acceptedData);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     };
 
@@ -177,7 +183,7 @@ function HoverDevCards() {
           ]).then(() => setLoading(false));
         }
       } catch (err) {
-        console.error("Invalid token:", err);
+        // console.error("Invalid token:", err);
       }
     }
   }, []);

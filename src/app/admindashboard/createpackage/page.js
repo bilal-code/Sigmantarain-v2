@@ -100,7 +100,7 @@ function CreatePackage() {
     setIsLoading(true);
     
     let packageDailyPercentage = packageAmount * 100;
-    console.log("Package Daily Percentage:", packageDailyPercentage);
+    // console.log("Package Daily Percentage:", packageDailyPercentage);
     
     try {
       const res = await axios.post("/api/admin/create-package", {
@@ -117,7 +117,7 @@ function CreatePackage() {
         showErrorToast("Failed to create package. Please try again.");
       }
     } catch (error) {
-      console.error("Error creating package:", error);
+      // console.error("Error creating package:", error);
       showErrorToast("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

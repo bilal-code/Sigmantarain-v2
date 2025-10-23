@@ -23,11 +23,11 @@ export default function MyPackagesPage() {
           cache: "no-store",
         });
         const data = await res.json();
-        console.log("Bought Packages Data:", data);
+        // console.log("Bought Packages Data:", data);
         if (!res.ok) throw new Error(data.error || "Failed to fetch packages");
         setBoughtData(data?.boughtPackages || []);
       } catch (error) {
-        console.error("Error fetching user data:", error.message);
+        // console.error("Error fetching user data:", error.message);
       } finally {
         setLoading(false);
       }
@@ -50,7 +50,7 @@ export default function MyPackagesPage() {
       setCopiedField(fieldName);
       setTimeout(() => setCopiedField(null), 2000);
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      // console.error('Failed to copy text: ', err);
     }
   };
 

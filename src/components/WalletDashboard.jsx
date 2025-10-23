@@ -23,14 +23,14 @@ const WalletDashboardHeading = () => {
       const [userss, ttlEarn] = await sigm.LastIdUser();
       const totalP = (userss).toString()
       const totalEarn = (ttlEarn).toString()
-      console.log("This is total users: ",userss);
+      // console.log("This is total users: ",userss);
       setTotalUsers(totalP)
       setEarnUsers(totalEarn)
       const on = (one).toString()
       const thre = (three).toString()
       setRef(on)
       setId(thre)
-      console.log("This is ID:",thre);
+      // console.log("This is ID:",thre);
     }
     if(walletAddress ){
       run()

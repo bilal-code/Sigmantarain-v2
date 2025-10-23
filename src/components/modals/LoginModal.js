@@ -47,7 +47,7 @@ export default function LoginModal({
       if (result.user.role === "admin") router.push("/admindashboard");
       else router.push("/userdashboard");
     } catch (error) {
-      console.error("Login error:", error);
+      // console.error("Login error:", error);
       alert("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

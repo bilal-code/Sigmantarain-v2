@@ -127,7 +127,7 @@ const findParentsUpTo10 = async (referralCode) => {
 export async function POST(request) {
   try {
     const { userId, stackAmount,durationDate } = await request.json();
-    console.log("staking Data",userId,stackAmount,durationDate)
+    // console.log("staking Data",userId,stackAmount,durationDate)
     if (!userId || !stackAmount || !durationDate) {
       return NextResponse.json(
         { success: false, message: "userId, stackAmount and duration are required" },
@@ -185,7 +185,7 @@ export async function POST(request) {
       startDate: Date.now(),
       endDate: durationDate,
     });
-    console.log("everything work successfully..")
+    // console.log("everything work successfully..")
     return NextResponse.json({
       success: true,
       message: "Upline commission distributed successfully!",
@@ -193,7 +193,7 @@ export async function POST(request) {
       data: totalCommissionRecords,
     });
   } catch (error) {
-    console.error("❌ Error distributing upline commission:", error);
+    // console.error("❌ Error distributing upline commission:", error);
     return NextResponse.json(
       { success: false, message: "Internal Server Error", error: error.message },
       { status: 500 }
@@ -242,7 +242,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("❌ Error fetching staking data:", error);
+    // console.error("❌ Error fetching staking data:", error);
     return NextResponse.json(
       { success: false, error: "Internal Server Error", details: error.message },
       { status: 500 }

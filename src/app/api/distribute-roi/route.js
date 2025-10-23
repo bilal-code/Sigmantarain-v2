@@ -6,12 +6,12 @@ import StakingModel from "@/model/Staking.model";
 export async function GET(request) {
   try {
     await connectDB();
-    console.log("🚀 Running Daily ROI Distribution (Triggered by Vercel Cron)");
+    // console.log("🚀 Running Daily ROI Distribution (Triggered by Vercel Cron)");
 
     const today = new Date();
     const stakers = await StakingModel.find({ isActive: true });
     if (!stakers.length) {
-      console.log("⚠️ No active stakers found.");
+      // console.log("⚠️ No active stakers found.");
       return Response.json({ message: "No active stakers found" });
     }
 
@@ -20,7 +20,7 @@ export async function GET(request) {
       if (new Date(stake.endDate) <= today) {
         stake.isActive = false;
         await stake.save();
-        console.log(`🛑 Staking expired for user: ${stake.userId}`);
+        // console.log(`🛑 Staking expired for user: ${stake.userId}`);
         continue;
       }
       const startOfDay = new Date(today);
@@ -48,17 +48,17 @@ export async function GET(request) {
         date: today,
       });
 
-      console.log(
-        `💸 ROI distributed to ${stake.userId}: ${dailyROI.toFixed(
-          2
-        )} (${dailyPercent}%)`
-      );
+      // console.log(
+      //   `💸 ROI distributed to ${stake.userId}: ${dailyROI.toFixed(
+      //     2
+      //   )} (${dailyPercent}%)`
+      // );
     }
 
-    console.log("✅ ROI distribution completed!");
+    // console.log("✅ ROI distribution completed!");
     return Response.json({ success: true, message: "ROI distributed successfully" });
   } catch (error) {
-    console.error("❌ Error distributing ROI:", error);
+    // console.error("❌ Error distributing ROI:", error);
     return Response.json({ success: false, error: error.message });
   }
 }

@@ -30,7 +30,7 @@ const PARENTS_PERCENTAGES = [5,3, 1, 0.5, 0.5]; // 5 parents only
 export async function POST(request) {
   try {
     const { userId, packageId, from, approveHash, purchaseHash, network, tokenAddress, tokenRecieve } = await request.json();
-    console.log("Buying package:", { userId, packageId, from, approveHash, purchaseHash, network, tokenAddress ,tokenRecieve});
+    // console.log("Buying package:", { userId, packageId, from, approveHash, purchaseHash, network, tokenAddress ,tokenRecieve});
     // Connect to DB
     await connectDB();
 
@@ -63,7 +63,7 @@ export async function POST(request) {
         { status: 404 }
       );
     }
-    console.log("Package data:", packageData);
+    // console.log("Package data:", packageData);
 
     // Find parents
     const parentsArray = await findParentsUpTo5(user.referralCode);
@@ -118,7 +118,7 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log("Error buying package:", error);
+    // console.log("Error buying package:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -158,7 +158,7 @@ export async function GET(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching user packages:", error);
+    // console.error("Error fetching user packages:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

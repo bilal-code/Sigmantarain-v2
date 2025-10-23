@@ -24,8 +24,8 @@ const ReferralModal = ({ open, onClose, referralCode, senderEmail }) => {
         referralCode,
         website: "https://sigmantarian-new2.vercel.app/",
       });
-      console.log("Response from server:", res.data);
-      console.log("Sending referral code...", senderEmail, email, referralCode);
+      // console.log("Response from server:", res.data);
+      // console.log("Sending referral code...", senderEmail, email, referralCode);
       setEmail("");
       setLoading(false);
       setShowSuccess(true);

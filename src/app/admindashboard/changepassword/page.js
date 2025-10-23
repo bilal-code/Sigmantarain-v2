@@ -22,7 +22,7 @@ const ChangePasswordPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
-      console.warn("No authToken found in localStorage.");
+      // console.warn("No authToken found in localStorage.");
       return null;
     }
     // console.log(token);
@@ -49,18 +49,18 @@ const ChangePasswordPage = () => {
     });
 
     if (res.status === 200) {
-      console.log("Password changed successfully:", res.data);
+      // console.log("Password changed successfully:", res.data);
       // showSuccessToast("Password updated successfully.");
       setCurrentPassword(""); // ✅ Corrected
       setNewPassword("");     // ✅
       setConfirmPassword(""); // ✅
       router.push("/userdashboard");
     } else {
-      console.error("Failed to change password:", res.data);
+      // console.error("Failed to change password:", res.data);
       // showErrorToast("Something went wrong.");
     }
   } catch (error) {
-    console.error("Error while changing password:", error);
+    // console.error("Error while changing password:", error);
     // showErrorToast("Error updating password.");
   }
 };

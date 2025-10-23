@@ -50,7 +50,7 @@ import AuthModel from "@/model/Auth.model";
 export async function POST(req) {
   try {
     const { userId, newPassword } = await req.json();
-    console.log("Received:", userId, newPassword);
+    // console.log("Received:", userId, newPassword);
 
     if (!userId || !newPassword) {
       return NextResponse.json(
@@ -63,7 +63,7 @@ export async function POST(req) {
 
     // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    console.log("Hashed password:", hashedPassword);
+    // console.log("Hashed password:", hashedPassword);
 
     // Update password using findByIdAndUpdate (no validation issues)
     const updatedUser = await AuthModel.findByIdAndUpdate(
@@ -81,7 +81,7 @@ export async function POST(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error changing password:", error);
+    // console.error("Error changing password:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
