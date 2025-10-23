@@ -299,7 +299,7 @@ const PackageDetailsPage = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
             <div className="flex items-center justify-between">
               <div>
@@ -336,7 +336,7 @@ const PackageDetailsPage = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+          {/* <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Avg Daily %</p>
@@ -346,7 +346,7 @@ const PackageDetailsPage = () => {
                 <span className="text-lg font-bold text-orange-600">%</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Table */}
