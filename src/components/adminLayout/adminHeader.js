@@ -195,7 +195,7 @@ const handleCopyReferralCode = () => {
                 shadow-[0_0_20px_rgba(168,85,247,0.4)] space-y-3 animate-fadeIn"
               >
                 <div className="text-center space-y-1">
-                  <p className="font-semibold text-base text-cyan-600">
+                  <p className="font-semibold text-base text-black">
                     {profile.name.toUpperCase()}
                   </p>
                   <p className="text-sm text-gray-400">{profile.email}</p>
@@ -206,7 +206,7 @@ const handleCopyReferralCode = () => {
                     // }}
                     onClick={handleCopyReferralCode}
                     className="w-full flex items-center justify-center gap-2 
-                    bg-[#0B98AC] text-white 
+                    bg-[#0B98AC] text-white cursor-pointer
                     font-semibold text-sm py-2 rounded-lg hover:opacity-90 transition-all"
                   >
                     <FaCopy className="text-sm" />
@@ -219,7 +219,7 @@ const handleCopyReferralCode = () => {
                     setOpenModal(true);
                     setDropdownOpen(false);
                   }}
-                 className="w-full font-medium py-2 rounded-lg 
+                 className="w-full cursor-pointer font-medium py-2 rounded-lg 
                   bg-[#0B98AC] text-white hover:opacity-90 transition"
                 >
                   Send Referral Code
@@ -229,7 +229,7 @@ const handleCopyReferralCode = () => {
                   onClick={handleLogout}
                   disabled={isLoggingOut}
                   className={`w-full py-2 rounded-lg font-medium
-                    bg-[#0B98AC] text-white 
+                    bg-[#0B98AC] text-white cursor-pointer
                     shadow-[0_0_10px_rgba(168,85,247,0.4)]
                     transition-all ${
                       isLoggingOut

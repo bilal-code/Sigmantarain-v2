@@ -21,7 +21,7 @@ import {
   TbStack2 
 } from "react-icons/tb";
 
-const sidebarhead = [{ mainhead: "Sigmentarian", subhead: "User Dashboard" }];
+const sidebarhead = [{ mainhead: "Sigmantarian", subhead: "User Dashboard" }];
 
 const Sidebar = ({ open, setOpen }) => {
   const pathname = usePathname();

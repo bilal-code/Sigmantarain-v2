@@ -8,7 +8,7 @@ export async function GET() {
     await connectDB();
 
     // Fetch all packages
-    const BoughtPackages = await BuyPackageModel.find({});
+    const BoughtPackages = await BuyPackageModel.find({}).sort({ createdAt: -1 });
 
     return NextResponse.json(
       { message: "Packages fetched successfully", BoughtPackages },
