@@ -73,9 +73,10 @@ const AuthSchema = new mongoose.Schema(
     resetPasswordOtpExpiry: {
       type: Date,
     },
-    isVerified: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
     },
     role: {
       type: String,

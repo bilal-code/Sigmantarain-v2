@@ -62,3 +62,40 @@ userID = userID.toLowerCase();
     );
   }
 }
+export async function PUT(request) {
+  try {
+    const { id, status } = await request.json();
+
+    if (!id || !status) {
+      return NextResponse.json(
+        { error: "Missing required fields: id and status" },
+        { status: 400 }
+      );
+    }
+
+    await connectDB();
+
+    const user = await AuthModel.findById(id);
+    console.log("inactive user account ",user);
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    user.status = status; // e.g., "inactive"
+    await user.save();
+
+    return NextResponse.json(
+      { message: `User status updated to ${status}`, user },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error updating user status:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

@@ -28,46 +28,218 @@ export default function LoginPage() {
     }));
   };
 
-  // ✅ Handle Login
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true);
+//  const fetchBoughtData = async (userId) => {
+//   try {
+//     let url = "/api/user/buy-package";
+//     if (userId) url += `?userId=${userId}`;
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userID: formData.userID,
-          password: formData.password,
-        }),
-      });
+//     const res = await fetch(url, {
+//       method: "GET",
+//       headers: { "Content-Type": "application/json" },
+//       cache: "no-store",
+//     });
 
-      const result = await response.json();
+//     if (!res.ok) {
+//       throw new Error(`Failed to fetch: ${res.status}`);
+//     }
 
-      // ❌ Login failed
-      if (!response.ok) {
-        showErrorToast(result.error || "Invalid credentials. Please try again.");
-        setIsLoading(false);
-        return;
-      }
+//     const data = await res.json();
+//     console.log("Bought Packages Data:", data);
 
-      // ✅ Login success
-      showSuccessToast("Login successful!");
+//     return data; // ✅ return kar diya data
+
+//   } catch (error) {
+//     console.error("Error fetching user data:", error.message);
+//     return null; // ❗ error case me null return karein
+//   }
+// };
+
+
+//   // ✅ Handle Login
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       setIsLoading(true);
+
+
+//       const response = await fetch("/api/auth/login", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           userID: formData.userID,
+//           password: formData.password,
+//         }),
+//       });
+
+//       const result = await response.json();
+//       console.log("login result",result);
+//       console.log("userId",result?.user?._id)
+//       console.log("Date",result?.user?.createdAt)
+//       const createdAt = result?.user?.createdAt; // e.g. "2025-10-18T12:30:00Z"
+// if (result?.user?.role === "user") {
+// if (createdAt) {
+//   const createdDate = new Date(createdAt);
+//   const currentDate = new Date();
+
+//   // Difference in milliseconds
+//   const diffMs = currentDate - createdDate;
+
+//   // Convert milliseconds → days
+//   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+//   console.log(`Account created ${diffDays} days ago.`);
+
+//   if (diffDays >= 5) {
+//     console.log("✅ Account is 5 or more days old.");
+//     const boughtData = await fetchBoughtData(result?.user?._id);
+//     console.log("Bought Packages Data:", boughtData?.boughtPackages);
+//     console.log("Bought Packages Count:", boughtData?.boughtPackages?.length);
+//     if (boughtData?.boughtPackages?.length > 0) {
+//   console.log("User Have bought package:", boughtData?.boughtPackages?.length);
+// } else {
+//   console.log("Your account has blocked because you haven't bought any packages.");
+// }
+//   } else {
+//     console.log("⏳ Account is less than 5 days old.");
+//   }
+// }
+// }
+
+
+     
+//       if (!response.ok) {
+//         showErrorToast(result.error || "Invalid credentials. Please try again.");
+//         setIsLoading(false);
+//         return;
+//       }
+
+//       // ✅ Login success
+//       showSuccessToast("Login successful!");
+//       localStorage.setItem("token", result.token);
+//       localStorage.setItem("user", JSON.stringify(result.user));
+
+//       // Redirect based on role
+//       // if (result.user.role === "admin" || result.user.role === "sub-admin") router.push("/admindashboard");
+//       // else router.push("/userdashboard");
+
+//     } catch (error) {
+//       console.error("Login error:", error);
+//       showErrorToast("Something went wrong. Please try again.");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+const fetchBoughtData = async (userId) => {
+  try {
+    let url = "/api/user/buy-package";
+    if (userId) url += `?userId=${userId}`;
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching user data:", error.message);
+    return null;
+  }
+};
+
+// ✅ Handle Login
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    setIsLoading(true);
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userID: formData.userID,
+        password: formData.password,
+      }),
+    });
+
+    const result = await response.json();
+    console.log("login result", result);
+
+    if (!response.ok) {
+      showErrorToast(result.error || "Invalid credentials. Please try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    // ✅ Admin & Sub-admins can login directly (no restrictions)
+    if (result?.user?.role === "admin" || result?.user?.role === "sub-admin") {
+      showSuccessToast("Welcome Admin!");
       localStorage.setItem("token", result.token);
       localStorage.setItem("user", JSON.stringify(result.user));
-
-      // Redirect based on role
-      if (result.user.role === "admin" || result.user.role === "sub-admin") router.push("/admindashboard");
-      else router.push("/userdashboard");
-
-    } catch (error) {
-      console.error("Login error:", error);
-      showErrorToast("Something went wrong. Please try again.");
-    } finally {
-      setIsLoading(false);
+      router.push("/admindashboard");
+      return;
     }
-  };
+
+    // ✅ Regular user login logic
+    const createdAt = result?.user?.createdAt;
+    if (createdAt && result?.user?.status === "active") {
+      const createdDate = new Date(createdAt);
+      const currentDate = new Date();
+      const diffMs = currentDate - createdDate;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      console.log(`Account created ${diffDays} days ago.`);
+
+      // ✅ If 5 or more days old → check packages
+      if (diffDays >= 5) {
+        const boughtData = await fetchBoughtData(result?.user?._id);
+        const boughtCount = boughtData?.boughtPackages?.length || 0;
+
+        console.log("Bought Packages Count:", boughtCount);
+
+        if (boughtCount > 0) {
+          console.log("✅ User has bought packages, allow login.");
+          showSuccessToast("Login successful!");
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("user", JSON.stringify(result.user));
+          router.push("/userdashboard");
+        } else {
+          console.log("🚫 Account blocked — no package purchased.");
+       const inactiveUser=await fetch("/api/auth/login", {
+             method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: result?.user?._id, status: "inactive" }),
+});
+if(inactiveUser.status === 200){
+ showErrorToast("Your account has been blocked because you haven’t bought any packages.");
+}else{
+  showErrorToast("Failed to update user status.");
+}
+
+        }
+      } else {
+        console.log("⏳ Account is less than 5 days old — allow login.");
+        showSuccessToast("Login successful!");
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        router.push("/userdashboard");
+      }
+    }else{
+      showErrorToast("Your account is inactive. Please contact support.");
+    }
+
+  } catch (error) {
+    console.error("Login error:", error);
+    showErrorToast("Something went wrong. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleClose = () => {
     router.push("/");
