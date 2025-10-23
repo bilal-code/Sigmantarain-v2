@@ -107,7 +107,7 @@ export default function UpgradePlanPage() {
     setPurchasingPackage(pkg._id);
     try {
       const usdt = new ethers.Contract(usdtToken, usdtAbi, signer);
-      const parsedAmount = ethers.parseUnits(pkg.packageAmount.toString(), 6);
+      const parsedAmount = ethers.parseUnits(pkg.packageAmount.toString(), 18);
       const tx = await usdt.transfer(adminAddress, parsedAmount);
       const receipt = await tx.wait();
 
