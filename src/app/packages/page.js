@@ -93,10 +93,10 @@ import Footer from "@/components/Newfooter";
 
 const packages2 = [
   { name: "Basic", amount: "30", estimated: "3000", id: 1 },
-  { name: "Apprentice", amount: "35", estimated: "3500", id: 2 },
-  { name: "Trading", amount: "40", estimated: "4000", id: 3 },
-  { name: "Blockchain", amount: "45", estimated: "4500", id: 4 },
-  { name: "Professional", amount: "50", estimated: "5000", id: 5 },
+  { name: "Apprentice", amount: "50", estimated: "5000", id: 2 },
+  { name: "Trading", amount: "100", estimated: "10000", id: 3 },
+  { name: "Blockchain", amount: "250", estimated: "25000", id: 4 },
+  { name: "Professional", amount: "500", estimated: "50000", id: 5 },
 ];
 
 const EducationPackages = () => {
@@ -192,7 +192,7 @@ const EducationPackages = () => {
           <div className="w-full max-w-[320px] bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 hover:scale-[1.03] transition-transform duration-300 p-6 shadow-[0_0_25px_rgba(0,255,198,0.15)]">
             <div className="text-center mb-6">
               <div className="text-4xl font-extrabold text-[#00FFC6] mb-2">
-                $1000
+                $10,000
               </div>
               <h3 className="text-2xl font-bold text-white mb-1">
                 Elite Package
@@ -204,7 +204,7 @@ const EducationPackages = () => {
                 <span className="font-medium text-[#00FFC6]">
                   Estimated Tokens:
                 </span>{" "}
-                100,000 SG
+                1,000,000 SG
               </div>
             </div>
 
