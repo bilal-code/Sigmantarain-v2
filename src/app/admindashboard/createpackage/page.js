@@ -148,7 +148,7 @@ function CreatePackage() {
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 rounded-lg border border-[#0B98AC] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition duration-200 placeholder-gray-400"
+                  className="w-full text-black px-4 py-3 rounded-lg border border-[#0B98AC] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition duration-200 placeholder-gray-400"
                   placeholder="e.g., Starter Pack, Premium Plan"
                   value={packageName}
                   onChange={(e) => setPackageName(e.target.value)}
@@ -163,7 +163,7 @@ function CreatePackage() {
                 </label>
                 <input
                   type="number"
-                  className="w-full px-4 py-3 rounded-lg border border-[#0B98AC] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition duration-200 placeholder-gray-400"
+                  className="w-full text-black px-4 py-3 rounded-lg border border-[#0B98AC] focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition duration-200 placeholder-gray-400"
                   placeholder="Enter package amount"
                   value={packageAmount}
                   onChange={(e) => setPackageAmount(e.target.value)}
