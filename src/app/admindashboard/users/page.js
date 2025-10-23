@@ -61,10 +61,10 @@ export default function UsersPage() {
         </h1>
 
         {/* Stat Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-6">
           <StatCard icon={<FiUsers />} label="Total Users" value={filteredUsers.length} color="text-gray-300" />
-          <StatCard icon={<FiUsers />} label="Verified Users" value={verifiedUsers.length} color="text-gray-300" />
-          <StatCard icon={<FiUsers />} label="Inactive Users" value={unverifiedUsers.length} color="text-gray-300" />
+          {/* <StatCard icon={<FiUsers />} label="Verified Users" value={verifiedUsers.length} color="text-gray-300" /> */}
+          {/* <StatCard icon={<FiUsers />} label="Inactive Users" value={unverifiedUsers.length} color="text-gray-300" /> */}
           <StatCard icon={<FiUsers />} label="Unique Referrals" value={uniqueReferrals.length} color="text-gray-300" />
         </div>
 
