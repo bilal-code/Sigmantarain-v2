@@ -52,7 +52,8 @@
 //   }
 // };
 
-import connectDB from "../../../../lib/db";
+// import connectDB from "../../../../lib/db";
+import connectDB from "@/lib/db";
 import AuthModel from "@/model/Auth.model";
 import bcrypt from "bcryptjs";
 

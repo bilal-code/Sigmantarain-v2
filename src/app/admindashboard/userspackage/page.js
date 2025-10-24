@@ -310,18 +310,19 @@ const UserBoughtPackagesPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
+        <div className="flex flex-col justify-center items-center text-center mb-6 sm:mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">User Purchased Packages</h1>
-            <p className="text-gray-600">Overview of all packages purchased by users</p>
-          </div>
-          <div className="flex items-center space-x-3 mt-4 lg:mt-0">
-            <span className="text-sm text-gray-500">{totalPackages} total purchases</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              User Purchased Packages
+            </h1>
+            <p className="text-sm sm:text-base text-gray-600">
+              {totalPackages} total purchases
+            </p>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 w-[380px] sm:w-[580px] md:w-[470px] lg:w-full gap-6 mb-8">
           <Card 
             title="Total Packages" 
             value={totalPackages.toLocaleString()} 
@@ -349,7 +350,7 @@ const UserBoughtPackagesPage = () => {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white w-[380px] sm:w-[580px] md:w-[470px] lg:w-full rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">Purchased Packages Details</h2>
           </div>

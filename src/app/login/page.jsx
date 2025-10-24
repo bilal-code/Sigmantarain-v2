@@ -246,7 +246,7 @@ if(inactiveUser.status === 200){
   };
 
   const handleForgotPassword = () => {
-    showErrorToast("Forgot password feature not available yet!");
+    router.push("/forgetpassmodal");
   };
   return (
     <>
@@ -319,7 +319,7 @@ if(inactiveUser.status === 200){
               <button
                 type="button"
                 onClick={handleForgotPassword}
-                className="text-cyan-400 text-sm font-medium hover:underline hover:text-cyan-300 transition"
+                className="text-cyan-400 cursor-pointer text-sm font-medium hover:underline hover:text-cyan-300 transition"
               >
                 Forgot Password?
               </button>

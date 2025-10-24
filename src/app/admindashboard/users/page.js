@@ -1,7 +1,18 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FaSortUp, FaSortDown, FaUsers, FaUserCheck, FaUserClock, FaShareAlt, FaEnvelope, FaPhone, FaCalendar, FaIdCard } from "react-icons/fa";
+import {
+  FaSortUp,
+  FaSortDown,
+  FaUsers,
+  FaUserCheck,
+  FaUserClock,
+  FaShareAlt,
+  FaEnvelope,
+  FaPhone,
+  FaCalendar,
+  FaIdCard,
+} from "react-icons/fa";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -26,9 +37,13 @@ export default function UsersPage() {
   const filteredUsers = users.filter((user) => user.role === "user");
   const verifiedUsers = filteredUsers.filter((u) => u.status === "active");
   const unverifiedUsers = filteredUsers.filter((u) => u.status === "inactive");
-  const uniqueReferrals = [...new Set(filteredUsers.map((u) => u.referralCode).filter(Boolean))];
+  const uniqueReferrals = [
+    ...new Set(filteredUsers.map((u) => u.referralCode).filter(Boolean)),
+  ];
   const lastCreated = filteredUsers.length
-    ? new Date(Math.max(...filteredUsers.map((u) => new Date(u.createdAt)))).toLocaleDateString()
+    ? new Date(
+        Math.max(...filteredUsers.map((u) => new Date(u.createdAt)))
+      ).toLocaleDateString()
     : "-";
 
   const sortedUsers = [...filteredUsers].sort((a, b) => {
@@ -39,7 +54,13 @@ export default function UsersPage() {
       aVal = new Date(aVal).getTime();
       bVal = new Date(bVal).getTime();
     }
-    return sortConfig.direction === "asc" ? (aVal > bVal ? 1 : -1) : aVal < bVal ? 1 : -1;
+    return sortConfig.direction === "asc"
+      ? aVal > bVal
+        ? 1
+        : -1
+      : aVal < bVal
+      ? 1
+      : -1;
   });
 
   // Enhanced loading component
@@ -56,7 +77,10 @@ export default function UsersPage() {
           {/* Stats Cards Skeleton */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+              <div
+                key={i}
+                className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm"
+              >
                 <div className="flex items-center justify-between">
                   <div className="space-y-2">
                     <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
@@ -77,7 +101,10 @@ export default function UsersPage() {
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="grid grid-cols-6 gap-4 py-3">
                   {[...Array(6)].map((_, j) => (
-                    <div key={j} className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                    <div
+                      key={j}
+                      className="h-4 bg-gray-200 rounded animate-pulse"
+                    ></div>
                   ))}
                 </div>
               ))}
@@ -89,7 +116,8 @@ export default function UsersPage() {
   }
 
   const getArrowClass = (key, direction) => {
-    const isActive = sortConfig.key === key && sortConfig.direction === direction;
+    const isActive =
+      sortConfig.key === key && sortConfig.direction === direction;
     return `h-3 w-3 transition-colors duration-200 ${
       isActive ? "text-blue-600" : "text-gray-400"
     }`;
@@ -102,7 +130,9 @@ export default function UsersPage() {
           <p className="text-sm font-medium text-gray-600">{label}</p>
           <p className={`text-2xl font-bold ${color} mt-1`}>{value}</p>
         </div>
-        <div className={`h-12 w-12 ${bgColor} rounded-lg flex items-center justify-center`}>
+        <div
+          className={`h-12 w-12 ${bgColor} rounded-lg flex items-center justify-center`}
+        >
           <Icon className="h-6 w-6 text-white" />
         </div>
       </div>
@@ -113,55 +143,58 @@ export default function UsersPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
+        <div className="flex flex-col justify-center items-center text-center mb-6 sm:mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
-            <p className="text-gray-600">Manage and monitor all registered users</p>
-          </div>
-          <div className="flex items-center space-x-3 mt-4 lg:mt-0">
-            <span className="text-sm text-gray-500">{filteredUsers.length} total users</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 sm:text-blue-500 md:text-green-600 lg:text-red-500 xl:text-blue-500 mb-2">
+              User Management
+            </h1>
+            <p className="text-sm sm:text-base text-gray-600">
+              Manage and monitor all registered users
+            </p>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard 
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-[380px] sm:w-[580px] md:w-[470px] lg:w-[1000px] xl:w-[980px] gap-6 mb-8">
+          <StatCard
             icon={FaUsers}
-            label="Total Users" 
-            value={filteredUsers.length} 
+            label="Total Users"
+            value={filteredUsers.length}
             color="text-blue-600"
             bgColor="bg-blue-500"
           />
-          <StatCard 
+          <StatCard
             icon={FaUserCheck}
-            label="Active Users" 
-            value={verifiedUsers.length} 
+            label="Active Users"
+            value={verifiedUsers.length}
             color="text-green-600"
             bgColor="bg-green-500"
           />
-          <StatCard 
+          <StatCard
             icon={FaUserClock}
-            label="Inactive Users" 
-            value={unverifiedUsers.length} 
+            label="Inactive Users"
+            value={unverifiedUsers.length}
             color="text-orange-600"
             bgColor="bg-orange-500"
           />
-          <StatCard 
+          <StatCard
             icon={FaShareAlt}
-            label="Unique Referrals" 
-            value={uniqueReferrals.length} 
+            label="Unique Referrals"
+            value={uniqueReferrals.length}
             color="text-purple-600"
             bgColor="bg-purple-500"
           />
         </div>
 
         {/* Users Table */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white w-[380px] sm:w-[580px] md:w-[470px] lg:w-[1000px] xl:w-[980px] rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">All Users</h2>
-            <p className="text-sm text-gray-600 mt-1">Showing {filteredUsers.length} users</p>
+            <p className="text-sm text-gray-600 mt-1">
+              Showing {filteredUsers.length} users
+            </p>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -170,9 +203,21 @@ export default function UsersPage() {
                     { key: "code", label: "User Code", icon: FaIdCard },
                     { key: "name", label: "Full Name", icon: FaUsers },
                     { key: "email", label: "Email Address", icon: FaEnvelope },
-                    { key: "referralCode", label: "Referral Code", icon: FaShareAlt },
-                    { key: "contactNo", label: "Contact Number", icon: FaPhone },
-                    { key: "createdAt", label: "Registration Date", icon: FaCalendar },
+                    {
+                      key: "referralCode",
+                      label: "Referral Code",
+                      icon: FaShareAlt,
+                    },
+                    {
+                      key: "contactNo",
+                      label: "Contact Number",
+                      icon: FaPhone,
+                    },
+                    {
+                      key: "createdAt",
+                      label: "Registration Date",
+                      icon: FaCalendar,
+                    },
                   ].map(({ key, label, icon: Icon }) => (
                     <th
                       key={key}
@@ -180,7 +225,11 @@ export default function UsersPage() {
                       onClick={() =>
                         setSortConfig({
                           key,
-                          direction: sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc",
+                          direction:
+                            sortConfig.key === key &&
+                            sortConfig.direction === "asc"
+                              ? "desc"
+                              : "asc",
                         })
                       }
                     >
@@ -199,17 +248,25 @@ export default function UsersPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {sortedUsers.length > 0 ? (
                   sortedUsers.map((u) => (
-                    <tr key={u._id} className="hover:bg-gray-50 transition-colors duration-150">
+                    <tr
+                      key={u._id}
+                      className="hover:bg-gray-50 transition-colors duration-150"
+                    >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900 bg-gray-100 px-2 py-1 rounded inline-block">
                           {u.code || "N/A"}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-semibold text-gray-900">{u.name || "N/A"}</div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {u.name || "N/A"}
+                        </div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900 truncate max-w-[200px]" title={u.email}>
+                        <div
+                          className="text-sm text-gray-900 truncate max-w-[200px]"
+                          title={u.email}
+                        >
                           {u.email}
                         </div>
                       </td>
@@ -219,14 +276,16 @@ export default function UsersPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{u.contactNo || "N/A"}</div>
+                        <div className="text-sm text-gray-900">
+                          {u.contactNo || "N/A"}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-500">
-                          {new Date(u.createdAt).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
+                          {new Date(u.createdAt).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
                           })}
                         </div>
                       </td>
@@ -238,7 +297,9 @@ export default function UsersPage() {
                       <div className="flex flex-col items-center justify-center text-gray-400">
                         <FaUsers className="h-12 w-12 mb-3 opacity-50" />
                         <p className="text-lg font-medium">No users found</p>
-                        <p className="text-sm mt-1">No registered users in the system</p>
+                        <p className="text-sm mt-1">
+                          No registered users in the system
+                        </p>
                       </div>
                     </td>
                   </tr>

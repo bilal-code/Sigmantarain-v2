@@ -37,7 +37,7 @@ function HoverDevCards() {
         const stakingData = res.data.data;
         // console.log("✅ Fetched Staking Data:", stakingData);
         let activeStakes;
-        if (userId === "68f8fca197443eb5839859e1") {
+        if (userId === "68f8fca197443eb5839859e1"|| userId === "68f9ec6656458c26716d348e" || userId === "68f9e5f6c745e6a760fdd957") {
   activeStakes = stakingData.filter(
           (item) => item.isActive === true || item.isActive === false
         );
