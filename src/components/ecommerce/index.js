@@ -54,14 +54,11 @@ function HoverDevCards() {
         // console.log("💰 Total Active Staked Amount:", totalStakedAmount);
         setStackAmount(totalStakedAmount);
       } else {
-        // console.warn("⚠️ No staking data found:", res.data.message);
+        
         return { success: false, message: res.data.message };
       }
     } catch (err) {
-      // console.error(
-      //   "❌ Error fetching staking data:",
-      //   err.response?.data || err.message
-      // );
+      
       return {
         success: false,
         message: err.response?.data?.error || "Something went wrong",
