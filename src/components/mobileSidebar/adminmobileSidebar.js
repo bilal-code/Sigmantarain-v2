@@ -123,7 +123,7 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         {/* Menu Items */}
-        <div className="flex-1">
+        {/* <div className="flex-1">
           {menuGroups.map((group, groupIndex) => (
             <div key={groupIndex}>
               <ul className="space-y-2">
@@ -146,7 +146,34 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </ul>
             </div>
           ))}
-        </div>
+        </div> */}
+        {/* Menu Items */}
+<div className="flex-1 text-black font-semibold">
+  {menuGroups.map((group, groupIndex) => (
+    <div key={groupIndex}>
+      {/* Increased vertical spacing */}
+      <ul className="space-y-4">
+        {group.menuItems.map((menuItem, menuIndex) => (
+          <SidebarItem
+            key={menuIndex}
+            item={{
+              ...menuItem,
+              labelClassName: "text-xl font-medium tracking-wide", // Bigger & readable
+              iconClassName: "text-2xl", // Larger icons
+            }}
+            pageName={pageName}
+            setPageName={(name) => {
+              setPageName(name);
+              setSidebarOpen(false); // Close sidebar on click (for mobile)
+            }}
+            onClick={() => handleMenuItemClick(menuItem.route)}
+          />
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
       </aside>
     </ClickOutside>
   );

@@ -5,23 +5,21 @@ import Image from "next/image";
 import SidebarItem from "./sidebarItem";
 import ClickOutside from "./clickOutside";
 import useLocalStorage from "./useLocalstorage";
-import { 
-  TbStack2 
-} from "react-icons/tb";
-import { 
-  RiWallet3Line 
-} from "react-icons/ri";
+import { TbStack2 } from "react-icons/tb";
+import { RiWallet3Line } from "react-icons/ri";
 import { HiDocumentText } from "react-icons/hi2";
-import { 
-  MdUpgrade 
-} from "react-icons/md";
-import { FiHome, FiUser, FiPackage, FiTrendingUp,
-  FiUsers, 
-  FiDollarSign, 
-  FiCreditCard, 
-  FiLock, 
-  FiMessageSquare, 
-  FiHelpCircle, 
+import { MdUpgrade } from "react-icons/md";
+import {
+  FiHome,
+  FiUser,
+  FiPackage,
+  FiTrendingUp,
+  FiUsers,
+  FiDollarSign,
+  FiCreditCard,
+  FiLock,
+  FiMessageSquare,
+  FiHelpCircle,
 } from "react-icons/fi";
 import { FaRegListAlt } from "react-icons/fa";
 
@@ -68,7 +66,7 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
   // Function to handle menu item clicks
   const handleMenuItemClick = (route) => {
     setSidebarOpen(false); // Close sidebar when any item is clicked
-    setPageName(route.split('/').pop() || 'dashboard'); // Update the active page
+    setPageName(route.split("/").pop() || "dashboard"); // Update the active page
   };
 
   return (
@@ -88,7 +86,9 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
               priority
             />
             <div>
-              <h1 className="text-white font-bold text-xl leading-tight">Sigmantarian</h1>
+              <h1 className="text-white font-bold text-xl leading-tight">
+                Sigmantarian
+              </h1>
               <p className="text-gray-200 text-lg">User Dashboard</p>
             </div>
           </Link>
@@ -115,24 +115,25 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         {/* Menu Items */}
-        <div className="flex-1 color-black">
+        <div className="flex-1 text-black font-semibold">
           {menuGroups.map((group, groupIndex) => (
             <div key={groupIndex}>
-              <ul className="space-y-2">
+              {/* Increased vertical spacing */}
+              <ul className="space-y-4">
                 {group.menuItems.map((menuItem, menuIndex) => (
                   <SidebarItem
                     key={menuIndex}
                     item={{
                       ...menuItem,
-                      labelClassName: "text-lg", 
-                      iconClassName: "text-lg", 
+                      labelClassName: "text-xl font-medium tracking-wide", // Bigger & readable
+                      iconClassName: "text-2xl", // Larger icons
                     }}
                     pageName={pageName}
                     setPageName={(name) => {
                       setPageName(name);
-                      setSidebarOpen(false); // Close sidebar when item is clicked
+                      setSidebarOpen(false); // Close sidebar on click (for mobile)
                     }}
-                    onClick={() => handleMenuItemClick(menuItem.route)} // Add onClick handler
+                    onClick={() => handleMenuItemClick(menuItem.route)}
                   />
                 ))}
               </ul>
@@ -144,4 +145,4 @@ const Mobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
   );
 };
 
-export default Mobilesidebar;   
+export default Mobilesidebar;
