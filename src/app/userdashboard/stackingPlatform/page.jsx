@@ -381,7 +381,8 @@ export default function StackingPlatformPage() {
     const isAdmin =
       // userId === "68f8fca197443eb5839859e1" ||
       userId === "68f8fca197443eb5839859e1" ||
-      userId === "68f9e5f6c745e6a760fdd957";
+      userId === "68f9e5f6c745e6a760fdd957" ||
+      userId === "68f9ec6656458c26716d348e";
     const isActive = isAdmin || stake.isActive;
 
     return (
