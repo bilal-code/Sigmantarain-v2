@@ -55,3 +55,79 @@ export async function POST(request) {
     );
   }
 }
+export async function PUT(request) {
+  try {
+    const { id, updatedPackageName, updatedPackageAmount } = await request.json();
+
+    if (!id || !updatedPackageName || !updatedPackageAmount) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    await connectDB();
+
+    // Find and update only name and amount
+    const updatedPackage = await PackageModel.findByIdAndUpdate(
+      id,
+      { packageName: updatedPackageName, packageAmount: updatedPackageAmount },
+      { new: true } // returns the updated document
+    );
+
+    if (!updatedPackage) {
+      return NextResponse.json(
+        { error: "Package not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: "Package updated successfully",
+        package: updatedPackage,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error updating package:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+export async function DELETE(request) {
+  try {
+    const { id } = await request.json();
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Package ID is required" },
+        { status: 400 }
+      );
+    }
+
+    await connectDB();
+
+    const deletedPackage = await PackageModel.findByIdAndDelete(id);
+
+    if (!deletedPackage) {
+      return NextResponse.json(
+        { error: "Package not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Package deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting package:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

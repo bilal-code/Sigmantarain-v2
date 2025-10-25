@@ -155,7 +155,7 @@ export default function UsersPage() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-[380px] sm:w-[580px] md:w-[470px] lg:w-[1000px] xl:w-[980px] gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-[380px] sm:w-[580px] md:w-[470px] lg:w-[740px] xl:w-[980px] gap-6 mb-8">
           <StatCard
             icon={FaUsers}
             label="Total Users"
@@ -187,7 +187,7 @@ export default function UsersPage() {
         </div>
 
         {/* Users Table */}
-        <div className="bg-white w-[380px] sm:w-[580px] md:w-[470px] lg:w-[1000px] xl:w-[980px] rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white w-[380px] sm:w-[580px] md:w-[470px] lg:w-[740px] xl:w-[980px] rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">All Users</h2>
             <p className="text-sm text-gray-600 mt-1">

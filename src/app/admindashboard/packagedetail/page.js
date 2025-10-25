@@ -1,173 +1,3 @@
-// "use client";
-// import React, { useEffect, useState } from "react";
-// import { FaSortUp, FaSortDown } from "react-icons/fa";
-// import axios from "axios";
-
-// const PackageDetailsPage = () => {
-//   const [packageData, setPackageData] = useState([]);
-//   const [view, setView] = useState("list");
-//   const [loading, setLoading] = useState(true);
-//   const [expandedIdIndex, setExpandedIdIndex] = useState(null);
-//   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-
-//   useEffect(() => {
-//     const fetchPackageDetails = async () => {
-//       try {
-//         const response = await axios.get("/api/user/get-package");
-//         setPackageData(response.data.packages || []);
-//       } catch (error) {
-//         alert("Error fetching package details:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetchPackageDetails();
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <div className="p-2 sm:p-6 min-h-screen bg-white animate-pulse">
-//         <div className="max-w-7xl mx-auto space-y-4">
-//           <div className="h-8 w-48 bg-gray-700 rounded mb-6"></div>
-//           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-//             {[...Array(4)].map((_, i) => (
-//               <div key={i} className="bg-white p-3 rounded-lg border border-white h-24"></div>
-//             ))}
-//           </div>
-//           <div className="bg-rounded-lg border border-white h-64"></div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const getArrowClass = (key, direction) => {
-//     const isActive = sortConfig.key === key && sortConfig.direction === direction;
-//     return `h-3 w-3 transition-colors duration-200 ${
-//       isActive ? "text-cyan-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.8)]" : "text-gray-500"
-//     }`;
-//   };
-
-//   return (
-//     <div className="p-2 sm:p-6 min-h-screen bg-white">
-//       <div className="max-w-7xl mx-auto">
-//         {/* Header */}
-//         <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-4 mb-6">
-//           <h1 className="text-xl sm:text-2xl font-bold text-[#0B98AC] mt-4 sm:mt-0">
-//             Package Details
-//           </h1>
-//         </div>
-
-//         {/* Stats Cards */}
-//         <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mb-6">
-//           <div className="bg-[#0B98AC] p-4 rounded-xl border border-[#0B98AC] shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] transition transform hover:scale-103">
-//             <h3 className="text-xs sm:text-sm font-medium text-white">Total Packages</h3>
-//             <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-300 mt-1">{packageData.length}</p>
-//           </div>
-
-//           <div className="bg-[#0B98AC] p-4 rounded-xl border border-[#0B98AC] shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] transition transform hover:scale-103 ">
-//             <h3 className="text-xs sm:text-sm font-medium text-white">Active</h3>
-//             <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-300">{packageData.filter((pkg) => pkg.status === "active").length}</p>
-//           </div>
-//         </div>
-
-//         {/* Table */}
-//         {view === "list" && (
-// <div className="bg-[#1c1c1c] rounded-xl border border-cyan-400 shadow-[0_0_15px_rgba(168,85,247,0.2)] overflow-hidden">
-//   <div className="overflow-x-auto">
-//     <table className="min-w-full divide-y divide-cyan-400">
-//       <thead className="bg-[#0B98AC]">
-//         <tr>
-//           {["ID", "Package", "Amount", "Daily %", "Created"].map((head, idx) => {
-//             const keyMap = ["_id", "packageName", "packageAmount", "packageDailyPercentage", "createdAt"];
-//             const key = keyMap[idx];
-//             return (
-//               <th
-//                 key={idx}
-//                 className="px-3 py-3 text-left text-xs sm:text-sm font-medium text-white uppercase tracking-wider cursor-pointer select-none"
-//                 onClick={() =>
-//                   setSortConfig({
-//                     key,
-//                     direction:
-//                       sortConfig.key === key && sortConfig.direction === "asc"
-//                         ? "desc"
-//                         : "asc",
-//                   })
-//                 }
-//               >
-//                 <span className="flex items-center">
-//                   {head}
-//                   <span className="ml-1 flex flex-col">
-//                     <FaSortUp className={getArrowClass(key, "asc")} />
-//                     <FaSortDown className={getArrowClass(key, "desc")} />
-//                   </span>
-//                 </span>
-//               </th>
-//             );
-//           })}
-//         </tr>
-//       </thead>
-
-//       <tbody className="bg-white divide-y divide-cyan-400">
-//         {packageData.length > 0 ? (
-//           packageData
-//             .sort((a, b) => {
-//               if (!sortConfig.key) return 0;
-//               let aVal = a[sortConfig.key];
-//               let bVal = b[sortConfig.key];
-//               if (sortConfig.key === "packageAmount" || sortConfig.key === "packageDailyPercentage") {
-//                 aVal = parseFloat(aVal);
-//                 bVal = parseFloat(bVal);
-//               }
-//               if (sortConfig.key === "createdAt") {
-//                 aVal = new Date(aVal).getTime();
-//                 bVal = new Date(bVal).getTime();
-//               }
-//               if (sortConfig.direction === "asc") return aVal < bVal ? -1 : 1;
-//               return aVal > bVal ? -1 : 1;
-//             })
-//             .map((pkg, index) => (
-//               <tr
-//                 key={index}
-//                 className="transition-all duration-300"
-//               >
-//                 <td
-//                   className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-800 cursor-pointer hover:text-black"
-//                   onClick={() =>
-//                     setExpandedIdIndex(expandedIdIndex === index ? null : index)
-//                   }
-//                   title="Click to toggle full ID"
-//                 >
-//                   <span className="block lg:hidden">
-//                     {pkg._id ? (expandedIdIndex === index ? pkg._id : `${pkg._id.slice(0, 6)}...`) : `#PKG${index + 1}`}
-//                   </span>
-//                   <span className="hidden lg:block">
-//                     {pkg._id || `#PKG${index + 1}`}
-//                   </span>
-//                 </td>
-//                 <td className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-800">{pkg.packageName}</td>
-//                 <td className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-800">${parseFloat(pkg.packageAmount).toFixed(2)}</td>
-//                 <td className="px-3 py-2 text-xs sm:text-sm font-medium text-gray-800">{pkg.packageDailyPercentage}%</td>
-//                 <td className="px-3 py-2 text-xs sm:text-sm text-gray-800">{pkg.createdAt ? new Date(pkg.createdAt).toLocaleDateString() : "-"}</td>
-//               </tr>
-//             ))
-//         ) : (
-//           <tr>
-//             <td colSpan={5} className="text-center py-6 text-gray-400 text-sm">No packages found.</td>
-//           </tr>
-//         )}
-//       </tbody>
-//     </table>
-//   </div>
-// </div>
-
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PackageDetailsPage;
-
 "use client";
 import React, { useEffect, useState } from "react";
 import {
@@ -176,6 +6,8 @@ import {
   FaBox,
   FaCheckCircle,
   FaSpinner,
+  FaEdit,
+  FaTrash,
 } from "react-icons/fa";
 import axios from "axios";
 
@@ -185,20 +17,115 @@ const PackageDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [expandedIdIndex, setExpandedIdIndex] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, packageId: null, packageName: "" });
+  const [updateModal, setUpdateModal] = useState({ isOpen: false, package: null });
+  const [formData, setFormData] = useState({ packageName: "", packageAmount: "" });
+  const [loadingAction, setLoadingAction] = useState(false);
 
   useEffect(() => {
-    const fetchPackageDetails = async () => {
-      try {
-        const response = await axios.get("/api/user/get-package");
-        setPackageData(response.data.packages || []);
-      } catch (error) {
-        // console.error("Error fetching package details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPackageDetails();
   }, []);
+
+  const fetchPackageDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/api/user/get-package");
+      setPackageData(response.data.packages || []);
+    } catch (error) {
+      console.error("Error fetching package details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeletePackage = async () => {
+    try {
+      setLoadingAction(true);
+      const response = await axios.delete("/api/admin/create-package", {
+        data: { id: deleteModal.packageId }
+      });
+
+      if (response.status === 200) {
+        // Remove the deleted package from state
+        setPackageData(prev => prev.filter(pkg => pkg._id !== deleteModal.packageId));
+        closeDeleteModal();
+      }
+    } catch (error) {
+      console.error("Error deleting package:", error);
+      alert(error.response?.data?.error || "Failed to delete package");
+    } finally {
+      setLoadingAction(false);
+    }
+  };
+
+  const handleUpdatePackage = async () => {
+    if (!formData.packageName.trim() || !formData.packageAmount) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      setLoadingAction(true);
+      const response = await axios.put("/api/admin/create-package", {
+        id: updateModal.package._id,
+        updatedPackageName: formData.packageName,
+        updatedPackageAmount: formData.packageAmount
+      });
+
+      if (response.status === 200) {
+        // Update the package in state
+        setPackageData(prev => 
+          prev.map(pkg => 
+            pkg._id === updateModal.package._id 
+              ? { ...pkg, packageName: formData.packageName, packageAmount: formData.packageAmount }
+              : pkg
+          )
+        );
+        closeUpdateModal();
+      }
+    } catch (error) {
+      console.error("Error updating package:", error);
+      alert(error.response?.data?.error || "Failed to update package");
+    } finally {
+      setLoadingAction(false);
+    }
+  };
+
+  const handleDeleteClick = (pkg) => {
+    setDeleteModal({
+      isOpen: true,
+      packageId: pkg._id,
+      packageName: pkg.packageName
+    });
+  };
+
+  const handleUpdateClick = (pkg) => {
+    setUpdateModal({
+      isOpen: true,
+      package: pkg
+    });
+    setFormData({
+      packageName: pkg.packageName,
+      packageAmount: pkg.packageAmount
+    });
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal({ isOpen: false, packageId: null, packageName: "" });
+  };
+
+  const closeUpdateModal = () => {
+    setUpdateModal({ isOpen: false, package: null });
+    setFormData({ packageName: "", packageAmount: "" });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   // Enhanced loading component
   if (loading) {
@@ -383,34 +310,35 @@ const PackageDetailsPage = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     {[
-                      { key: "_id", label: "ID" },
+                      // { key: "_id", label: "ID" },
                       { key: "packageName", label: "Package" },
                       { key: "packageAmount", label: "Amount" },
                       { key: "packageDailyPercentage", label: "Tokens" },
                       { key: "createdAt", label: "Created" },
+                      { key: "actions", label: "Actions" },
                     ].map(({ key, label }) => (
                       <th
                         key={key}
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors duration-150"
-                        onClick={() =>
-                          setSortConfig({
-                            key,
-                            direction:
-                              sortConfig.key === key &&
-                              sortConfig.direction === "asc"
-                                ? "desc"
-                                : "asc",
-                          })
-                        }
+                        onClick={() => key !== "actions" && setSortConfig({
+                          key,
+                          direction:
+                            sortConfig.key === key &&
+                            sortConfig.direction === "asc"
+                              ? "desc"
+                              : "asc",
+                        })}
                       >
                         <span className="flex items-center space-x-1">
                           <span>{label}</span>
-                          <span className="flex flex-col">
-                            <FaSortUp className={getArrowClass(key, "asc")} />
-                            <FaSortDown
-                              className={getArrowClass(key, "desc")}
-                            />
-                          </span>
+                          {key !== "actions" && (
+                            <span className="flex flex-col">
+                              <FaSortUp className={getArrowClass(key, "asc")} />
+                              <FaSortDown
+                                className={getArrowClass(key, "desc")}
+                              />
+                            </span>
+                          )}
                         </span>
                       </th>
                     ))}
@@ -424,7 +352,7 @@ const PackageDetailsPage = () => {
                         key={index}
                         className="hover:bg-gray-50 transition-colors duration-150"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        {/* <td className="px-6 py-4 whitespace-nowrap">
                           <div
                             className="text-sm font-medium text-gray-900 cursor-pointer hover:text-blue-600 transition-colors duration-150"
                             onClick={() =>
@@ -446,7 +374,7 @@ const PackageDetailsPage = () => {
                               `#PKG${index + 1}`
                             )}
                           </div>
-                        </td>
+                        </td> */}
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-semibold text-gray-900">
                             {pkg.packageName}
@@ -483,11 +411,29 @@ const PackageDetailsPage = () => {
                               : "-"}
                           </div>
                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleUpdateClick(pkg)}
+                              className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white p-2 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                              title="Update Package"
+                            >
+                              <FaEdit className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteClick(pkg)}
+                              className="bg-red-500 cursor-pointer hover:bg-red-600 text-white p-2 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                              title="Delete Package"
+                            >
+                              <FaTrash className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center">
+                      <td colSpan={6} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center justify-center text-gray-400">
                           <FaBox className="h-12 w-12 mb-3 opacity-50" />
                           <p className="text-lg font-medium">
@@ -502,6 +448,112 @@ const PackageDetailsPage = () => {
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {deleteModal.isOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl max-w-md w-full p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Delete Package
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Are you sure you want to delete the package{" "}
+                <span className="font-semibold">"{deleteModal.packageName}"</span>? 
+                This action cannot be undone.
+              </p>
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={closeDeleteModal}
+                  disabled={loadingAction}
+                  className="px-4 py-2 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeletePackage}
+                  disabled={loadingAction}
+                  className="px-4 py-2 cursor-pointer text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors duration-200 disabled:opacity-50 flex items-center"
+                >
+                  {loadingAction ? (
+                    <>
+                      <FaSpinner className="animate-spin h-4 w-4 mr-2" />
+                      Deleting...
+                    </>
+                  ) : (
+                    "Delete"
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Update Package Modal */}
+        {updateModal.isOpen && updateModal.package && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl max-w-md w-full p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Update Package
+              </h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Package Name
+                  </label>
+                  <input
+                    type="text"
+                    name="packageName"
+                    value={formData.packageName}
+                    onChange={handleInputChange}
+                    className="w-full text-black px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter package name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Package Amount ($)
+                  </label>
+                  <input
+                    type="number"
+                    name="packageAmount"
+                    value={formData.packageAmount}
+                    onChange={handleInputChange}
+                    className="w-full text-black px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter package amount"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-3 mt-6">
+                <button
+                  onClick={closeUpdateModal}
+                  disabled={loadingAction}
+                  className="px-4 py-2 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdatePackage}
+                  disabled={loadingAction}
+                  className="px-4 py-2 cursor-pointer text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors duration-200 disabled:opacity-50 flex items-center"
+                >
+                  {loadingAction ? (
+                    <>
+                      <FaSpinner className="animate-spin h-4 w-4 mr-2" />
+                      Updating...
+                    </>
+                  ) : (
+                    "Update"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         )}
