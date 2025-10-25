@@ -1,20 +1,35 @@
 // app/otpmodal/page.js
-"use client";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import OtpModal from "@/components/modals/OtpModal";
 
-export default function OtpPage() {
+function OtpContent() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <OtpModalWrapper />
+    </Suspense>
+  );
+}
+
+// Separate client component that uses useSearchParams
+function OtpModalWrapper() {
+  const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
   
   const handleClose = () => {
     if (window.history.length > 1) {
       window.history.back();
     } else {
-      window.location.href = "/"; // Fallback to home page
+      window.location.href = "/";
     }
   };
 
-  // Get form data from URL params
   const formData = {
     email: searchParams.get('email') || "",
     referralCode: searchParams.get('referralCode') || "",
@@ -32,3 +47,5 @@ export default function OtpPage() {
     />
   );
 }
+
+export default OtpContent;
