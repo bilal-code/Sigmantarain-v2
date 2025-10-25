@@ -56,19 +56,18 @@ export default function StackingPlatformPage() {
       if (response.data.success) {
         let totalStaked = response.data.data;
         // ✅ Admin: only inactive stakes
-        if (
-          userId === "68f8fca197443eb5839859e1" ||
-          userId === "68f9ec6656458c26716d348e" ||
-          userId === "68f9e5f6c745e6a760fdd957"
-        ) {
-          totalStaked = totalStaked.filter(
-            (stake) => !stake.isActive || stake.isActive
-          );
-        }
+        // if (
+        //   userId === "68f8fca197443eb5839859e1" ||
+        //   userId === "68f9ec6656458c26716d348e" ||
+        //   userId === "68f9e5f6c745e6a760fdd957"
+        // ) {
+        //   totalStaked = totalStaked.filter(
+        //     (stake) => !stake.isActive || stake.isActive
+        //   );
+        // }
         // ✅ Normal users: only active stakes
-        else {
+        
           totalStaked = totalStaked.filter((stake) => stake.isActive);
-        }
         totalStaked = totalStaked.reduce(
           (acc, stake) => acc + stake.stakedAmount,
           0
@@ -376,7 +375,7 @@ export default function StackingPlatformPage() {
                           </span>
                         </td> */}
 
-                        <td className="py-3 px-4">
+                        {/* <td className="py-3 px-4">
   {(() => {
     const isAdmin =
       // userId === "68f8fca197443eb5839859e1" ||
@@ -397,6 +396,17 @@ export default function StackingPlatformPage() {
       </span>
     );
   })()}
+</td> */}
+<td className="py-3 px-4">
+  <span
+    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+      stake.isActive
+        ? "bg-green-100 text-green-800"
+        : "bg-red-100 text-red-800"
+    }`}
+  >
+    {stake.isActive ? "Active" : "Inactive"}
+  </span>
 </td>
 
 
