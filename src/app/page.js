@@ -56,6 +56,7 @@ import Supply from "@/components/Newsupply";
 import Ranks from "@/components/Newranks";
 
 
+
 export default function Home() {
   return (
     <main className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-black">
