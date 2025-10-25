@@ -1,32 +1,20 @@
 // app/otpmodal/page.js
+"use client";
 import { Suspense } from "react";
 import OtpModal from "@/components/modals/OtpModal";
 
+// Client component that uses useSearchParams
 function OtpContent() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    }>
-      <OtpModalWrapper />
-    </Suspense>
-  );
-}
-
-// Separate client component that uses useSearchParams
-function OtpModalWrapper() {
   const { useSearchParams } = require("next/navigation");
   const searchParams = useSearchParams();
   
   const handleClose = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = "/";
+    if (typeof window !== 'undefined') {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "/";
+      }
     }
   };
 
@@ -48,4 +36,18 @@ function OtpModalWrapper() {
   );
 }
 
-export default OtpContent;
+// Main page component with Suspense
+export default function OtpPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading verification...</p>
+        </div>
+      </div>
+    }>
+      <OtpContent />
+    </Suspense>
+  );
+}
