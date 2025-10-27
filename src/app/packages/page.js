@@ -125,7 +125,7 @@ const EducationPackages = () => {
             <div className="bg-[#1f1f1f] border border-[#00FFC6] rounded-xl p-6 max-w-md w-full relative shadow-[0_0_30px_rgba(0,255,198,0.3)]">
               <button
                 onClick={() => setShowLoginAlert(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white"
+                className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-white"
               >
                 <FiX className="w-5 h-5" />
               </button>
@@ -175,7 +175,7 @@ const EducationPackages = () => {
               <div className="flex justify-center mt-6">
                 <button
                   onClick={handleClick}
-                  className="bg-[#00FFC6] hover:bg-[#00e6b2] text-black font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(0,255,198,0.3)]"
+                  className="bg-[#00FFC6] hover:bg-[#00e6b2] cursor-pointer text-black font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(0,255,198,0.3)]"
                 >
                   Buy Now
                 </button>
@@ -211,7 +211,7 @@ const EducationPackages = () => {
             <div className="flex justify-center mt-6">
               <button
                 onClick={handleClick}
-                className="bg-[#00FFC6] hover:bg-[#00e6b2] text-black font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(0,255,198,0.4)]"
+                className="bg-[#00FFC6] cursor-pointer hover:bg-[#00e6b2] text-black font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(0,255,198,0.4)]"
               >
                 Buy Now
               </button>

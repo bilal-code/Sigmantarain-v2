@@ -322,7 +322,7 @@ const UserBoughtPackagesPage = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 w-[380px] sm:w-[580px] md:w-[470px] lg:w-full gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 sm:w-full gap-2 sm:gap-4 mb-6">
           <Card 
             title="Total Packages" 
             value={totalPackages.toLocaleString()} 

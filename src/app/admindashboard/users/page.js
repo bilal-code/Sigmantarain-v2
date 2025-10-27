@@ -145,7 +145,7 @@ export default function UsersPage() {
         {/* Header */}
         <div className="flex flex-col justify-center items-center text-center mb-6 sm:mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 sm:text-blue-500 md:text-green-600 lg:text-red-500 xl:text-blue-500 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               User Management
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
@@ -221,7 +221,7 @@ export default function UsersPage() {
                   ].map(({ key, label, icon: Icon }) => (
                     <th
                       key={key}
-                      className="xl:px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors duration-150"
+                      className="md:px-6 lg:px-0 xl:px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors duration-150"
                       onClick={() =>
                         setSortConfig({
                           key,
@@ -252,17 +252,17 @@ export default function UsersPage() {
                       key={u._id}
                       className="hover:bg-gray-50 transition-colors duration-150"
                     >
-                      <td className="py-4 xl:px-2 whitespace-nowrap">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900 bg-gray-100 px-2 py-1 rounded inline-block">
                           {u.code || "N/A"}
                         </div>
                       </td>
-                      <td className="py-4 xl:px-2 whitespace-nowrap">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2 whitespace-nowrap">
                         <div className="text-sm font-semibold text-gray-900">
                           {u.name || "N/A"}
                         </div>
                       </td>
-                      <td className="py-4 xl:px-2">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2">
                         <div
                           className="text-sm text-gray-900 truncate max-w-[200px]"
                           title={u.email}
@@ -270,17 +270,17 @@ export default function UsersPage() {
                           {u.email}
                         </div>
                       </td>
-                      <td className="py-4 xl:px-2 whitespace-nowrap">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2 whitespace-nowrap">
                         <div className="text-sm font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded inline-block">
                           {u.referralCode || "N/A"}
                         </div>
                       </td>
-                      <td className="py-4 xl:px-2 whitespace-nowrap">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
                           {u.contactNo || "N/A"}
                         </div>
                       </td>
-                      <td className="py-4 xl:px-2 whitespace-nowrap">
+                      <td className="py-4 md:px-6 lg:px-0 xl:px-2 whitespace-nowrap">
                         <div className="text-sm text-gray-500">
                           {new Date(u.createdAt).toLocaleDateString("en-US", {
                             year: "numeric",

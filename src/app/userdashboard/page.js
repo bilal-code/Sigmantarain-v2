@@ -77,11 +77,11 @@ function Userdash() {
         <HoverDevCards />
       </div>
 
-      <div className="flex w-full -mt-2 justify-center gap-8">
-        <div className="w-[63%]">
+      <div className="lg:flex w-full -mt-2 justify-center gap-8">
+        <div className="ml-4 w-[93%] sm:ml-6 lg:ml-0 lg:w-[63%]">
           <PerformanceChart />
         </div>
-        <div className="w-[30%]">
+        <div className="w-[92%] sm:w-[93%] ml-4 sm:ml-6 lg:ml-0 lg:w-[30%] mt-6 lg:mt-0">
           <ProductValuationChart />
         </div>
       </div>

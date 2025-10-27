@@ -259,7 +259,7 @@ if(inactiveUser.status === 200){
           {/* ❌ Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-cyan-400 transition"
+            className="absolute top-4 cursor-pointer right-4 text-gray-400 hover:text-cyan-400 transition"
           >
             <IoClose size={24} />
           </button>

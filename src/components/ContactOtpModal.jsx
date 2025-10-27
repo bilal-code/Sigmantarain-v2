@@ -21,7 +21,7 @@ export default function ContactOTPModal({
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-white text-xl"
+          className="absolute top-2 cursor-pointer right-2 text-gray-400 hover:text-white text-xl"
         >
           &times;
         </button>
@@ -59,7 +59,7 @@ export default function ContactOTPModal({
               type="button"
               onClick={onSubmit}
               disabled={isLoading}
-              className="bg-yellow-400 text-black font-bold py-2 px-6 rounded hover:bg-yellow-300 transition min-w-32 h-12 flex items-center justify-center"
+              className="bg-yellow-400 cursor-pointer text-black font-bold py-2 px-6 rounded hover:bg-yellow-300 transition min-w-32 h-12 flex items-center justify-center"
             >
               {isLoading ? (
                 <span className="inline-flex items-center">
@@ -78,7 +78,7 @@ export default function ContactOTPModal({
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="bg-gray-600 text-white font-bold py-2 px-6 rounded hover:bg-gray-500 transition min-w-32 h-12"
+              className="bg-gray-600 cursor-pointer text-white font-bold py-2 px-6 rounded hover:bg-gray-500 transition min-w-32 h-12"
             >
               Cancel
             </button>

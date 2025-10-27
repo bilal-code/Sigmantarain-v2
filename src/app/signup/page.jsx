@@ -350,7 +350,7 @@ function SignupForm() {
           {/* ❌ Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-cyan-400 transition"
+            className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-cyan-400 transition"
           >
             <IoClose size={24} />
           </button>

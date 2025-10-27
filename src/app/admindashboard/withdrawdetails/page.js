@@ -302,7 +302,7 @@ const res = await fetch("/api/user/withdraw-request/updateStatus", {
       <div className="max-w-7xl mx-auto">
         {/* Header with Toggle Buttons */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#0B98AC]">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             {activeTab === "usdt" ? "USDT Withdrawals" : "Staking Withdrawals"}
           </h1>
           
@@ -722,11 +722,11 @@ const StakingWithdrawalsContent = ({
 
 // ✅ Stat Box Component
 const StatBox = ({ icon, label, value, color }) => (
-  <div className="bg-[#0B98AC] p-4 rounded-xl border border-cyan-400 shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] flex items-center gap-3 transition">
+  <div className="bg-white text-black p-4 rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] flex items-center gap-3 transition">
     {icon}
     <div>
-      <h3 className="text-xs text-white">{label}</h3>
-      <p className={`text-lg sm:text-xl md:text-2xl font-bold mt-1 ${color}`}>
+      <h3 className="text-xs text-gray-600">{label}</h3>
+      <p className={`text-lg text-black sm:text-xl md:text-2xl font-bold mt-1`}>
         {value}
       </p>
     </div>

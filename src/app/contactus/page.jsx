@@ -267,7 +267,7 @@ const handleVerifyOTP = async () => {
             <div className="text-center pt-1">
               <button
                 type="submit"
-                className="bg-cyan-400 text-black-500 font-semibold 
+                className="bg-cyan-400 cursor-pointer text-black-500 font-semibold 
                 py-3 px-8 rounded-full 
                 shadow-lg hover:shadow-[0_0_15px_3px_rgba(212,175,55,0.5)]
                 transform hover:scale-105
