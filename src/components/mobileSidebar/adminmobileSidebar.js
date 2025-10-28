@@ -104,7 +104,7 @@ const AdminMobilesidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
-            className="block lg:hidden text-white"
+            className="block lg:hidden cursor-pointer text-white"
           >
             <svg
               className="fill-current"
