@@ -147,108 +147,110 @@ export default function LoginPage() {
     }
   };
 
-  // ✅ Handle Login
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      setIsLoading(true);
+  try {
+    setIsLoading(true);
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userID: formData.userID,
-          password: formData.password,
-        }),
-      });
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userID: formData.userID,
+        password: formData.password,
+      }),
+    });
 
-      const result = await response.json();
-      // console.log("login result", result);
+    const result = await response.json();
+    // console.log("login result", result);
 
-      if (!response.ok) {
-        showErrorToast(
-          result.error || "Invalid credentials. Please try again."
-        );
-        setIsLoading(false);
-        return;
-      }
-
-      // ✅ Admin & Sub-admins can login directly (no restrictions)
-      if (
-        result?.user?.role === "admin" ||
-        result?.user?.role === "sub-admin"
-      ) {
-        showSuccessToast("Welcome Admin!");
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
-        router.push("/admindashboard");
-        return;
-      }
-
-      // ✅ Regular user login logic
-      const createdAt = result?.user?.createdAt;
-      if (createdAt && result?.user?.status === "active") {
-        const createdDate = new Date(createdAt);
-        const currentDate = new Date();
-        const diffMs = currentDate - createdDate;
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-        // console.log(`Account created ${diffDays} days ago.`);
-
-        // ✅ If 5 or more days old → check packages
-        // if (diffDays >= 5) {
-//   const boughtData = await fetchBoughtData(result?.user?._id);
-//   const boughtCount = boughtData?.boughtPackages?.length || 0;
-
-//   // console.log("Bought Packages Count:", boughtCount);
-
-//   if (boughtCount > 0) {
-//     // console.log("✅ User has bought packages, allow login.");
-//     showSuccessToast("Login successful!");
-//     localStorage.setItem("token", result.token);
-//     localStorage.setItem("user", JSON.stringify(result.user));
-//     router.push("/userdashboard");
-//   } else {
-//     // console.log("🚫 Account blocked — no package purchased.");
-//     const inactiveUser = await fetch("/api/auth/login", {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         id: result?.user?._id,
-//         status: "inactive",
-//       }),
-//     });
-//     if (inactiveUser.status === 200) {
-//       showErrorToast("Your account has been blocked because you haven’t bought any packages.");
-//     } else {
-//       showErrorToast("Failed to update user status.");
-//     }
-//   }
-// } else {
-//   // console.log("⏳ Account is less than 5 days old — allow login.");
-//   showSuccessToast("Login successful!");
-//   localStorage.setItem("token", result.token);
-//   localStorage.setItem("user", JSON.stringify(result.user));
-//   router.push("/userdashboard");
-// }
-
-// ✅ Simplified version (always allow login)
-showSuccessToast("Login successful!");
-localStorage.setItem("token", result.token);
-localStorage.setItem("user", JSON.stringify(result.user));
-router.push("/userdashboard");
-
-      } else {
-        showErrorToast("Your account is inactive. Please contact support.");
-      }
-    } catch (error) {
-      // console.error("Login error:", error);
-      showErrorToast("Something went wrong. Please try again.");
-    } finally {
+    if (!response.ok) {
+      showErrorToast(
+        result.error || "Invalid credentials. Please try again."
+      );
       setIsLoading(false);
+      return;
     }
-  };
+
+    // ✅ Admin & Sub-admins can login directly (no restrictions)
+    if (
+      result?.user?.role === "admin" ||
+      result?.user?.role === "sub-admin"
+    ) {
+      showSuccessToast("Welcome Admin!");
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      router.push("/admindashboard");
+      return;
+    }
+
+    // ✅ Regular user login logic
+    const createdAt = result?.user?.createdAt;
+
+    // if (createdAt && result?.user?.status === "active") {
+    if (createdAt) { // 👈 status check removed so all users can login
+      const createdDate = new Date(createdAt);
+      const currentDate = new Date();
+      const diffMs = currentDate - createdDate;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      // console.log(`Account created ${diffDays} days ago.`);
+
+      // ✅ Removed package restriction — always allow login
+      // if (diffDays >= 5) {
+      //   const boughtData = await fetchBoughtData(result?.user?._id);
+      //   const boughtCount = boughtData?.boughtPackages?.length || 0;
+
+      //   if (boughtCount > 0) {
+      //     showSuccessToast("Login successful!");
+      //     localStorage.setItem("token", result.token);
+      //     localStorage.setItem("user", JSON.stringify(result.user));
+      //     router.push("/userdashboard");
+      //   } else {
+      //     const inactiveUser = await fetch("/api/auth/login", {
+      //       method: "PUT",
+      //       headers: { "Content-Type": "application/json" },
+      //       body: JSON.stringify({
+      //         id: result?.user?._id,
+      //         status: "inactive",
+      //       }),
+      //     });
+      //     if (inactiveUser.status === 200) {
+      //       showErrorToast("Your account has been blocked because you haven’t bought any packages.");
+      //     } else {
+      //       showErrorToast("Failed to update user status.");
+      //     }
+      //   }
+      // } else {
+      //   showSuccessToast("Login successful!");
+      //   localStorage.setItem("token", result.token);
+      //   localStorage.setItem("user", JSON.stringify(result.user));
+      //   router.push("/userdashboard");
+      // }
+
+      // ✅ Simplified version (always allow login)
+      showSuccessToast("Login successful!");
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      router.push("/userdashboard");
+
+    } else {
+      // ❌ Commented out this message, since all users should log in now
+      // showErrorToast("Your account is inactive. Please contact support.");
+      showSuccessToast("Login successful!");
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      router.push("/userdashboard");
+    }
+  } catch (error) {
+    // console.error("Login error:", error);
+    showErrorToast("Something went wrong. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleClose = () => {
     router.push("/");
