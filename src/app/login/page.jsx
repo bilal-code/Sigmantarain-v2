@@ -215,11 +215,11 @@ const handleSubmit = async (e) => {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ id: result?.user?._id, status: "inactive" }),
 });
-if(inactiveUser.status === 200){
- showErrorToast("Your account has been blocked because you haven’t bought any packages.");
-}else{
-  showErrorToast("Failed to update user status.");
-}
+// if(inactiveUser.status === 200){
+//  showErrorToast("Your account has been blocked because you haven’t bought any packages.");
+// }else{
+//   showErrorToast("Failed to update user status.");
+// }
 
         }
       } else {
