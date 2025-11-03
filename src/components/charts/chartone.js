@@ -29,7 +29,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-gradient-to-r from-[#0B98AC] to-blue-600 rounded-full"></div>
           <p className="text-sm text-gray-600">
-            Value: <span className="font-semibold">{payload[0].value.toLocaleString()} PKR</span>
+            Value: <span className="font-semibold">{payload[0].value.toLocaleString()}</span>
           </p>
         </div>
       </div>
